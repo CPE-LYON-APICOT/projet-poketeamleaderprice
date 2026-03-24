@@ -4,9 +4,8 @@
 
 ## Présentation générale
 
-**CheapPokemon** est un jeu Pokemon gratuit et non-officiel reprenant la mécanique des combats de Pokemon dans les jeux de GameFreak.  
-Ce jeu propose de jouer avec 10 Pokémons de la 1ère génération.
-Il peut aussi servir d'entrainement pour les joueurs amateurs ou pro.
+**CheapPokemon** est un jeu Pokemon gratuit et non-officiel reprenant la mécanique des combats de Pokemon dans les jeux de GameFreak. Ce jeu propose de jouer avec les Pokémons de la 1ère génération contre un autre utilisateur.
+Les utilisateurs auront le choix de sélectionner leur équipe de Pokémon, leurs attaques et les objets contenus dans leur sac. Il peut aussi servir d'entrainement pour les joueurs amateurs ou pro de Pokémon. 
 
 
 ## Fonctionnalités principales
