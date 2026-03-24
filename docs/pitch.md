@@ -17,12 +17,15 @@ Avant de démarrer un éventuel combat, le joueur doit choisir ses pokemons. Une
 Pour rechercher une partie, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut rechercher sur le réseau une partie hébergée par un autre joueur.
 
 ### Fonctionnalité 3 — *héberger un combat en ligne*
-Pour rechercher une partie, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut annoncer sur le réseau héberger une partie.
-Une fois la partie créée, un stadium est choisi aléatoirement parmi la liste des stadiums disponibles.
+Avant de commencer à choisir son équipe, l'utilisateur peut choisir d'héberger une partie ou d'en rejoindre une.
 
 ### Fonctionnalité 4 — *Attaquer*
+Lors d'un combat, le dresseur a le choix de : Choisir une attaque parmi les Quatres attaques choisies avant le début de la partie.
+
 
 ## Évolutions envisagées
-
+- Système de comptes avec mot de passe
+- Ajout de types et de futurs Pokémon
+- 
 
 
