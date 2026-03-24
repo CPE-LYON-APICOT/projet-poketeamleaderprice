@@ -4,7 +4,10 @@
 
 ## Présentation générale
 
-<!-- Décrivez votre projet en quelques phrases. Quel problème résout-il ? À qui s'adresse-t-il ? -->
+**CheapPokemon** est un jeu Pokemon gratuit et non-officiel reprenant la mécanique des combats de Pokemon dans les jeux de GameFreak.  
+Ce jeu propose de jouer avec 10 Pokémons de la 1ère génération.
+Il peut aussi servir d'entrainement pour les joueurs amateurs ou pro.
+
 
 ## Fonctionnalités principales
 
@@ -20,5 +23,5 @@
 
 ## Évolutions envisagées
 
-<!-- Quelles sont les perspectives d'évolution ? Qu'est-ce qui pourrait être ajouté dans une v2 ? Vendez du rêve (raisonnablement). -->
+
 
