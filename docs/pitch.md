@@ -47,5 +47,7 @@ Lors de son tour, le dresseur pourra abandonner la partie sans demander l'accord
 - Système de comptes avec mot de passe
 - Ajout de types et de futurs Pokémon
 - Le dresseur pourra demander une revanche
+- Le pokemon pourra avoir un etat (Paralysie, Gel, brulée, etc.)
+- Le pokémon pourra méga-évoluer, avoir des mécaniques spéciales etc.
 
 
