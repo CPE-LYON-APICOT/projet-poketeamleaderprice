@@ -20,12 +20,23 @@ Pour rechercher une partie, le joueur doit avoir fini de composer son équipe. U
 Avant de commencer à choisir son équipe, l'utilisateur peut choisir d'héberger une partie ou d'en rejoindre une.
 
 ### Fonctionnalité 4 — *Attaquer*
-Lors d'un combat, le dresseur a le choix de : Choisir une attaque parmi les Quatres attaques choisies avant le début de la partie.
+Lors d'un combat, le dresseur a le choix de choisir une attaque parmi les quatres attaques disponibles du pokemon actif.
+Une attaque peut :
+- altérer une propriété du pokemon lançant l'attaque
+- altérer une propriété du pokemon adverse
+- infliger des dégats immédiats sur le pokemon adverse
+- infliger des dégats immédiats et sur plusieurs tours sur le pokemon adverse
+- infliger des dégats immédiats sur le pokemon lançant l'attaque
+
+### Fonctionnalité 5 — *Utiliser un objet*
+Lors d'un combat, le dresseur peut utiliser un objet (ex: soin) sur le pokemon de son choix (banc ou actif)
+Un objet peut :
+- altérer une propriété du pokemon
+- augmenter la barre de vie du pokemon
 
 
 ## Évolutions envisagées
 - Système de comptes avec mot de passe
 - Ajout de types et de futurs Pokémon
-- 
 
 
