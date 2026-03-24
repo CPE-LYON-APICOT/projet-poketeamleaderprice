@@ -37,7 +37,7 @@ import javafx.scene.shape.Circle;
 public class BallService {
 
     private static final double RADIUS = 60;
-    private static final double ACCELERATION = 0.3;
+    private static final double ACCELERATION = 5;
 
     private final InputService inputService;
     private Ball ball;

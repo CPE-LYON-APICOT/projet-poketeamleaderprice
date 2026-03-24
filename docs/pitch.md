@@ -8,15 +8,15 @@
 
 ## Fonctionnalités principales
 
-<!-- Listez les fonctionnalités clés de votre projet. Pour chaque fonctionnalité, expliquez ce qu'elle apporte à l'utilisateur. -->
+### Fonctionnalité 1 — *composer son équipe de pokemons pour le combat*
+Avant de démarrer un éventuel combat, le joueur doit choisir ses pokemons. Une liste est à sa disposition pour qu'il ajoute des pokemons à son équipe (composé de 6 pokemons).
 
-### Fonctionnalité 1 — *Nom*
+### Fonctionnalité 2 — *rechercher un combat en ligne*
+Pour rechercher une partie, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut rechercher sur 
 
-### Fonctionnalité 2 — *Nom*
+### Fonctionnalité 3 — *héberger un combat en ligne*
 
-### Fonctionnalité 3 — *Nom*
-
-### Fonctionnalité 4 — *Nom*
+### Fonctionnalité 4 — *Attaquer*
 
 ## Évolutions envisagées
 
