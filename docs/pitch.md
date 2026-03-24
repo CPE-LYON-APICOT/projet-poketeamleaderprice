@@ -26,6 +26,5 @@ Lors d'un combat, le dresseur a le choix de : Choisir une attaque parmi les Quat
 ## Évolutions envisagées
 - Système de comptes avec mot de passe
 - Ajout de types et de futurs Pokémon
-- 
 
 
