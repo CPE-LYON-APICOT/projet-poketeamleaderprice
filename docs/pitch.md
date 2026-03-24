@@ -14,9 +14,11 @@ Les utilisateurs auront le choix de sélectionner leur équipe de Pokémon, leur
 Avant de démarrer un éventuel combat, le joueur doit choisir ses pokemons. Une liste est à sa disposition pour qu'il ajoute des pokemons à son équipe (composé de 6 pokemons).
 
 ### Fonctionnalité 2 — *rechercher un combat en ligne*
-Pour rechercher une partie, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut rechercher sur 
+Pour rechercher une partie, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut rechercher sur le réseau une partie hébergée par un autre joueur.
 
 ### Fonctionnalité 3 — *héberger un combat en ligne*
+Pour rechercher une partie, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut annoncer sur le réseau héberger une partie.
+Une fois la partie créée, un stadium est choisi aléatoirement parmi la liste des stadiums disponibles.
 
 ### Fonctionnalité 4 — *Attaquer*
 
