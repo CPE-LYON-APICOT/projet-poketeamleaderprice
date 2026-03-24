@@ -34,9 +34,15 @@ Un objet peut :
 - altérer une propriété du pokemon
 - augmenter la barre de vie du pokemon
 
+### Fonctionnalité 6 — *Changer de pokémon*
+Lors d'un combat, le dresseur peut changer de Pokémon ce qu'il lui coutera un tour
+
+### Fonctionnalité 7— *Abandonner*
+Lors de son tour, le dresseur pourra abandonner la partie sans demander l'accord de l'autre utilisateur. Ce qui donnera la victoire à l'autre dresseur.
 
 ## Évolutions envisagées
 - Système de comptes avec mot de passe
 - Ajout de types et de futurs Pokémon
+- Le dresseur pourra demander une revanche
 
 
