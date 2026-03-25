@@ -152,6 +152,7 @@ PokeStat --o StatType: has
 
 @enduml
 ```
+![Diagramme_Class_Pokemon.png](images/Diagramme_Class_Pokemon.png)
 
 ### Diagramme 2 — *Use Case*
 
