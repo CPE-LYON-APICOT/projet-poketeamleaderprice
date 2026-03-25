@@ -67,11 +67,6 @@ class Dresseur {
   - index : Integer
   - nom : String
   - pokemon : Map<Pokemon, Integer>
-  - sac : Sac
-}
-
-class Sac {
-  - index : String
   - items : List<Item>
 }
 
@@ -140,8 +135,7 @@ class Attaque {
 Partie --o Dresseur : has
 Partie --o Stade : has
 Dresseur --o Pokemon : has
-Dresseur --o Sac : has
-Sac --o Item : has
+Dresseur --o Item : has
 Pokemon --o Type : has
 Pokemon --o Attaque : has
 Pokemon --o Abilite : has
@@ -151,6 +145,7 @@ EffectItem --o StatType: has
 PokeStat --o StatType: has
 
 @enduml
+
 ```
 ![Diagramme_Class_Pokemon.png](images/Diagramme_Class_Pokemon.png)
 
