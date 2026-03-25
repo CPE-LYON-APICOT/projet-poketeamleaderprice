@@ -11,7 +11,7 @@
 ### DP 1 — *Nom du pattern*
 
 **Feature associée** : 
-
+l
 **Justification** : 
 <!-- Pourquoi ce pattern ? Pourquoi pas un autre ? -->
 
@@ -44,46 +44,116 @@
 
 ## Diagrammes UML
 
-### Diagramme 1 — *Type (classe, séquence, cas d'utilisation…)*
-
-<!-- Exemple de syntaxe PlantUML (à remplacer par votre diagramme) :
+### Diagramme 1 — *Type classe*
 
 ```plantuml
 @startuml
-interface Drawable {
-    + draw(gc : GraphicsContext) : void
+skinparam groupInheritance 4
+top to bottom direction
+
+class Partie {
+  - index : String
+  - dresseurs : List<Dresseur>
+  - stade : Stade
 }
 
-abstract class Entity {
-    - x : double
-    - y : double
-    + getX() : double
-    + getY() : double
-    + update() : void
+class Stade {
+  - index : String
+  - nom : String
+  - type : Type
 }
 
-Entity ..|> Drawable
-
-class Player extends Entity {
-    - speed : double
-    + move(direction : Direction) : void
+class Dresseur {
+  - index : Integer
+  - nom : String
+  - pokemon : Map<Pokemon, Integer>
+  - sac : Sac
 }
 
-class Obstacle extends Entity {
-    - damage : int
+class Sac {
+  - index : String
+  - items : List<Item>
 }
+
+abstract class Item {
+  - index : String
+  - nom : String
+}
+
+class HealingItem extends Item {
+  - hpHeal : Integer
+}
+
+enum StatType {
+  Atk
+  AtkSpe
+  Def
+  DefSpe
+  Spd
+}
+
+class EffectItem extends Item {
+  - affectedStat : Map<StatType, Integer>
+}
+
+class PokeStat {
+  - statType : StatType
+  - value : Integer
+}
+
+class Pokemon {
+  - Num_Poke : Integer
+  - nom : String
+  - types : List<Type>
+  - lesattaquesdisponibles : Attaque[]
+  - lesattaquesprises : Attaque[]
+  - hp : Integer
+  - attack : PokeStat
+  - defense : PokeStat
+  - spAttack : PokeStat
+  - spDefense : PokeStat
+  - speed : PokeStat
+  - image : BufferedImage
+  - sprite : BufferedImage
+  - description : char
+  - ability : Abilite
+}
+
+class Abilite {
+  - index : String
+  - nom : String
+}
+
+class Type {
+  - index : String
+  - nom : String
+  - faiblesse : List<Type>
+  - avantages : List<Type>
+}
+
+class Attaque {
+  - index : String
+  - nom : String
+  - degat : String
+}
+
+Partie --o Dresseur : has
+Partie --o Stade : has
+Dresseur --o Pokemon : has
+Dresseur --o Sac : has
+Sac --o Item : has
+Pokemon --o Type : has
+Pokemon --o Attaque : has
+Pokemon --o Abilite : has
+Pokemon --o PokeStat : has
+Stade --o Type : has
+EffectItem --o StatType: has
+PokeStat --o StatType: has
+
 @enduml
 ```
 
-Ceci est un exemple, remplacez-le par votre propre diagramme. -->
-
-```plantuml
-@startuml
-
-@enduml
-```
-
-### Diagramme 2 — *Type*
+### Diagramme 2 — *Use Case*
 
 ```plantuml
 @startuml
