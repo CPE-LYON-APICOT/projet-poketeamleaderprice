@@ -11,7 +11,6 @@ package fr.cpe.service;
 
 import com.google.inject.Inject;
 import fr.cpe.engine.InputService;
-import fr.cpe.model.Ball;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

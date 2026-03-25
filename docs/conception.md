@@ -67,7 +67,7 @@ class Dresseur {
   - index : Integer
   - nom : String
   - pokemon : Map<Pokemon, Integer>
-  - sac : Sac
+  - items : List<Item>
 }
 
 abstract class Item {
@@ -145,6 +145,7 @@ Pokemon --o Abilite : has
 Stade --o Type : has
 
 @enduml
+
 ```
 ![Diagramme_Class_Pokemon.png](images/Diagramme_Class_Pokemon.png)
 
