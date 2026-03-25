@@ -5,5 +5,5 @@ public enum StatType {
     AtkSpe,
     Def,
     DefSpe,
-    Spd
+    Spd;
 }
