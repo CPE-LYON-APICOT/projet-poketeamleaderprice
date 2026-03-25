@@ -91,11 +91,6 @@ class EffectItem extends Item {
   - affectedStat : Map<StatType, Integer>
 }
 
-class PokeStat {
-  - statType : StatType
-  - value : Integer
-}
-
 class Pokemon {
   - Num_Poke : Integer
   - nom : String
@@ -103,13 +98,10 @@ class Pokemon {
   - lesattaquesdisponibles : Attaque[]
   - lesattaquesprises : Attaque[]
   - hp : Integer
-  - attack : PokeStat
-  - defense : PokeStat
-  - spAttack : PokeStat
-  - spDefense : PokeStat
-  - speed : PokeStat
-  - image : BufferedImage
-  - sprite : BufferedImage
+  - stats : Map<StatType, Integer>
+  - spriteFace : BufferedImage
+  - spriteDos : BufferedImage
+  - spriteMini : BufferedImage
   - description : char
   - ability : Abilite
 }
@@ -132,6 +124,17 @@ class Attaque {
   - degat : String
 }
 
+class SingletonConnectionDB {
+    -instance
+    +getInstance()
+}
+
+class NetworkService {
+    +connect(gameToken: string)
+    +searchForGame()
+    +listenForNewPlayers()
+}
+
 Partie --o Dresseur : has
 Partie --o Stade : has
 Dresseur --o Pokemon : has
@@ -139,10 +142,7 @@ Dresseur --o Item : has
 Pokemon --o Type : has
 Pokemon --o Attaque : has
 Pokemon --o Abilite : has
-Pokemon --o PokeStat : has
 Stade --o Type : has
-EffectItem --o StatType: has
-PokeStat --o StatType: has
 
 @enduml
 
