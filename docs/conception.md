@@ -155,10 +155,5 @@ PokeStat --o StatType: has
 ![Diagramme_Class_Pokemon.png](images/Diagramme_Class_Pokemon.png)
 
 ### Diagramme 2 — *Use Case*
-
-```plantuml
-@startuml
-
-@enduml
-```
+![Diagramme UseCase](images/UseCase.drawio.png)
 
