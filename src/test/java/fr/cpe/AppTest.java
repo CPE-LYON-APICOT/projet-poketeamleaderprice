@@ -2,6 +2,7 @@ package fr.cpe;
 
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests d'exemple — remplacez par vos vrais tests.
