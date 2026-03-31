@@ -25,11 +25,13 @@ public class OnlineInitializer {
     private static final String HUB = "game-events";
 
     private final HelloService helloService;
+    private final HelloServiceImpl helloServiceImpl;
     private MethodCallHandler handler;
 
     @Inject
-    public OnlineInitializer(HelloService helloService) {
+    public OnlineInitializer(HelloService helloService, HelloServiceImpl helloServiceImpl) {
         this.helloService = helloService;
+        this.helloServiceImpl = helloServiceImpl;
     }
 
     /**
@@ -49,7 +51,7 @@ public class OnlineInitializer {
 
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
-            handler.register(HelloService.class, new HelloServiceImpl());
+            handler.register(HelloService.class, helloServiceImpl);
             handler.start();
 
             // Send a test message via the proxy

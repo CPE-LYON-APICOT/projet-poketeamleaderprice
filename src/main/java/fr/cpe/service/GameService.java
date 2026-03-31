@@ -13,6 +13,8 @@ package fr.cpe.service;
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 import com.google.inject.Inject;
+import fr.cpe.bus.OnlineInitializer;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -59,10 +61,22 @@ import javafx.scene.text.Text;
 public class GameService {
 
     private final BallService ballService;
+    private final HelloService helloService;
+    private final OnlineInitializer onlineInitializer;
+    private final MessageStore messageStore;
+
+    private Text busMessageText;
+    private String lastDisplayedMessage = "";
 
     @Inject
-    public GameService(BallService ballService) {
+    public GameService(BallService ballService,
+                       HelloService helloService,
+                       OnlineInitializer onlineInitializer,
+                       MessageStore messageStore) {
         this.ballService = ballService;
+        this.helloService = helloService;
+        this.onlineInitializer = onlineInitializer;
+        this.messageStore = messageStore;
     }
 
     /**
@@ -70,10 +84,20 @@ public class GameService {
      */
     public void init(Pane gamePane) {
         ballService.init(gamePane);
+        onlineInitializer.start();
 
         Text text = new Text(20, 30, "Projet POO — À vous de jouer !");
         text.setFill(Color.web("#cdd6f4"));
-        gamePane.getChildren().add(text);
+
+        Button sendButton = new Button("Envoyer au bus");
+        sendButton.setLayoutX(20);
+        sendButton.setLayoutY(60);
+        sendButton.setOnAction(e -> helloService.sayHello("Message envoyé via le bus"));
+
+        busMessageText = new Text(20, 120, "Message bus : aucun message reçu");
+        busMessageText.setFill(Color.web("#f8bd96"));
+
+        gamePane.getChildren().addAll(text, sendButton, busMessageText);
     }
 
     /**
@@ -81,5 +105,11 @@ public class GameService {
      */
     public void update(double width, double height) {
         ballService.update(width, height);
+
+        String currentMessage = messageStore.getLastMessage();
+        if (currentMessage != null && !currentMessage.isEmpty() && !currentMessage.equals(lastDisplayedMessage)) {
+            lastDisplayedMessage = currentMessage;
+            busMessageText.setText("Message bus : " + currentMessage);
+        }
     }
 }
