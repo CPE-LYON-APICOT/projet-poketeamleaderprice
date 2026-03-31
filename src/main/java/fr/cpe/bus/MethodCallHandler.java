@@ -7,6 +7,8 @@ import com.azure.messaging.webpubsub.WebPubSubServiceClientBuilder;
 import com.azure.messaging.webpubsub.models.GetClientAccessTokenOptions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.cpe.App;
+
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +53,29 @@ public class MethodCallHandler {
      */
     public <T> void register(Class<T> iface, T impl) {
         implementations.put(iface.getName(), impl);
+    }
+
+    private Object findOrCreateImplementation(String interfaceName) {
+        Object impl = implementations.get(interfaceName);
+        if (impl != null) {
+            return impl;
+        }
+
+        if (App.injector != null) {
+            try {
+                Class<?> iface = Class.forName(interfaceName);
+                impl = App.injector.getInstance(iface);
+                implementations.put(interfaceName, impl);
+                LOGGER.info("Created implementation via Guice for: " + interfaceName);
+                return impl;
+            } catch (Exception e) {
+                LOGGER.warning("Unable to create implementation via Guice for " + interfaceName + ": " + e.getMessage());
+            }
+        } else {
+            LOGGER.warning("Guice injector is not initialized yet");
+        }
+
+        return null;
     }
 
     /**
@@ -150,10 +175,10 @@ public class MethodCallHandler {
             List<String> paramTypeNames = (List<String>) message.get("paramTypes");
             List<Object> argsList = (List<Object>) message.get("args");
 
-            // Find the implementation
-            Object impl = implementations.get(interfaceName);
+            // Find the implementation, or ask Guice to create one if possible
+            Object impl = findOrCreateImplementation(interfaceName);
             if (impl == null) {
-                LOGGER.warning("No implementation registered for: " + interfaceName);
+                LOGGER.warning("No implementation available for: " + interfaceName);
                 return;
             }
 

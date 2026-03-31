@@ -53,11 +53,12 @@ public class App extends Application {
     private static final int HEIGHT = 600;
 
     private GameEngine engine;
+    public static Injector injector;
 
     @Override
     public void start(Stage stage) {
         // Création de l'injecteur Guice avec notre module de configuration
-        Injector injector = Guice.createInjector(new AppModule());
+        injector = Guice.createInjector(new AppModule());
 
         // Guice construit le GameEngine et injecte automatiquement les services
         engine = injector.getInstance(GameEngine.class);

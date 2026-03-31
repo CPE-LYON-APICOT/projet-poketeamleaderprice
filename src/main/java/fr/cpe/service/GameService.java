@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import fr.cpe.service.ConnectionStatusService;
 
 /**
  * Service de jeu — gère l'état du jeu et ses éléments visuels.
@@ -64,6 +65,7 @@ public class GameService {
     private final HelloService helloService;
     private final OnlineInitializer onlineInitializer;
     private final MessageStore messageStore;
+    private final ConnectionStatusService connectionStatusService;
 
     private Text busMessageText;
     private String lastDisplayedMessage = "";
@@ -72,11 +74,13 @@ public class GameService {
     public GameService(BallService ballService,
                        HelloService helloService,
                        OnlineInitializer onlineInitializer,
-                       MessageStore messageStore) {
+                       MessageStore messageStore,
+                       ConnectionStatusService connectionStatusService) {
         this.ballService = ballService;
         this.helloService = helloService;
         this.onlineInitializer = onlineInitializer;
         this.messageStore = messageStore;
+        this.connectionStatusService = connectionStatusService;
     }
 
     /**
@@ -85,6 +89,7 @@ public class GameService {
     public void init(Pane gamePane) {
         ballService.init(gamePane);
         onlineInitializer.start();
+        connectionStatusService.init(gamePane);
 
         Text text = new Text(20, 30, "Projet POO — À vous de jouer !");
         text.setFill(Color.web("#cdd6f4"));
@@ -92,7 +97,11 @@ public class GameService {
         Button sendButton = new Button("Envoyer au bus");
         sendButton.setLayoutX(20);
         sendButton.setLayoutY(60);
-        sendButton.setOnAction(e -> helloService.sayHello("Message envoyé via le bus"));
+        sendButton.setOnMouseClicked(e -> {
+            System.out.println("aaaaaaaaaa");
+            helloService.sayHello("Message envoyé via le bus");
+        
+        });
 
         busMessageText = new Text(20, 120, "Message bus : aucun message reçu");
         busMessageText.setFill(Color.web("#f8bd96"));
@@ -106,6 +115,7 @@ public class GameService {
     public void update(double width, double height) {
         ballService.update(width, height);
 
+        connectionStatusService.update();
         String currentMessage = messageStore.getLastMessage();
         if (currentMessage != null && !currentMessage.isEmpty() && !currentMessage.equals(lastDisplayedMessage)) {
             lastDisplayedMessage = currentMessage;

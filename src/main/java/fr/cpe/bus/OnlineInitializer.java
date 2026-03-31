@@ -27,6 +27,7 @@ public class OnlineInitializer {
     private final HelloService helloService;
     private final HelloServiceImpl helloServiceImpl;
     private MethodCallHandler handler;
+    private boolean connected = false;
 
     @Inject
     public OnlineInitializer(HelloService helloService, HelloServiceImpl helloServiceImpl) {
@@ -42,7 +43,7 @@ public class OnlineInitializer {
      *   <li>Sends a test message to demonstrate the bus</li>
      * </ol>
      */
-    public void start() {
+    public boolean start() {
         try {
             String connectionString = AppModule.getConnectionString();
             String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
@@ -56,11 +57,19 @@ public class OnlineInitializer {
 
             // Send a test message via the proxy
             helloService.sayHello("Hello depuis JavaFX !");
+            connected = true;
 
             LOGGER.info("Online infrastructure started successfully");
+            return true;
         } catch (Exception e) {
+            connected = false;
             LOGGER.log(Level.WARNING, "Failed to start online infrastructure", e);
+            return false;
         }
+    }
+
+    public boolean isConnected() {
+        return connected;
     }
 
     /**
@@ -71,5 +80,6 @@ public class OnlineInitializer {
             handler.stop();
             LOGGER.info("Online infrastructure stopped");
         }
+        connected = false;
     }
 }
