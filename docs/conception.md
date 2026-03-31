@@ -12,9 +12,9 @@
 
 **Feature associée** : Connexion BDD
 
-**Justification** : On ne doit avoir qu'une seule connexion à la fois à la BDD. On ne peut pas se permettre de récréer une connexion à chaque fois qu'on en a besoin. Si une connexion est déjà ouverte, on doit pouvoir l'utiliser.
+**Justification** : utilisé pour garantir qu'il n'existe qu'une seule instance de connexion à la base de données à tout moment. Cela évite la création répétitive de connexions, ce qui peut être coûteux en termes de ressources et de performance. Si une connexion est déjà ouverte, elle peut être réutilisée, assurant ainsi une gestion efficace des ressources.
 
-**Intégration** : La classe permettant la connexion à la base de données intègrera le pattern singleton.
+**Intégration** : La classe permettant la connexion à la base de données intègrera le pattern Singleton. Cette classe sera responsable de la création et de la gestion de l'instance unique de connexion.
 
 ### DP 2 — *Observer*
 
@@ -22,7 +22,7 @@
 
 **Justification** : Tous ces éléments étant asynchrone, il faut qu'un élément du code attende qu'un événement se produise pour activer certains comportements. Un observeur nous permettra d'attendre "en arrière plan" (le code ne s'arrête pas pendant l'attente) qu'un évenement se produise pour activer du son / des images / la réception d'une connexion
 
-**Intégration** : 
+**Intégration** : une classe Observer permettra d'handle les attentes des autres objets et d'appeller des comportements.
 
 ### DP 3 — *Mediator*
 
@@ -34,11 +34,11 @@
 
 ### DP 4 — *Command*
 
-**Feature associée** : 
+**Feature associée** : Permettre de centraliser l'execution des actions "attaquer", "utiliser un objet", "abandonner", "changer de pokemon actif"
 
-**Justification** : 
+**Justification** : il permet d'encapsuler une demande sous forme d'objet, permettant ainsi de paramétrer les clients avec différentes demandes, d'enregistrer ou de journaliser les demandes, et de supporter les opérations annulables. Cela simplifie l'organisation et l'évolutivité des commandes en centralisant leur exécution dans une classe spécifique.
 
-**Intégration** : 
+**Intégration** : Une interface ICommande sera définie et implémentée dans chacune des quatre classes de commandes (attaquer, utiliser un objet, abandonner, changer de Pokémon actif). Chaque commande implémentera une méthode executer qui sera appelée par la classe Combat pour exécuter l'action correspondante.
 
 ## Diagrammes UML
 
