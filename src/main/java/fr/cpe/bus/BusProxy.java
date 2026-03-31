@@ -10,6 +10,8 @@ import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Dynamic proxy that intercepts method calls and sends them over Azure Web PubSub.
@@ -20,6 +22,7 @@ import java.util.Map;
  */
 public class BusProxy implements InvocationHandler {
 
+    private static final Logger LOGGER = Logger.getLogger(BusProxy.class.getName());
     private static final String DEFAULT_HUB = "game-events";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -76,7 +79,11 @@ public class BusProxy implements InvocationHandler {
         String json = OBJECT_MAPPER.writeValueAsString(message);
 
         // Send to all subscribers with JSON content type
-        publisher.sendToAll(json, WebPubSubContentType.APPLICATION_JSON);
+        try {
+            publisher.sendToAll(json, WebPubSubContentType.APPLICATION_JSON);
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Failed to send message to Web PubSub: " + iface.getName() + "." + method.getName(), e);
+        }
 
         // Return null for void methods, or default values for primitives
         return getDefaultReturnValue(method.getReturnType());

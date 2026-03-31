@@ -17,6 +17,8 @@ import com.google.inject.Singleton;
 import fr.cpe.bus.BusProxy;
 import fr.cpe.service.HelloService;
 
+import java.util.logging.Logger;
+
 /**
  * Module Guice — c'est ici que vous déclarez vos bindings (interface → implémentation).
  *
@@ -80,6 +82,8 @@ public class AppModule extends AbstractModule {
         return BusProxy.create(HelloService.class, publisher);
     }
 
+    private static final Logger LOGGER = Logger.getLogger(AppModule.class.getName());
+
     /**
      * Gets the Azure Web PubSub connection string from environment or default.
      *
@@ -90,7 +94,8 @@ public class AppModule extends AbstractModule {
         if (envValue != null && !envValue.isEmpty()) {
             return envValue;
         }
-        // Default for local testing - should be replaced with actual connection string
+        // Warning: Using test configuration - should set AZURE_WEBPUBSUB_CONNECTION_STRING in production
+        LOGGER.warning("AZURE_WEBPUBSUB_CONNECTION_STRING not set. Using test configuration that will not work in production.");
         return "Endpoint=https://localhost;AccessKey=test;Version=1.0;";
     }
 }

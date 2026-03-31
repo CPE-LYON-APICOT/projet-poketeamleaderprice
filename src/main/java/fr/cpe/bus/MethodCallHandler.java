@@ -75,14 +75,18 @@ public class MethodCallHandler {
 
             // Subscribe to server messages
             client.addOnServerMessageEventHandler(event -> {
-                String json = event.getData().toString();
-                dispatch(json);
+                String json = extractJsonFromData(event.getData());
+                if (json != null) {
+                    dispatch(json);
+                }
             });
 
             // Subscribe to group messages as well
             client.addOnGroupMessageEventHandler(event -> {
-                String json = event.getData().toString();
-                dispatch(json);
+                String json = extractJsonFromData(event.getData());
+                if (json != null) {
+                    dispatch(json);
+                }
             });
 
             // Start the client
@@ -91,6 +95,29 @@ public class MethodCallHandler {
             LOGGER.info("MethodCallHandler started, listening on hub: " + hub);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Failed to start MethodCallHandler", e);
+        }
+    }
+
+    /**
+     * Extracts JSON string from WebPubSub data, handling different data types.
+     *
+     * @param data the data from the WebPubSub event
+     * @return the JSON string, or null if extraction failed
+     */
+    private String extractJsonFromData(Object data) {
+        if (data == null) {
+            LOGGER.warning("Received null data from WebPubSub");
+            return null;
+        }
+        if (data instanceof String) {
+            return (String) data;
+        }
+        // For BinaryData or other types, try toString() as fallback
+        try {
+            return data.toString();
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Failed to extract JSON from data", e);
+            return null;
         }
     }
 
