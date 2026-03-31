@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class OnlineInitializer {
 
     private static final Logger LOGGER = Logger.getLogger(OnlineInitializer.class.getName());
-    private static final String HUB = "game123";
+    private static final String HUB = "game";
 
     private final HelloService helloService;
     private final HelloServiceImpl helloServiceImpl;

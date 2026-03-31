@@ -11,9 +11,13 @@ package fr.cpe.service;
 // ║   les appelle automatiquement.                                             ║
 // ║                                                                            ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
-
+import fr.cpe.bus.*;
 import com.google.inject.Inject;
+<<<<<<< HEAD
 import fr.cpe.bus.OnlineInitializer;
+=======
+
+>>>>>>> copilot/featureazure-web-pubsub-method-bus
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -62,25 +66,13 @@ import fr.cpe.service.ConnectionStatusService;
 public class GameService {
 
     private final BallService ballService;
-    private final HelloService helloService;
-    private final OnlineInitializer onlineInitializer;
-    private final MessageStore messageStore;
-    private final ConnectionStatusService connectionStatusService;
-
-    private Text busMessageText;
-    private String lastDisplayedMessage = "";
+    private HelloService helloService;
 
     @Inject
-    public GameService(BallService ballService,
-                       HelloService helloService,
-                       OnlineInitializer onlineInitializer,
-                       MessageStore messageStore,
-                       ConnectionStatusService connectionStatusService) {
+    public GameService(BallService ballService, OnlineInitializer onlineInitializer, HelloService helloService) {
         this.ballService = ballService;
         this.helloService = helloService;
-        this.onlineInitializer = onlineInitializer;
-        this.messageStore = messageStore;
-        this.connectionStatusService = connectionStatusService;
+        onlineInitializer.start();
     }
 
     /**
@@ -90,6 +82,13 @@ public class GameService {
         ballService.init(gamePane);
         onlineInitializer.start();
         connectionStatusService.init(gamePane);
+
+        Button button = new Button("Hello");
+        button.setOnAction(e -> {
+            System.out.println("TEST");
+            helloService.sayHello("Hello depuis JavaFX !");
+        });
+        gamePane.getChildren().add(button);
 
         Text text = new Text(20, 30, "Projet POO — À vous de jouer !");
         text.setFill(Color.web("#cdd6f4"));

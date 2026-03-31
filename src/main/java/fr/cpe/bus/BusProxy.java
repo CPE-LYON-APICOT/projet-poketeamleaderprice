@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class BusProxy implements InvocationHandler {
 
     private static final Logger LOGGER = Logger.getLogger(BusProxy.class.getName());
-    private static final String DEFAULT_HUB = "game-events";
+    private static final String DEFAULT_HUB = "game";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private final Class<?> iface;
