@@ -55,6 +55,7 @@ import java.util.Set;
  * <p>Ce service est un {@code @Singleton} Guice : la même instance est partagée
  * partout. Demandez-le simplement dans votre constructeur {@code @Inject}.</p>
  */
+
 @Singleton
 public class InputService {
 
