@@ -10,6 +10,7 @@ package fr.cpe.service;
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 import com.google.inject.Inject;
+import fr.cpe.Ball;
 import fr.cpe.engine.InputService;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
