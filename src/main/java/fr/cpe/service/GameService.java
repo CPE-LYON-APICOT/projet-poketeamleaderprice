@@ -13,6 +13,7 @@ package fr.cpe.service;
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 import com.google.inject.Inject;
+import fr.cpe.bus.OnlineInitializer;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -61,7 +62,9 @@ public class GameService {
     private final BallService ballService;
 
     @Inject
-    public GameService(BallService ballService) {
+    public GameService(BallService ballService, OnlineInitializer onlineInitializer) {
+
+        onlineInitializer.start();
         this.ballService = ballService;
     }
 

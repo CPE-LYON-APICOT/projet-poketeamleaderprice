@@ -45,7 +45,7 @@ import java.util.logging.Logger;
  */
 public class AppModule extends AbstractModule {
 
-    private static final String DEFAULT_HUB = "game-events";
+    private static final String DEFAULT_HUB = "game";
 
     @Override
     protected void configure() {
@@ -96,6 +96,6 @@ public class AppModule extends AbstractModule {
         }
         // Warning: Using test configuration - should set AZURE_WEBPUBSUB_CONNECTION_STRING in production
         LOGGER.warning("AZURE_WEBPUBSUB_CONNECTION_STRING not set. Using test configuration that will not work in production.");
-        return "Endpoint=https://localhost;AccessKey=test;Version=1.0;";
+        return "Endpoint=https://projet-poo-pokemon.webpubsub.azure.com;AccessKey=7etYXQBwM6MemPU4tSnfoAxV4ZYYnxu8MCY2s8SSGv3ZEZA9XdnGJQQJ99CCAC5T7U2XJ3w3AAAAAWPSl8V6;Version=1.0;";
     }
 }
