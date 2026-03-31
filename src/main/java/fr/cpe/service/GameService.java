@@ -11,8 +11,10 @@ package fr.cpe.service;
 // ║   les appelle automatiquement.                                             ║
 // ║                                                                            ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
-
+import fr.cpe.bus.*;
 import com.google.inject.Inject;
+
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -59,10 +61,13 @@ import javafx.scene.text.Text;
 public class GameService {
 
     private final BallService ballService;
+    private HelloService helloService;
 
     @Inject
-    public GameService(BallService ballService) {
+    public GameService(BallService ballService, OnlineInitializer onlineInitializer, HelloService helloService) {
         this.ballService = ballService;
+        this.helloService = helloService;
+        onlineInitializer.start();
     }
 
     /**
@@ -70,6 +75,13 @@ public class GameService {
      */
     public void init(Pane gamePane) {
         ballService.init(gamePane);
+
+        Button button = new Button("Hello");
+        button.setOnAction(e -> {
+            System.out.println("TEST");
+            helloService.sayHello("Hello depuis JavaFX !");
+        });
+        gamePane.getChildren().add(button);
 
         Text text = new Text(20, 30, "Projet POO — À vous de jouer !");
         text.setFill(Color.web("#cdd6f4"));
