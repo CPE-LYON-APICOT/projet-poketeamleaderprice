@@ -43,7 +43,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
                     rs.getString("imageFacePath"),
                     rs.getString("imageDosPath"),
                     rs.getString("imageSpritePath"),
-                    rs.getString("description").charAt(0),
+                    rs.getString("description"),
                     this.getAbility(rs.getInt("abilityId"))
                 );
                 return Optional.of(pokemon);
@@ -82,7 +82,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
                     rs.getString("imageFacePath"),
                     rs.getString("imageDosPath"),
                     rs.getString("imageSpritePath"),
-                    rs.getString("description").charAt(0),
+                    rs.getString("description"),
                     this.getAbility(rs.getInt("abilityId"))
                 ));
             }
