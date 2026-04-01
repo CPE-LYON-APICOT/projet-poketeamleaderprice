@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Pokemon {
-    private Integer Num_Poke;
+    private int Num_Poke;
     private String nom;
     private List<Type> types;
     private Attaque[] lesattaquesdisponibles;
@@ -17,7 +17,7 @@ public class Pokemon {
     private char description;
     private Abilite ability;
 
-    public Pokemon(Integer num_Poke, String nom, List<Type> types, Attaque[] lesattaquesdisponibles, Attaque[] lesattaquesprises, Integer hp, Map<StatType, Integer> stats, BufferedImage image_face, BufferedImage image_dos, BufferedImage sprite, char description, Abilite ability) {
+    public Pokemon(int num_Poke, String nom, List<Type> types, Attaque[] lesattaquesdisponibles, Attaque[] lesattaquesprises, int hp, Map<StatType, Integer> stats, String image_face, String image_dos, String sprite, String description, Abilite ability) {
         Num_Poke = num_Poke;
         this.nom = nom;
         this.types = types;

@@ -8,7 +8,7 @@ import fr.cpe.model.Abilite;
 public class AbiliteDAO implements IDAO<Abilite> {
 
     @Override
-    public Optional<Abilite> get(long id) {
+    public Optional<Abilite> get(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }

@@ -5,16 +5,16 @@ import java.util.List;
 public class Type {
     private String index;
     private String nom;
-    private List<Type> faiblesse;
+    private List<Type> faiblesses;
     private List<Type> avantages;
 
     public Type() {
     }
 
-    public Type(String index, String nom, List<Type> faiblesse, List<Type> avantages) {
+    public Type(String index, String nom, List<Type> faiblesses, List<Type> avantages) {
         this.index = index;
         this.nom = nom;
-        this.faiblesse = faiblesse;
+        this.faiblesses = faiblesses;
         this.avantages = avantages;
     }
 
@@ -34,12 +34,12 @@ public class Type {
         this.nom = nom;
     }
 
-    public List<Type> getFaiblesse() {
-        return faiblesse;
+    public List<Type> getFaiblesses() {
+        return faiblesses;
     }
 
-    public void setFaiblesse(List<Type> faiblesse) {
-        this.faiblesse = faiblesse;
+    public void setFaiblesses(List<Type> faiblesses) {
+        this.faiblesses = faiblesses;
     }
 
     public List<Type> getAvantages() {

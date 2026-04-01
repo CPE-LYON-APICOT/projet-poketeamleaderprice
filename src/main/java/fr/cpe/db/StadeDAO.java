@@ -8,7 +8,7 @@ import fr.cpe.model.Stade;
 public class StadeDAO implements IDAO<Stade> {
 
     @Override
-    public Optional<Stade> get(long id) {
+    public Optional<Stade> get(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
