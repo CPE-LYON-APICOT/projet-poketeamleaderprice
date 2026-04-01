@@ -32,4 +32,12 @@ Un jeu de simulations de combats de Pokémon comme sur les jeux Nintendo.
 
 🛠️ **Avant de coder**, lisez [CONTRIBUTING.md](CONTRIBUTING.md) pour savoir quels fichiers modifier et lesquels ne pas toucher.
 
+## configuration 
 
+créer un fichier .env à la racine du projet et remplir les informations :
+```env
+DB_PATH="./db.sqlite"
+DB_USERNAME="your_username"
+DB_PASSWORD="your_password"
+```
+puis créer le fichier sqlite à la racine du projet.
