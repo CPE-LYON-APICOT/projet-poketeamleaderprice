@@ -5,14 +5,11 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefWidth="900" prefHeight="600">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="917.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.cpe.Controller.IndexController">
     <!-- === BACKGROUND === -->
-    <ImageView fitWidth="900" fitHeight="600">
+    <!-- <ImageView fitWidth="900" fitHeight="600">
         <Image url="@assets/background.png"/>
-    </ImageView>
+    </ImageView> -->
 
     <!-- === MAIN CONTAINER === -->
     <VBox alignment="CENTER" spacing="40"
@@ -20,8 +17,8 @@
           AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
         <!-- LOGO -->
-        <ImageView fitWidth="450" preserveRatio="true">
-            <Image url="@assets/logo.jpeg"/>
+        <ImageView fitWidth="650" preserveRatio="true">
+            <Image url="@../assets/logo.jpeg"/>
         </ImageView>
 
         <!-- MENU BUTTONS -->
@@ -34,17 +31,6 @@
                            -fx-font-weight: bold;
                            -fx-background-radius: 20;
                            -fx-background-color: #ffcb05;
-                           -fx-border-color: #2a75bb;
-                           -fx-border-width: 4;
-                           -fx-text-fill: #2a75bb;"/>
-
-            <Button text="OPTIONS"
-                    fx:id="optionsButton"
-                    prefWidth="250" prefHeight="50"
-                    style="-fx-font-size: 22px;
-                           -fx-font-weight: bold;
-                           -fx-background-radius: 20;
-                           -fx-background-color: #ffffff;
                            -fx-border-color: #2a75bb;
                            -fx-border-width: 4;
                            -fx-text-fill: #2a75bb;"/>
@@ -62,7 +48,7 @@
         </VBox>
 
         <!-- PRESS START TEXT -->
-        <Label text="PRESS START"
+        <Label fx:id="pressStartLabel" text="PRESS START"
                style="-fx-font-size: 26px;
                       -fx-font-weight: bold;
                       -fx-text-fill: white;
