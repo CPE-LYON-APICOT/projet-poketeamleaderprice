@@ -36,8 +36,8 @@ public class PokemonDAO implements IDAO<Pokemon> {
                     rs.getInt("id"),
                     rs.getString("name"),
                     this.getTypes(rs.getInt("id")),
-                    this.getLesAttaquesDisponibles(),
-                    this.getLesAttaquesPrises(),
+                    this.getLesAttaquesDisponibles(rs.getInt("id")),
+                    this.getLesAttaquesPrises(rs.getInt("id")),
                     rs.getInt("hp"),
                     stats,
                     rs.getString("imageFacePath"),
@@ -75,8 +75,8 @@ public class PokemonDAO implements IDAO<Pokemon> {
                     rs.getInt("id"),
                     rs.getString("name"),
                     this.getTypes(rs.getInt("id")),
-                    this.getLesAttaquesDisponibles(),
-                    this.getLesAttaquesPrises(),
+                    this.getLesAttaquesDisponibles(rs.getInt("id")),
+                    this.getLesAttaquesPrises(rs.getInt("id")),
                     rs.getInt("hp"),
                     stats,
                     rs.getString("imageFacePath"),
@@ -135,7 +135,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
         }
     }
 
-    private Attaque[] getLesAttaquesDisponibles() {
+    private Attaque[] getLesAttaquesDisponibles(int pokemonId) {
         String sql = "SELECT * FROM type, pokemon, pokemon_type pt join on type.id = pt.type_id WHERE pt.pokemon_id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
@@ -143,23 +143,25 @@ public class PokemonDAO implements IDAO<Pokemon> {
         ) {
             stmt.setInt(1, pokemonId);
             var rs = stmt.executeQuery();
-            List<Type> pokemonList = new ArrayList<>();
+            List<Attaque> attaqueList = new ArrayList<>();
             while(rs.next()) {
-                pokemonList.add(new Type(
-                    rs.getString("index"),
+                attaqueList.add(new Attaque(
+                    rs.getInt("id"),
                     rs.getString("name"),
-                    new TypeDAO().getFaiblesses(rs.getInt("id")),
-                    new TypeDAO().getAvantages(rs.getInt("id"))
+                    rs.getInt("power"),
+                    rs.getInt("accuracy"),
+                    rs.getInt("pp"),
+                    new TypeDAO().get(rs.getInt("type_id")).orElseThrow()
                 ));
             }
-            return pokemonList;
+            return attaqueList.toArray(new Attaque[0]);
         } catch (SQLException e) {
             e.printStackTrace();
-            return new ArrayList<>();
+            return new Attaque[0];
         }
     }
 
-    private Attaque[] getLesAttaquesPrises() {
+    private Attaque[] getLesAttaquesPrises(int pokemonId) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getLesAttaquesPrises'");
     }

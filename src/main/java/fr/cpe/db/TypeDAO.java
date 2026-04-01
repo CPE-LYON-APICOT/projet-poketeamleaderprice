@@ -37,4 +37,14 @@ public class TypeDAO implements IDAO<Type> {
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
+    public List<Type> getFaiblesses(int int1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getFaiblesses'");
+    }
+
+    public List<Type> getAvantages(int int1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAvantages'");
+    }
+
 }

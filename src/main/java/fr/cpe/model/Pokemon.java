@@ -11,10 +11,10 @@ public class Pokemon {
     private Attaque[] lesattaquesprises;
     private Integer hp;
     private Map<StatType, Integer> stats;
-    private BufferedImage image_face;
-    private BufferedImage image_dos;
-    private BufferedImage sprite;
-    private char description;
+    private String image_face;
+    private String image_dos;
+    private String sprite;
+    private String description;
     private Abilite ability;
 
     public Pokemon(int num_Poke, String nom, List<Type> types, Attaque[] lesattaquesdisponibles, Attaque[] lesattaquesprises, int hp, Map<StatType, Integer> stats, String image_face, String image_dos, String sprite, String description, Abilite ability) {
@@ -91,35 +91,35 @@ public class Pokemon {
         this.stats = stats;
     }
 
-    public BufferedImage getImage_face() {
+    public String getImage_face() {
         return image_face;
     }
 
-    public void setImage_face(BufferedImage image_face) {
+    public void setImage_face(String image_face) {
         this.image_face = image_face;
     }
 
-    public BufferedImage getImage_dos() {
+    public String getImage_dos() {
         return image_dos;
     }
 
-    public void setImage_dos(BufferedImage image_dos) {
+    public void setImage_dos(String image_dos) {
         this.image_dos = image_dos;
     }
 
-    public BufferedImage getSprite() {
+    public String getSprite() {
         return sprite;
     }
 
-    public void setSprite(BufferedImage sprite) {
+    public void setSprite(String sprite) {
         this.sprite = sprite;
     }
 
-    public char getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(char description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
