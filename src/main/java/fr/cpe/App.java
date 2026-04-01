@@ -49,8 +49,8 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private static final int WIDTH = 1000;
+    private static final int HEIGHT = 1000;
 
     private GameEngine engine;
     public static Injector injector;
@@ -65,7 +65,6 @@ public class App extends Application {
         InputService inputService = injector.getInstance(InputService.class);
 
         Pane gamePane = new Pane();
-        gamePane.setStyle("-fx-background-color: #1e1e2e;");
         Scene scene = new Scene(gamePane, WIDTH, HEIGHT);
 
         // Capture des événements clavier → InputService

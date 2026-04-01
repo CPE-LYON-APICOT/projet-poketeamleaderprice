@@ -13,11 +13,13 @@ package fr.cpe.service;
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 import fr.cpe.bus.*;
 import com.google.inject.Inject;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import fr.cpe.service.ConnectionStatusService;
+
+import java.io.IOException;
 
 /**
  * Service de jeu — gère l'état du jeu et ses éléments visuels.
@@ -60,38 +62,30 @@ import fr.cpe.service.ConnectionStatusService;
  */
 public class GameService {
 
-    private final BallService ballService;
-    private HelloService helloService;
-
     @Inject
-    public GameService(BallService ballService, OnlineInitializer onlineInitializer, HelloService helloService) {
-        this.ballService = ballService;
-        this.helloService = helloService;
+    public GameService(OnlineInitializer onlineInitializer, HelloService helloService) {
         onlineInitializer.start();
     }
 
     /**
      * Initialise les éléments visuels du jeu (appelé une fois au démarrage).
      */
-    public void init(Pane gamePane) {
-        ballService.init(gamePane);
+    public void init(Pane gamePane)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/cpe/views/index.fxml"));
+            Parent root = loader.load();
+            gamePane.getChildren().setAll(root);
 
-        Button button = new Button("Hello");
-        button.setOnAction(e -> {
-            System.out.println("TEST");
-            helloService.sayHello("Hello depuis JavaFX !");
-        });
-        gamePane.getChildren().add(button);
-
-        Text text = new Text(20, 30, "Projet POO — À vous de jouer !");
-        text.setFill(Color.web("#cdd6f4"));
-        gamePane.getChildren().add(text);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Met à jour l'état du jeu (appelé à chaque frame).
      */
     public void update(double width, double height) {
-        ballService.update(width, height);
+
     }
 }
