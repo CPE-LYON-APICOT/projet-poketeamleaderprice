@@ -1,11 +1,18 @@
 package fr.cpe.Controller;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.Objects;
 
 
 public class IndexController
@@ -26,11 +33,15 @@ public class IndexController
 
     public void pressStartButton(ActionEvent event)
     {
-        String fxmlPath = "@../views/";
+        String fxmlPath = "/fr/cpe/views/ChooseTeam.fxml";
         String title = "Poke-Cheap - Choisissez vos Pokémon !";
 
         try {
-
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(title);
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
