@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import fr.cpe.model.Item;
-import fr.cpe.model.Type;
 
 public class ItemDAO implements IDAO<Item> {
 
