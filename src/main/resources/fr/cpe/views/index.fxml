@@ -17,7 +17,7 @@
         <!-- LOGO -->
         <ImageView fitWidth="650" preserveRatio="true">
             <image>
-                <Image url="@../../../../java/fr/cpe/assets/logo.png"/>
+                <Image url="@../assets/assets/logo.png"/>
             </image>
         </ImageView>
 
