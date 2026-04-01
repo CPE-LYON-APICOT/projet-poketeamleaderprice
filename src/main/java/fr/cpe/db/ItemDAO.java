@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import fr.cpe.model.Item;
+import fr.cpe.model.Type;
 
 public class ItemDAO implements IDAO<Item> {
 
     @Override
-    public Optional<Item> get(long id) {
+    public Optional<Item> get(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }

@@ -8,7 +8,7 @@ import fr.cpe.model.Type;
 public class TypeDAO implements IDAO<Type> {
 
     @Override
-    public Optional<Type> get(long id) {
+    public Optional<Type> get(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
