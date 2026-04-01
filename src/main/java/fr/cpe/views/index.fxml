@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefWidth="900" prefHeight="600">
+
+    <!-- === BACKGROUND === -->
+    <children>
+        <ImageView fitWidth="900" fitHeight="600" preserveRatio="false">
+            <image>
+                <Image url="@assets/background.png"/>
+            </image>
+        </ImageView>
+
+        <!-- === MAIN CONTAINER === -->
+        <VBox alignment="CENTER" spacing="40"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+            <!-- LOGO -->
+            <ImageView fitWidth="450" preserveRatio="true">
+                <image>
+                    <Image url="@assets/logo.png"/>
+                </image>
+            </ImageView>
+
+            <!-- MENU BUTTONS -->
+            <VBox alignment="CENTER" spacing="20">
+
+                <Button text="START"
+                        fx:id="startButton"
+                        prefWidth="250" prefHeight="50"
+                        style="-fx-font-size: 24px;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 20;
+                               -fx-background-color: #ffcb05;
+                               -fx-border-color: #2a75bb;
+                               -fx-border-width: 4;
+                               -fx-text-fill: #2a75bb;"/>
+
+                <Button text="OPTIONS"
+                        fx:id="optionsButton"
+                        prefWidth="250" prefHeight="50"
+                        style="-fx-font-size: 22px;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 20;
+                               -fx-background-color: #ffffff;
+                               -fx-border-color: #2a75bb;
+                               -fx-border-width: 4;
+                               -fx-text-fill: #2a75bb;"/>
+
+                <Button text="QUITTER"
+                        fx:id="quitButton"
+                        prefWidth="250" prefHeight="50"
+                        style="-fx-font-size: 22px;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 20;
+                               -fx-background-color: #d9534f;
+                               -fx-border-color: #7a1f1c;
+                               -fx-border-width: 4;
+                               -fx-text-fill: white;"/>
+            </VBox>
+
+            <!-- PRESS START TEXT -->
+            <Label text="PRESS START"
+                   style="-fx-font-size: 26px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: white;
+                          -fx-effect: dropshadow(gaussian, black, 8, 0.5, 0, 0);"/>
+        </VBox>
+    </children>
+</AnchorPane>
