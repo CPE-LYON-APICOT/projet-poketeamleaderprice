@@ -136,8 +136,27 @@ public class PokemonDAO implements IDAO<Pokemon> {
     }
 
     private Attaque[] getLesAttaquesDisponibles() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLesAttaquesDisponibles'");
+        String sql = "SELECT * FROM type, pokemon, pokemon_type pt join on type.id = pt.type_id WHERE pt.pokemon_id = ?";
+        try (
+            var cnx = DBSingleton.getInstance().getConnection();
+            var stmt = cnx.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, pokemonId);
+            var rs = stmt.executeQuery();
+            List<Type> pokemonList = new ArrayList<>();
+            while(rs.next()) {
+                pokemonList.add(new Type(
+                    rs.getString("index"),
+                    rs.getString("name"),
+                    new TypeDAO().getFaiblesses(rs.getInt("id")),
+                    new TypeDAO().getAvantages(rs.getInt("id"))
+                ));
+            }
+            return pokemonList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     private Attaque[] getLesAttaquesPrises() {
