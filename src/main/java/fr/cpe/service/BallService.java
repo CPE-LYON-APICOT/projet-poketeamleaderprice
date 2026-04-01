@@ -10,8 +10,8 @@ package fr.cpe.service;
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 import com.google.inject.Inject;
+import fr.cpe.Ball;
 import fr.cpe.engine.InputService;
-import fr.cpe.model.Ball;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -37,7 +37,7 @@ import javafx.scene.shape.Circle;
 public class BallService {
 
     private static final double RADIUS = 60;
-    private static final double ACCELERATION = 0.3;
+    private static final double ACCELERATION = 5;
 
     private final InputService inputService;
     private Ball ball;

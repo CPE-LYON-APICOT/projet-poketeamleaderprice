@@ -15,7 +15,7 @@ java {
 
 javafx {
     version = "21"
-    modules = [ 'javafx.controls', 'javafx.graphics' ]
+    modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.fxml']
 }
 
 application {
@@ -24,6 +24,13 @@ application {
 
 dependencies {
     implementation 'com.google.inject:guice:7.0.0'
+    
+    // Azure Web PubSub (serveur — pour publier)
+    implementation 'com.azure:azure-messaging-webpubsub:1.3.0'
+    // Azure Web PubSub (client — pour écouter via WebSocket)
+    implementation 'com.azure:azure-messaging-webpubsub-client:1.0.0'
+    // Jackson (sérialisation JSON)
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
