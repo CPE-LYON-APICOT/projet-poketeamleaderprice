@@ -1,40 +1,43 @@
 package fr.cpe.model;
 
 public class Attaque {
-    private String index;
-    private String nom;
-    private String degat;
+    private int id;
+    private String name;
+    private int power;
+    private int accuracy;
+    private int pp;
+    private Type type;
 
-    public Attaque(String index, String nom, String degat) {
-        this.index = index;
-        this.nom = nom;
-        this.degat = degat;
+    public Attaque(int id, String name, int power, int accuracy, int pp, Type type) {
+        this.id = id;
+        this.name = name;
+        this.power = power;
+        this.accuracy = accuracy;
+        this.pp = pp;
+        this.type = type;
     }
 
-    public Attaque() {
+    public int getId() {
+        return id;
     }
 
-    public String getIndex() {
-        return index;
+    public String getName() {
+        return name;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public int getPower() {
+        return power;
     }
 
-    public String getNom() {
-        return nom;
+    public int getAccuracy() {
+        return accuracy;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public int getPp() {
+        return pp;
     }
 
-    public String getDegat() {
-        return degat;
-    }
-
-    public void setDegat(String degat) {
-        this.degat = degat;
+    public Type getType() {
+        return type;
     }
 }

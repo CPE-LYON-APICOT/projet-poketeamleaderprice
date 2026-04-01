@@ -1,4 +1,5 @@
 package fr.cpe.model;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
@@ -13,10 +14,10 @@ public class Pokemon {
     private String image_face;
     private String image_dos;
     private String sprite;
-    private char description;
+    private String description;
     private Abilite ability;
 
-    public Pokemon(int num_Poke, String nom, List<Type> types, Attaque[] lesattaquesdisponibles, Attaque[] lesattaquesprises, int hp, Map<StatType, Integer> stats, String image_face, String image_dos, String sprite, char description, Abilite ability) {
+    public Pokemon(int num_Poke, String nom, List<Type> types, Attaque[] lesattaquesdisponibles, Attaque[] lesattaquesprises, int hp, Map<StatType, Integer> stats, String image_face, String image_dos, String sprite, String description, Abilite ability) {
         Num_Poke = num_Poke;
         this.nom = nom;
         this.types = types;
@@ -114,11 +115,11 @@ public class Pokemon {
         this.sprite = sprite;
     }
 
-    public char getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(char description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
