@@ -10,11 +10,8 @@ public class DBSingleton {
 
     private DBSingleton() {
         try {
-            String url = "jdbc:sqlite:c:" + System.getenv("DB_PATH");
-            String username = System.getenv("DB_USERNAME");
-            String password = System.getenv("DB_PASSWORD");
-
-            connection = DriverManager.getConnection(url, username, password);
+            String url = "jdbc:sqlite:" + System.getenv("DB_PATH");
+            connection = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
         }
