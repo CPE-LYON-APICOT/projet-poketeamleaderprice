@@ -3,7 +3,7 @@ package fr.cpe.bus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import fr.cpe.AppModule;
-import fr.cpe.service.HelloService;
+import fr.cpe.service.GameMessageService;
 import fr.cpe.service.HelloServiceImpl;
 
 import java.util.logging.Level;
@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  * Call {@link #start()} to begin listening for messages and {@link #stop()}
  * to clean up when the application shuts down.
  */
+
 @Singleton
 public class OnlineInitializer {
 
