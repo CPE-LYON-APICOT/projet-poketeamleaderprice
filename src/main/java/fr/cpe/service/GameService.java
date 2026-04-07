@@ -63,7 +63,7 @@ import java.io.IOException;
 public class GameService {
 
     @Inject
-    public GameService(OnlineInitializer onlineInitializer, HelloService helloService) {
+    public GameService(OnlineInitializer onlineInitializer, GameMessageService GameMessageService) {
         onlineInitializer.start();
     }
 
