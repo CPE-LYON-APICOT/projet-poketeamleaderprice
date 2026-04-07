@@ -37,6 +37,7 @@ public class IndexController
         String title = "Poke-Cheap - Choisissez vos Pokémon !";
 
         try {
+            System.out.println("Test");
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
