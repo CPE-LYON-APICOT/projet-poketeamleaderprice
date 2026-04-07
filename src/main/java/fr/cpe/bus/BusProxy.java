@@ -28,7 +28,6 @@ public class BusProxy implements InvocationHandler {
 
     private final Class<?> iface;
     private final WebPubSubServiceClient publisher;
-    private final String hub;
 
     /**
      * Creates a new BusProxy for the given interface.
@@ -40,7 +39,6 @@ public class BusProxy implements InvocationHandler {
     public BusProxy(Class<?> iface, WebPubSubServiceClient publisher, String hub) {
         this.iface = iface;
         this.publisher = publisher;
-        this.hub = hub;
     }
 
     /**
