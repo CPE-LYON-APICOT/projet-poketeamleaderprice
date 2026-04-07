@@ -1,6 +1,8 @@
 package fr.cpe.dao;
 
-import java.sql.SQLException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,19 +11,20 @@ import fr.cpe.model.Type;
 
 public class TypeDAO implements IDAO<Type> {
 
+    private JSONManager jsonManager;
+
+    public TypeDAO() {
+        this.jsonManager = DBSingleton.getInstance().getJSONManager();
+    }
+
     @Override
     public Optional<Type> get(int id) {
-        String sql = "SELECT * FROM Type WHERE id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, id);
-            var rs = stmt.executeQuery();
-            if (rs.next()) {
+        try {
+            JsonNode node = jsonManager.getObjectById("types", id);
+            if (node != null) {
                 Type type = new Type(
-                    rs.getInt("id"),
-                    rs.getString("name")
+                    node.get("id").asInt(),
+                    node.get("nom").asText()
                 );
                 return Optional.of(type);
             }
@@ -33,86 +36,85 @@ public class TypeDAO implements IDAO<Type> {
 
     @Override
     public List<Type> getAll() {
-        String sql = "SELECT * FROM Type";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql);
-            var rs = stmt.executeQuery()
-        ) {
-             List<Type> pokemonList = new ArrayList<>();
-             while(rs.next()) {
-                 pokemonList.add(new Type(
-                    rs.getInt("id"),
-                    rs.getString("name")
-                ));
-             }
-             return pokemonList;
+        List<Type> typeList = new ArrayList<>();
+        try {
+            var array = jsonManager.getArray("types");
+            for (JsonNode node : array) {
+                Type type = new Type(
+                    node.get("id").asInt(),
+                    node.get("nom").asText()
+                );
+                typeList.add(type);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return List.of();
+        return typeList;
     }
 
     @Override
-    public void save(Type t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
-
-    @Override
-    public void update(Type t, String[] params) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
-
-    @Override
-    public void delete(Type t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-    }
-
-    public List<Type> getFaiblesses(int int1) {
-        String sql = "SELECT * FROM Type, Type_Type_Faiblesses tt join on Type.id = tt.type_id WHERE tt.type_id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, int1);
-            var rs = stmt.executeQuery();
-            List<Type> typeList = new ArrayList<>();
-            while(rs.next()) {
-                typeList.add(new Type(
-                    rs.getInt("index"),
-                    rs.getString("name")
-                ));
-            }
-            return typeList;
-        } catch (SQLException e) {
+    public void save(Type type) {
+        try {
+            ObjectNode node = jsonManager.getObjectMapper().createObjectNode();
+            node.put("id", type.getId());
+            node.put("nom", type.getNom());
+            jsonManager.saveObject("types", node);
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
         }
     }
 
-    public List<Type> getAvantages(int int1) {
-        String sql = "SELECT * FROM Type, Type_Type_Avantages tt join on Type.id = tt.type_id WHERE tt.type_id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, int1);
-            var rs = stmt.executeQuery();
-            List<Type> typeList = new ArrayList<>();
-            while(rs.next()) {
-                typeList.add(new Type(
-                    rs.getInt("index"),
-                    rs.getString("name")
-                ));
-            }
-            return typeList;
-        } catch (SQLException e) {
+    @Override
+    public void update(Type type, String[] params) {
+        save(type);
+    }
+
+    @Override
+    public void delete(Type type) {
+        try {
+            jsonManager.deleteObject("types", type.getId());
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
         }
     }
 
+    /**
+     * Get weaknesses (Faiblesses) for a type
+     */
+    public List<Type> getFaiblesses(int typeId) {
+        List<Type> faiblesses = new ArrayList<>();
+        try {
+            JsonNode typeNode = jsonManager.getObjectById("types", typeId);
+            if (typeNode != null && typeNode.has("faiblesses")) {
+                ArrayNode faiblArray = (ArrayNode) typeNode.get("faiblesses");
+                for (JsonNode weaknessId : faiblArray) {
+                    Optional<Type> weakness = get(weaknessId.asInt());
+                    weakness.ifPresent(faiblesses::add);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return faiblesses;
+    }
+
+    /**
+     * Get advantages (Avantages) for a type
+     */
+    public List<Type> getAvantages(int typeId) {
+        List<Type> avantages = new ArrayList<>();
+        try {
+            JsonNode typeNode = jsonManager.getObjectById("types", typeId);
+            if (typeNode != null && typeNode.has("avantages")) {
+                ArrayNode avantArray = (ArrayNode) typeNode.get("avantages");
+                for (JsonNode advantageId : avantArray) {
+                    Optional<Type> advantage = get(advantageId.asInt());
+                    advantage.ifPresent(avantages::add);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return avantages;
+    }
 }

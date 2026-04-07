@@ -1,0 +1,95 @@
+{
+  "pokemons": [
+    {
+      "id": 1,
+      "name": "Bulbasaur",
+      "hp": 45,
+      "imageFacePath": "assets/sprites/Face/bulbasaur.png",
+      "imageDosPath": "assets/sprites/Dos/bulbasaur.png",
+      "imageSpritePath": "assets/sprites/Mini/bulbasaur.png",
+      "description": "Grass/Poison type Pokémon",
+      "abilityId": 1,
+      "types": [1, 8],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 49,
+        "AtkSpe": 65,
+        "Def": 49,
+        "DefSpe": 65,
+        "Spd": 45
+      }
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "nom": "Grass",
+      "faiblesses": [2, 3, 5],
+      "avantages": [4, 7, 9]
+    },
+    {
+      "id": 2,
+      "nom": "Fire",
+      "faiblesses": [3, 6, 7],
+      "avantages": [1, 8, 12]
+    }
+  ],
+  "attaques": [
+    {
+      "id": 1,
+      "name": "Tackle",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 35,
+      "type_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Absorb",
+      "power": 20,
+      "accuracy": 100,
+      "pp": 25,
+      "type_id": 1
+    }
+  ],
+  "abilites": [
+    {
+      "id": 1,
+      "nom": "Overgrow",
+      "description": "Powers up Grass-type moves when the Pokémon is in a pinch"
+    }
+  ],
+  "effectItems": [
+    {
+      "id": 101,
+      "nom": "Attack Boost",
+      "affectedStat": {
+        "Atk": 10,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    }
+  ],
+  "healingItems": [
+    {
+      "id": 201,
+      "nom": "Potion",
+      "hpHeal": 20
+    },
+    {
+      "id": 202,
+      "nom": "Full Restore",
+      "hpHeal": 100
+    }
+  ],
+  "stades": [
+    {
+      "id": 1,
+      "nom": "Grass Terrain",
+      "type_id": 1
+    }
+  ]
+}

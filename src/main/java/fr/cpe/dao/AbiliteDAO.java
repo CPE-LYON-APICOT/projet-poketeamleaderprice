@@ -1,5 +1,7 @@
 package fr.cpe.dao;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,20 +10,21 @@ import fr.cpe.model.Abilite;
 
 public class AbiliteDAO implements IDAO<Abilite> {
 
+    private JSONManager jsonManager;
+
+    public AbiliteDAO() {
+        this.jsonManager = DBSingleton.getInstance().getJSONManager();
+    }
+
     @Override
     public Optional<Abilite> get(int id) {
-        String sql = "SELECT * FROM Abilite WHERE id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, id);
-            var rs = stmt.executeQuery();
-            if (rs.next()) {
+        try {
+            JsonNode node = jsonManager.getObjectById("abilites", id);
+            if (node != null) {
                 Abilite abilite = new Abilite(
-                    rs.getInt("id"),
-                    rs.getString("nom"),
-                    rs.getString("description")
+                    node.get("id").asInt(),
+                    node.get("nom").asText(),
+                    node.get("description").asText()
                 );
                 return Optional.of(abilite);
             }
@@ -33,44 +36,47 @@ public class AbiliteDAO implements IDAO<Abilite> {
 
     @Override
     public List<Abilite> getAll() {
-        String sql = "SELECT * FROM Abilite";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql);
-            var rs = stmt.executeQuery()
-        ) {
-             List<Abilite> abiliteList = new ArrayList<>();
-             while(rs.next()) {
+        List<Abilite> abiliteList = new ArrayList<>();
+        try {
+            var array = jsonManager.getArray("abilites");
+            for (JsonNode node : array) {
                 Abilite abilite = new Abilite(
-                    rs.getInt("id"),
-                    rs.getString("nom"),
-                    rs.getString("description")
+                    node.get("id").asInt(),
+                    node.get("nom").asText(),
+                    node.get("description").asText()
                 );
                 abiliteList.add(abilite);
             }
-            return abiliteList;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return abiliteList;
     }
 
     @Override
-    public void save(Abilite t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public void save(Abilite abilite) {
+        try {
+            ObjectNode node = jsonManager.getObjectMapper().createObjectNode();
+            node.put("id", abilite.getId());
+            node.put("nom", abilite.getNom());
+            node.put("description", abilite.getDescription());
+            jsonManager.saveObject("abilites", node);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void update(Abilite t, String[] params) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public void update(Abilite abilite, String[] params) {
+        save(abilite);
     }
 
     @Override
-    public void delete(Abilite t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public void delete(Abilite abilite) {
+        try {
+            jsonManager.deleteObject("abilites", abilite.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }

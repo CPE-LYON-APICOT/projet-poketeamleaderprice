@@ -1,6 +1,7 @@
 package fr.cpe.dao;
 
-import java.sql.SQLException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,24 +10,25 @@ import fr.cpe.model.Stade;
 
 public class StadeDAO implements IDAO<Stade> {
 
+    private JSONManager jsonManager;
+
+    public StadeDAO() {
+        this.jsonManager = DBSingleton.getInstance().getJSONManager();
+    }
+
     @Override
     public Optional<Stade> get(int id) {
-        String sql = "SELECT * FROM stade WHERE id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, id);
-            var rs = stmt.executeQuery();
-            if (rs.next()) {
+        try {
+            JsonNode node = jsonManager.getObjectById("stades", id);
+            if (node != null) {
                 Stade stade = new Stade(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    new TypeDAO().get(rs.getInt("type_id")).orElse(null)
+                    node.get("id").asInt(),
+                    node.get("nom").asText(),
+                    new TypeDAO().get(node.get("type_id").asInt()).orElse(null)
                 );
                 return Optional.of(stade);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return Optional.empty();
@@ -34,42 +36,46 @@ public class StadeDAO implements IDAO<Stade> {
 
     @Override
     public List<Stade> getAll() {
-        String sql = "SELECT * FROM Stade";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            var rs = stmt.executeQuery();
-            List<Stade> StadeList = new ArrayList<>();
-            while(rs.next()) {
-                StadeList.add(new Stade(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    new TypeDAO().get(rs.getInt("type_id")).orElse(null)
+        List<Stade> stadeList = new ArrayList<>();
+        try {
+            var array = jsonManager.getArray("stades");
+            for (JsonNode node : array) {
+                stadeList.add(new Stade(
+                    node.get("id").asInt(),
+                    node.get("nom").asText(),
+                    new TypeDAO().get(node.get("type_id").asInt()).orElse(null)
                 ));
             }
-            return StadeList;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
+        }
+        return stadeList;
+    }
+
+    @Override
+    public void save(Stade stade) {
+        try {
+            ObjectNode node = jsonManager.getObjectMapper().createObjectNode();
+            node.put("id", stade.getId());
+            node.put("nom", stade.getNom());
+            node.put("type_id", stade.getType() != null ? stade.getType().getId() : 0);
+            jsonManager.saveObject("stades", node);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void save(Stade t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public void update(Stade stade, String[] params) {
+        save(stade);
     }
 
     @Override
-    public void update(Stade t, String[] params) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
-
-    @Override
-    public void delete(Stade t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public void delete(Stade stade) {
+        try {
+            jsonManager.deleteObject("stades", stade.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

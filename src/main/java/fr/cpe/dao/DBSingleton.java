@@ -1,20 +1,16 @@
 package fr.cpe.dao;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+/**
+ * Singleton pattern for database access
+ * Now uses JSONManager for JSON-based database operations
+ */
 public class DBSingleton {
 
     private static DBSingleton instance;
-    private java.sql.Connection connection;
+    private JSONManager jsonManager;
 
     private DBSingleton() {
-        try {
-            String url = "jdbc:sqlite:" + System.getenv("DB_PATH");
-            connection = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.jsonManager = JSONManager.getInstance();
     }
 
     public static DBSingleton getInstance() {
@@ -24,7 +20,19 @@ public class DBSingleton {
         return instance;
     }
 
-    public java.sql.Connection getConnection() {
-        return connection;
+    /**
+     * Get the JSONManager for database operations
+     */
+    public JSONManager getJSONManager() {
+        return jsonManager;
+    }
+
+    /**
+     * Legacy method for compatibility - returns JSONManager
+     * @deprecated Use getJSONManager() instead
+     */
+    @Deprecated
+    public Object getConnection() {
+        return jsonManager;
     }
 }
