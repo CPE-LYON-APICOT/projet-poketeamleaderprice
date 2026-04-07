@@ -122,10 +122,8 @@ public class PokemonDAO implements IDAO<Pokemon> {
             List<Type> pokemonList = new ArrayList<>();
             while(rs.next()) {
                 pokemonList.add(new Type(
-                    rs.getString("index"),
-                    rs.getString("name"),
-                    new TypeDAO().getFaiblesses(rs.getInt("id")),
-                    new TypeDAO().getAvantages(rs.getInt("id"))
+                    rs.getInt("index"),
+                    rs.getString("name")
                 ));
             }
             return pokemonList;
@@ -162,14 +160,48 @@ public class PokemonDAO implements IDAO<Pokemon> {
     }
 
     private Attaque[] getLesAttaquesPrises(int pokemonId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLesAttaquesPrises'");
+        String sql = "SELECT * FROM attaque, pokemon, pokemon_attaque pa join on attaque.id = pa.attaque_id WHERE pa.pokemon_id = ?";
+        try (
+            var cnx = DBSingleton.getInstance().getConnection();
+            var stmt = cnx.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, pokemonId);
+            var rs = stmt.executeQuery();
+            List<Attaque> attaqueList = new ArrayList<>();
+            while(rs.next()) {
+                attaqueList.add(new Attaque(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getInt("power"),
+                    rs.getInt("accuracy"),
+                    rs.getInt("pp"),
+                    new TypeDAO().get(rs.getInt("type_id")).orElseThrow()
+                ));
+            }
+            return attaqueList.toArray(new Attaque[0]);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Attaque[0];
+        }
     }
 
     private Abilite getAbility(int abilityId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAbility'");
+        String sql = "SELECT * FROM abilite WHERE id = ?";
+        try (
+            var cnx = DBSingleton.getInstance().getConnection();
+            var stmt = cnx.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, abilityId);
+            var rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Abilite(
+                    rs.getString("index"),
+                    rs.getString("name")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-
-
 }
