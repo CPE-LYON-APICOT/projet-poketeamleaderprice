@@ -33,7 +33,6 @@ public class IndexController
 
     public void pressStartButton(ActionEvent event)
     {
-        System.out.println("pressStartButton");
         String fxmlPath = "/fr/cpe/views/ChooseTeam.fxml";
         String title = "Poke-Cheap - Choisissez vos Pokémon !";
 
@@ -43,6 +42,18 @@ public class IndexController
             stage.setScene(new Scene(root));
             stage.setTitle(title);
             stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pressLeftButton(ActionEvent event)
+    {
+        System.out.println("pressLeftButton");
+
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
