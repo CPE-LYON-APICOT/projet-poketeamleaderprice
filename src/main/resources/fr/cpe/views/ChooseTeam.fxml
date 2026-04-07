@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Priority?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="917.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.cpe.Controller.ChooseTeamController">
     <BorderPane prefHeight="917.0" prefWidth="1134.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -32,11 +22,9 @@
                 <padding>
                     <Insets left="20.0" right="20.0"/>
                 </padding>
-                <children>
-                    <ListView fx:id="pokemonListView" HBox.hgrow="ALWAYS"/>
-                    <TextArea fx:id="pokemonDescriptionArea" editable="false" wrapText="true"
-                              promptText="Cliquez sur un pokémon pour afficher sa description." prefWidth="430.0"/>
-                </children>
+                <ListView fx:id="pokemonListView" HBox.hgrow="ALWAYS"/>
+                <TextArea fx:id="pokemonDescriptionArea" editable="false" wrapText="true"
+                          promptText="Cliquez sur un pokémon pour afficher sa description." prefWidth="430.0"/>
             </HBox>
         </center>
 
@@ -46,32 +34,38 @@
                     <Insets bottom="20.0" left="20.0" right="20.0" top="16.0"/>
                 </padding>
 
-                <children>
-                    <GridPane hgap="10.0" vgap="10.0">
-                        <children>
-                            <Button fx:id="teamSlot1" text="Case 1" maxWidth="1.7976931348623157E308"
-                                    GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                            <Button fx:id="teamSlot2" text="Case 2" maxWidth="1.7976931348623157E308"
-                                    GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                            <Button fx:id="teamSlot3" text="Case 3" maxWidth="1.7976931348623157E308"
-                                    GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                            <Button fx:id="teamSlot4" text="Case 4" maxWidth="1.7976931348623157E308"
-                                    GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-                            <Button fx:id="teamSlot5" text="Case 5" maxWidth="1.7976931348623157E308"
-                                    GridPane.columnIndex="4" GridPane.rowIndex="0"/>
-                            <Button fx:id="teamSlot6" text="Case 6" maxWidth="1.7976931348623157E308"
-                                    GridPane.columnIndex="5" GridPane.rowIndex="0"/>
-                        </children>
-                    </GridPane>
+                <GridPane hgap="10.0" vgap="10.0">
+                    <Button fx:id="teamSlot1" text="+" maxWidth="1.7976931348623157E308" minHeight="130.0"
+                            prefHeight="130.0"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #2a75bb; -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%); -fx-border-color: #2a75bb; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;"
+                            GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Button fx:id="teamSlot2" text="+" maxWidth="1.7976931348623157E308" minHeight="130.0"
+                            prefHeight="130.0"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #2a75bb; -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%); -fx-border-color: #2a75bb; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;"
+                            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Button fx:id="teamSlot3" text="+" maxWidth="1.7976931348623157E308" minHeight="130.0"
+                            prefHeight="130.0"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #2a75bb; -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%); -fx-border-color: #2a75bb; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;"
+                            GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <Button fx:id="teamSlot4" text="+" maxWidth="1.7976931348623157E308" minHeight="130.0"
+                            prefHeight="130.0"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #2a75bb; -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%); -fx-border-color: #2a75bb; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;"
+                            GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                    <Button fx:id="teamSlot5" text="+" maxWidth="1.7976931348623157E308" minHeight="130.0"
+                            prefHeight="130.0"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #2a75bb; -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%); -fx-border-color: #2a75bb; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;"
+                            GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+                    <Button fx:id="teamSlot6" text="+" maxWidth="1.7976931348623157E308" minHeight="130.0"
+                            prefHeight="130.0"
+                            style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #2a75bb; -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%); -fx-border-color: #2a75bb; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;"
+                            GridPane.columnIndex="5" GridPane.rowIndex="0"/>
+                </GridPane>
 
-                    <HBox alignment="CENTER" spacing="20.0">
-                        <children>
-                            <Button fx:id="hostGameButton" text="Héberger une partie" styleClass="pokemon-main-button"/>
-                            <Button fx:id="joinGameButton" text="Rejoindre une partie"
-                                    styleClass="pokemon-main-button"/>
-                        </children>
-                    </HBox>
-                </children>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <Button fx:id="hostGameButton" text="Héberger une partie" styleClass="pokemon-main-button"/>
+                    <Button fx:id="joinGameButton" text="Rejoindre une partie"
+                            styleClass="pokemon-main-button"/>
+                </HBox>
             </VBox>
         </bottom>
     </BorderPane>

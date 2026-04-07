@@ -33,6 +33,7 @@ public class IndexController
 
     public void pressStartButton(ActionEvent event)
     {
+        System.out.println("pressStartButton");
         String fxmlPath = "/fr/cpe/views/ChooseTeam.fxml";
         String title = "Poke-Cheap - Choisissez vos Pokémon !";
 
