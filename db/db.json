@@ -19,6 +19,281 @@
         "DefSpe": 65,
         "Spd": 45
       }
+    },
+    {
+      "id": 2,
+      "name": "Bublizarre",
+      "hp": 80,
+      "attack": 82,
+      "special_attack": 110,
+      "defense": 100,
+      "defense_special": 100,
+      "speed": 40,
+      "imageFacePath": "path/to/bublizarre_face.png",
+      "imageDosPath": "path/to/bublizarre_dos.png",
+      "imageSpritePath": "path/to/bublizarre_sprite.png",
+      "description": "Description de Bublizarre",
+      "abilityId": 2,
+      "types": [1],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 82,
+        "AtkSpe": 110,
+        "Def": 100,
+        "DefSpe": 100,
+        "Spd": 40
+      }
+    },
+    {
+      "id": 3,
+      "name": "Abo",
+      "hp": 45,
+      "attack": 90,
+      "special_attack": 60,
+      "defense": 65,
+      "defense_special": 30,
+      "speed": 65,
+      "imageFacePath": "path/to/abo_face.png",
+      "imageDosPath": "path/to/abo_dos.png",
+      "imageSpritePath": "path/to/abo_sprite.png",
+      "description": "Description de Abo",
+      "abilityId": 3,
+      "types": [7],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 90,
+        "AtkSpe": 60,
+        "Def": 65,
+        "DefSpe": 30,
+        "Spd": 65
+      }
+    },
+    {
+      "id": 4,
+      "name": "Raflepia",
+      "hp": 70,
+      "attack": 110,
+      "special_attack": 65,
+      "defense": 80,
+      "defense_special": 80,
+      "speed": 95,
+      "imageFacePath": "path/to/raflepia_face.png",
+      "imageDosPath": "path/to/raflepia_dos.png",
+      "imageSpritePath": "path/to/raflepia_sprite.png",
+      "description": "Description de Raflepia",
+      "abilityId": 4,
+      "types": [7],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 110,
+        "AtkSpe": 65,
+        "Def": 80,
+        "DefSpe": 80,
+        "Spd": 95
+      }
+    },
+    {
+      "id": 5,
+      "name": "Arbok",
+      "hp": 60,
+      "attack": 95,
+      "special_attack": 65,
+      "defense": 69,
+      "defense_special": 80,
+      "speed": 80,
+      "imageFacePath": "path/to/arbok_face.png",
+      "imageDosPath": "path/to/arbok_dos.png",
+      "imageSpritePath": "path/to/arbok_sprite.png",
+      "description": "Description de Arbok",
+      "abilityId": 5,
+      "types": [6],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 95,
+        "AtkSpe": 65,
+        "Def": 69,
+        "DefSpe": 80,
+        "Spd": 80
+      }
+    },
+    {
+      "id": 6,
+      "name": "Piafabec",
+      "hp": 35,
+      "attack": 55,
+      "special_attack": 40,
+      "defense": 40,
+      "defense_special": 55,
+      "speed": 90,
+      "imageFacePath": "path/to/piafabec_face.png",
+      "imageDosPath": "path/to/piafabec_dos.png",
+      "imageSpritePath": "path/to/piafabec_sprite.png",
+      "description": "Description de Piafabec",
+      "abilityId": 6,
+      "types": [7],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 55,
+        "AtkSpe": 40,
+        "Def": 40,
+        "DefSpe": 55,
+        "Spd": 90
+      }
+    },
+    {
+      "id": 7,
+      "name": "Rapasdepic",
+      "hp": 30,
+      "attack": 45,
+      "special_attack": 35,
+      "defense": 30,
+      "defense_special": 45,
+      "speed": 70,
+      "imageFacePath": "path/to/rapasdepic_face.png",
+      "imageDosPath": "path/to/rapasdepic_dos.png",
+      "imageSpritePath": "path/to/rapasdepic_sprite.png",
+      "description": "Description de Rapasdepic",
+      "abilityId": 7,
+      "types": [7],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 45,
+        "AtkSpe": 35,
+        "Def": 30,
+        "DefSpe": 45,
+        "Spd": 70
+      }
+    },
+    {
+      "id": 8,
+      "name": "Aerodactyl",
+      "hp": 80,
+      "attack": 105,
+      "special_attack": 65,
+      "defense": 65,
+      "defense_special": 75,
+      "speed": 130,
+      "imageFacePath": "path/to/aerodactyl_face.png",
+      "imageDosPath": "path/to/aerodactyl_dos.png",
+      "imageSpritePath": "path/to/aerodactyl_sprite.png",
+      "description": "Description de Aerodactyl",
+      "abilityId": 8,
+      "types": [4, 9],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 105,
+        "AtkSpe": 65,
+        "Def": 65,
+        "DefSpe": 75,
+        "Spd": 130
+      }
+    },
+    {
+      "id": 9,
+      "name": "Rattatac",
+      "hp": 35,
+      "attack": 55,
+      "special_attack": 25,
+      "defense": 35,
+      "defense_special": 25,
+      "speed": 70,
+      "imageFacePath": "path/to/rattatac_face.png",
+      "imageDosPath": "path/to/rattatac_dos.png",
+      "imageSpritePath": "path/to/rattatac_sprite.png",
+      "description": "Description de Rattatac",
+      "abilityId": 9,
+      "types": [7],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 55,
+        "AtkSpe": 25,
+        "Def": 35,
+        "DefSpe": 25,
+        "Spd": 70
+      }
+    },
+    {
+      "id": 10,
+      "name": "Rattata",
+      "hp": 30,
+      "attack": 56,
+      "special_attack": 25,
+      "defense": 35,
+      "defense_special": 25,
+      "speed": 72,
+      "imageFacePath": "path/to/rattata_face.png",
+      "imageDosPath": "path/to/rattata_dos.png",
+      "imageSpritePath": "path/to/rattata_sprite.png",
+      "description": "Description de Rattata",
+      "abilityId": 10,
+      "types": [7],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 56,
+        "AtkSpe": 25,
+        "Def": 35,
+        "DefSpe": 25,
+        "Spd": 72
+      }
+    },
+    {
+      "id": 11,
+      "name": "Pikachu",
+      "hp": 35,
+      "attack": 55,
+      "special_attack": 50,
+      "defense": 40,
+      "defense_special": 50,
+      "speed": 90,
+      "imageFacePath": "path/to/pikachu_face.png",
+      "imageDosPath": "path/to/pikachu_dos.png",
+      "imageSpritePath": "path/to/pikachu_sprite.png",
+      "description": "Description de Pikachu",
+      "abilityId": 11,
+      "types": [8],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 55,
+        "AtkSpe": 50,
+        "Def": 40,
+        "DefSpe": 50,
+        "Spd": 90
+      }
+    },
+    {
+      "id": 12,
+      "name": "Raichu",
+      "hp": 60,
+      "attack": 90,
+      "special_attack": 110,
+      "defense": 55,
+      "defense_special": 85,
+      "speed": 110,
+      "imageFacePath": "path/to/raichu_face.png",
+      "imageDosPath": "path/to/raichu_dos.png",
+      "imageSpritePath": "path/to/raichu_sprite.png",
+      "description": "Description de Raichu",
+      "abilityId": 12,
+      "types": [8],
+      "availableAttacks": [1, 2, 3],
+      "learnedAttacks": [1],
+      "stats": {
+        "Atk": 90,
+        "AtkSpe": 110,
+        "Def": 55,
+        "DefSpe": 85,
+        "Spd": 110
+      }
     }
   ],
   "types": [
@@ -31,6 +306,48 @@
     {
       "id": 2,
       "nom": "Fire",
+      "faiblesses": [3, 6, 7],
+      "avantages": [1, 8, 12]
+    },
+    {
+      "id": 3,
+      "nom": "Water",
+      "faiblesses": [4, 10],
+      "avantages": [2, 5, 6]
+    },
+    {
+      "id": 4,
+      "nom": "Flying",
+      "faiblesses": [3, 6, 7],
+      "avantages": [1, 8, 12]
+    },
+    {
+      "id": 5,
+      "nom": "Poison",
+      "faiblesses": [3, 6, 7],
+      "avantages": [1, 8, 12]
+    },
+    {
+      "id": 6,
+      "nom": "Bug",
+      "faiblesses": [3, 6, 7],
+      "avantages": [1, 8, 12]
+    },
+    {
+      "id": 7,
+      "nom": "Normal",
+      "faiblesses": [3, 6, 7],
+      "avantages": [1, 8, 12]
+    },
+    {
+      "id": 8,
+      "nom": "Electric",
+      "faiblesses": [3, 6, 7],
+      "avantages": [1, 8, 12]
+    },
+    {
+      "id": 9,
+      "nom": "Rock",
       "faiblesses": [3, 6, 7],
       "avantages": [1, 8, 12]
     }
@@ -51,6 +368,14 @@
       "accuracy": 100,
       "pp": 25,
       "type_id": 1
+    },
+    {
+      "id": 3,
+      "name": "Growl",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 40,
+      "type_id": 7
     }
   ],
   "abilites": [
@@ -58,6 +383,61 @@
       "id": 1,
       "nom": "Overgrow",
       "description": "Powers up Grass-type moves when the Pokémon is in a pinch"
+    },
+    {
+      "id": 2,
+      "nom": "Chlorophylle",
+      "description": "Augmente la vitesse sous le soleil."
+    },
+    {
+      "id": 3,
+      "nom": "Synchrono",
+      "description": "Peut transmettre des statuts aux adversaires."
+    },
+    {
+      "id": 4,
+      "nom": "Synchrono",
+      "description": "Peut transmettre des statuts aux adversaires."
+    },
+    {
+      "id": 5,
+      "nom": "Synchrono",
+      "description": "Peut transmettre des statuts aux adversaires."
+    },
+    {
+      "id": 6,
+      "nom": "Synchrono",
+      "description": "Peut transmettre des statuts aux adversaires."
+    },
+    {
+      "id": 7,
+      "nom": "Synchrono",
+      "description": "Peut transmettre des statuts aux adversaires."
+    },
+    {
+      "id": 8,
+      "nom": "Vol",
+      "description": "Permet de voler."
+    },
+    {
+      "id": 9,
+      "nom": "Synchrono",
+      "description": "Peut transmettre des statuts aux adversaires."
+    },
+    {
+      "id": 10,
+      "nom": "Synchrono",
+      "description": "Peut transmettre des statuts aux adversaires."
+    },
+    {
+      "id": 11,
+      "nom": "Statik",
+      "description": "Peut paralyser les adversaires."
+    },
+    {
+      "id": 12,
+      "nom": "Statik",
+      "description": "Peut paralyser les adversaires."
     }
   ],
   "effectItems": [
