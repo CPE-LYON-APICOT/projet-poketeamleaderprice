@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.cpe.Controller.ChooseItemsController"
+            prefHeight="917.0" prefWidth="1134.0">
+
+    <BorderPane prefHeight="917.0" prefWidth="1134.0"
+                style="-fx-background-color: linear-gradient(to bottom, #fdfefe 0%, #edf6ff 45%, #dfeeff 100%);"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <top>
+            <HBox alignment="CENTER_LEFT" spacing="12.0">
+                <padding>
+                    <Insets bottom="16.0" left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Label text="Votre nom :"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2a75bb;"/>
+                <TextField fx:id="playerNameField" promptText="Entrez votre nom" prefWidth="260.0"/>
+            </HBox>
+        </top>
+
+        <center>
+            <HBox spacing="16.0">
+                <padding>
+                    <Insets left="20.0" right="20.0"/>
+                </padding>
+                <ListView fx:id="itemListView" HBox.hgrow="ALWAYS"/>
+                <TextArea fx:id="itemDescriptionArea" editable="false" wrapText="true"
+                          promptText="Cliquez sur un item pour afficher sa description." prefWidth="430.0"/>
+            </HBox>
+        </center>
+
+        <bottom>
+            <VBox spacing="16.0">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="16.0"/>
+                </padding>
+
+                <Label text="Choisis tes items"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2a75bb;"/>
+
+                <GridPane hgap="12.0" vgap="12.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667"/>
+                    </columnConstraints>
+                </GridPane>
+
+                <HBox alignment="CENTER" spacing="20.0">
+                    <Button fx:id="backToTeamButton" text="Retour equipe"
+                            style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 16; -fx-background-color: #f2f2f2; -fx-border-color: #bdbdbd; -fx-border-width: 2;"/>
+                    <Button fx:id="startBattleButton" text="Valider et commencer"
+                            style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 16; -fx-background-color: #ffcb05; -fx-border-color: #2a75bb; -fx-border-width: 3; -fx-text-fill: #2a75bb;"/>
+                </HBox>
+            </VBox>
+        </bottom>
+    </BorderPane>
+</AnchorPane>
