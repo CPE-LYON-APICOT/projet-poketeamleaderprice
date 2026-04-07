@@ -1,16 +1,17 @@
-package fr.cpe.db;
+package fr.cpe.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import fr.cpe.model.Abilite;
+import fr.cpe.model.Stade;
 
-public class AbiliteDAO implements IDAO<Abilite> {
+public class StadeDAO implements IDAO<Stade> {
 
     @Override
-    public Optional<Abilite> get(int id) {
-        String sql = "SELECT * FROM Abilite WHERE id = ?";
+    public Optional<Stade> get(int id) {
+        String sql = "SELECT * FROM stade WHERE id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
@@ -18,57 +19,57 @@ public class AbiliteDAO implements IDAO<Abilite> {
             stmt.setInt(1, id);
             var rs = stmt.executeQuery();
             if (rs.next()) {
-                Abilite abilite = new Abilite(
+                Stade stade = new Stade(
                     rs.getInt("id"),
-                    rs.getString("nom")
+                    rs.getString("name"),
+                    new TypeDAO().get(rs.getInt("type_id")).orElse(null)
                 );
-                return Optional.of(abilite);
+                return Optional.of(stade);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.empty();
     }
 
     @Override
-    public List<Abilite> getAll() {
-        String sql = "SELECT * FROM Abilite";
+    public List<Stade> getAll() {
+        String sql = "SELECT * FROM Stade";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql);
-            var rs = stmt.executeQuery()
+            var stmt = cnx.prepareStatement(sql)
         ) {
-             List<Abilite> abiliteList = new ArrayList<>();
-             while(rs.next()) {
-                Abilite abilite = new Abilite(
+            var rs = stmt.executeQuery();
+            List<Stade> StadeList = new ArrayList<>();
+            while(rs.next()) {
+                StadeList.add(new Stade(
                     rs.getInt("id"),
-                    rs.getString("nom")
-                );
-                abiliteList.add(abilite);
+                    rs.getString("name"),
+                    new TypeDAO().get(rs.getInt("type_id")).orElse(null)
+                ));
             }
-            return abiliteList;
-        } catch (Exception e) {
+            return StadeList;
+        } catch (SQLException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
     }
 
     @Override
-    public void save(Abilite t) {
+    public void save(Stade t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
     @Override
-    public void update(Abilite t, String[] params) {
+    public void update(Stade t, String[] params) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
-    public void delete(Abilite t) {
+    public void delete(Stade t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
-
 }

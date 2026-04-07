@@ -1,15 +1,16 @@
-package fr.cpe.db;
+package fr.cpe.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import fr.cpe.model.Attaque;
+import fr.cpe.model.Abilite;
 
-public class AttaqueDAO implements IDAO<Attaque> {
+public class AbiliteDAO implements IDAO<Abilite> {
 
     @Override
-    public Optional<Attaque> get(int id) {
-        String sql = "SELECT * FROM Attaque WHERE id = ?";
+    public Optional<Abilite> get(int id) {
+        String sql = "SELECT * FROM Abilite WHERE id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
@@ -17,15 +18,12 @@ public class AttaqueDAO implements IDAO<Attaque> {
             stmt.setInt(1, id);
             var rs = stmt.executeQuery();
             if (rs.next()) {
-                Attaque attaque = new Attaque(
+                Abilite abilite = new Abilite(
                     rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getInt("power"),
-                    rs.getInt("accuracy"),
-                    rs.getInt("pp"),
-                    new TypeDAO().get(rs.getInt("type_id")).orElse(null)
+                    rs.getString("nom"),
+                    rs.getString("description")
                 );
-                return Optional.of(attaque);
+                return Optional.of(abilite);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,45 +32,43 @@ public class AttaqueDAO implements IDAO<Attaque> {
     }
 
     @Override
-    public List<Attaque> getAll() {
-        String sql = "SELECT * FROM Attaque";
+    public List<Abilite> getAll() {
+        String sql = "SELECT * FROM Abilite";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql);
             var rs = stmt.executeQuery()
         ) {
-             List<Attaque> attaqueList = new java.util.ArrayList<>();
+             List<Abilite> abiliteList = new ArrayList<>();
              while(rs.next()) {
-                 attaqueList.add(new Attaque(
+                Abilite abilite = new Abilite(
                     rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getInt("power"),
-                    rs.getInt("accuracy"),
-                    rs.getInt("pp"),
-                    new TypeDAO().get(rs.getInt("type_id")).orElse(null)
-                ));
-             }
-             return attaqueList;
+                    rs.getString("nom"),
+                    rs.getString("description")
+                );
+                abiliteList.add(abilite);
+            }
+            return abiliteList;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return List.of();
+        return new ArrayList<>();
     }
 
     @Override
-    public void save(Attaque t) {
+    public void save(Abilite t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
     @Override
-    public void update(Attaque t, String[] params) {
+    public void update(Abilite t, String[] params) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
-    public void delete(Attaque t) {
+    public void delete(Abilite t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }

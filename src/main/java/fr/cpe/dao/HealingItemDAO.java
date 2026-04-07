@@ -1,17 +1,15 @@
-package fr.cpe.db;
+package fr.cpe.dao;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import fr.cpe.model.Stade;
+import fr.cpe.model.HealingItem;
 
-public class StadeDAO implements IDAO<Stade> {
+public class HealingItemDAO implements IDAO<HealingItem> {
 
     @Override
-    public Optional<Stade> get(int id) {
-        String sql = "SELECT * FROM stade WHERE id = ?";
+    public Optional<HealingItem> get(int id) {
+        String sql = "SELECT * FROM HealingItem WHERE id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
@@ -19,57 +17,60 @@ public class StadeDAO implements IDAO<Stade> {
             stmt.setInt(1, id);
             var rs = stmt.executeQuery();
             if (rs.next()) {
-                Stade stade = new Stade(
+                HealingItem healingItem = new HealingItem(
                     rs.getInt("id"),
                     rs.getString("name"),
-                    new TypeDAO().get(rs.getInt("type_id")).orElse(null)
+                    rs.getInt("hp_heal")
                 );
-                return Optional.of(stade);
+                return Optional.of(healingItem);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return Optional.empty();
     }
 
     @Override
-    public List<Stade> getAll() {
-        String sql = "SELECT * FROM Stade";
+    public List<HealingItem> getAll() {
+        String sql = "SELECT * FROM HealingItem";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
+            var stmt = cnx.prepareStatement(sql);
+            var rs = stmt.executeQuery()
         ) {
-            var rs = stmt.executeQuery();
-            List<Stade> StadeList = new ArrayList<>();
-            while(rs.next()) {
-                StadeList.add(new Stade(
+             List<HealingItem> itemList = new java.util.ArrayList<>();
+             while(rs.next()) {
+                HealingItem healingItem = new HealingItem(
                     rs.getInt("id"),
                     rs.getString("name"),
-                    new TypeDAO().get(rs.getInt("type_id")).orElse(null)
-                ));
-            }
-            return StadeList;
-        } catch (SQLException e) {
+                    rs.getInt("hp_heal")
+                );
+                itemList.add(healingItem);
+             }
+             return itemList;
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
         }
+        return List.of();
     }
 
     @Override
-    public void save(Stade t) {
+    public void save(HealingItem t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
     @Override
-    public void update(Stade t, String[] params) {
+    public void update(HealingItem t, String[] params) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
-    public void delete(Stade t) {
+    public void delete(HealingItem t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
+
+
 }

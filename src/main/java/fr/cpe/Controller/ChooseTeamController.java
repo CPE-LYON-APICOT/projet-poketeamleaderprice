@@ -1,6 +1,6 @@
 package fr.cpe.Controller;
 
-import fr.cpe.db.PokemonDAO;
+import fr.cpe.dao.PokemonDAO;
 import fr.cpe.model.Pokemon;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;

@@ -1,4 +1,4 @@
-package fr.cpe.db;
+package fr.cpe.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;

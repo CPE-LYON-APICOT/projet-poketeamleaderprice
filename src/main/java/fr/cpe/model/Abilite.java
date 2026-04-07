@@ -3,13 +3,12 @@ package fr.cpe.model;
 public class Abilite {
     private int id;
     private String nom;
+    private String description;
 
-    public Abilite(int id, String nom) {
+    public Abilite(int id, String nom, String description) {
         this.id = id;
         this.nom = nom;
-    }
-
-    public Abilite() {
+        this.description = description;
     }
 
     public int getId() {
@@ -26,5 +25,13 @@ public class Abilite {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
