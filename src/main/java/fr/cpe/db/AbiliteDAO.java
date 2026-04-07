@@ -1,5 +1,6 @@
 package fr.cpe.db;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,14 +10,47 @@ public class AbiliteDAO implements IDAO<Abilite> {
 
     @Override
     public Optional<Abilite> get(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        String sql = "SELECT * FROM Abilite WHERE id = ?";
+        try (
+            var cnx = DBSingleton.getInstance().getConnection();
+            var stmt = cnx.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, id);
+            var rs = stmt.executeQuery();
+            if (rs.next()) {
+                Abilite abilite = new Abilite(
+                    rs.getInt("id"),
+                    rs.getString("nom")
+                );
+                return Optional.of(abilite);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 
     @Override
     public List<Abilite> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        String sql = "SELECT * FROM Abilite";
+        try (
+            var cnx = DBSingleton.getInstance().getConnection();
+            var stmt = cnx.prepareStatement(sql);
+            var rs = stmt.executeQuery()
+        ) {
+             List<Abilite> abiliteList = new ArrayList<>();
+             while(rs.next()) {
+                Abilite abilite = new Abilite(
+                    rs.getInt("id"),
+                    rs.getString("nom")
+                );
+                abiliteList.add(abilite);
+            }
+            return abiliteList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     @Override

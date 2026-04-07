@@ -1,23 +1,20 @@
 package fr.cpe.model;
 
 public abstract class Item {
-    private String index;
+    private int id;
     private String nom;
 
-    public Item(String index, String nom) {
-        this.index = index;
+    public Item(int id, String nom) {
+        this.id = id;
         this.nom = nom;
     }
 
-    public Item() {
+    public int getId() {
+        return id;
     }
 
-    public String getIndex() {
-        return index;
-    }
-
-    public void setIndex(String index) {
-        this.index = index;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {

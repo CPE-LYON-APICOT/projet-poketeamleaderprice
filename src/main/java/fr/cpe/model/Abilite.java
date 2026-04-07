@@ -1,23 +1,23 @@
 package fr.cpe.model;
 
 public class Abilite {
-    private String index;
+    private int id;
     private String nom;
 
-    public Abilite(String index, String nom) {
-        this.index = index;
+    public Abilite(int id, String nom) {
+        this.id = id;
         this.nom = nom;
     }
 
     public Abilite() {
     }
 
-    public String getIndex() {
-        return index;
+    public int getId() {
+        return id;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {

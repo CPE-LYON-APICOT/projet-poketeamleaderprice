@@ -1,18 +1,15 @@
 package fr.cpe.db;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import fr.cpe.model.Stade;
-import fr.cpe.model.Type;
+import fr.cpe.model.Attaque;
 
-public class StadeDAO implements IDAO<Stade> {
+public class AttaqueDAO implements IDAO<Attaque> {
 
     @Override
-    public Optional<Stade> get(int id) {
-        String sql = "SELECT * FROM stade WHERE id = ?";
+    public Optional<Attaque> get(int id) {
+        String sql = "SELECT * FROM Attaque WHERE id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
@@ -20,57 +17,64 @@ public class StadeDAO implements IDAO<Stade> {
             stmt.setInt(1, id);
             var rs = stmt.executeQuery();
             if (rs.next()) {
-                Stade stade = new Stade(
+                Attaque attaque = new Attaque(
                     rs.getInt("id"),
                     rs.getString("name"),
+                    rs.getInt("power"),
+                    rs.getInt("accuracy"),
+                    rs.getInt("pp"),
                     new TypeDAO().get(rs.getInt("type_id")).orElse(null)
                 );
-                return Optional.of(stade);
+                return Optional.of(attaque);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return Optional.empty();
     }
 
     @Override
-    public List<Stade> getAll() {
-        String sql = "SELECT * FROM Stade";
+    public List<Attaque> getAll() {
+        String sql = "SELECT * FROM Attaque";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
+            var stmt = cnx.prepareStatement(sql);
+            var rs = stmt.executeQuery()
         ) {
-            var rs = stmt.executeQuery();
-            List<Stade> StadeList = new ArrayList<>();
-            while(rs.next()) {
-                StadeList.add(new Stade(
+             List<Attaque> attaqueList = new java.util.ArrayList<>();
+             while(rs.next()) {
+                 attaqueList.add(new Attaque(
                     rs.getInt("id"),
                     rs.getString("name"),
+                    rs.getInt("power"),
+                    rs.getInt("accuracy"),
+                    rs.getInt("pp"),
                     new TypeDAO().get(rs.getInt("type_id")).orElse(null)
                 ));
-            }
-            return StadeList;
-        } catch (SQLException e) {
+             }
+             return attaqueList;
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
         }
+        return List.of();
     }
 
     @Override
-    public void save(Stade t) {
+    public void save(Attaque t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
     @Override
-    public void update(Stade t, String[] params) {
+    public void update(Attaque t, String[] params) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
-    public void delete(Stade t) {
+    public void delete(Attaque t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
+
 }
