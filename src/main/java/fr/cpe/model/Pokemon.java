@@ -32,9 +32,6 @@ public class Pokemon {
         this.ability = ability;
     }
 
-    public Pokemon() {
-    }
-
     public Integer getNum_Poke() {
         return Num_Poke;
     }

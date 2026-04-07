@@ -1,25 +1,22 @@
 package fr.cpe.model;
 
 public class Stade {
-    private String index;
+    private int id;
     private String nom;
     private Type type;
 
-    public Stade(String index, String nom, Type type) {
-        this.index = index;
+    public Stade(int id, String nom, Type type) {
+        this.id = id;
         this.nom = nom;
         this.type = type;
     }
 
-    public Stade() {
+    public int getId() {
+        return id;
     }
 
-    public String getIndex() {
-        return index;
-    }
-
-    public void setIndex(String index) {
-        this.index = index;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {

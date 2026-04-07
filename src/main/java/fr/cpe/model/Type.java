@@ -1,29 +1,28 @@
 package fr.cpe.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Type {
-    private String index;
+    private int id;
     private String nom;
     private List<Type> faiblesses;
     private List<Type> avantages;
 
-    public Type() {
-    }
 
-    public Type(String index, String nom, List<Type> faiblesses, List<Type> avantages) {
-        this.index = index;
+    public Type(int id, String nom) {
+        this.id = id;
         this.nom = nom;
-        this.faiblesses = faiblesses;
-        this.avantages = avantages;
+        this.faiblesses = new ArrayList<>();
+        this.avantages = new ArrayList<>();
     }
 
-    public String getIndex() {
-        return index;
+    public int getId() {
+        return id;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {
