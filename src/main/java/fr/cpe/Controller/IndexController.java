@@ -37,7 +37,6 @@ public class IndexController
         String title = "Poke-Cheap - Choisissez vos Pokémon !";
 
         try {
-            System.out.println("Test");
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -50,11 +49,10 @@ public class IndexController
 
     public void pressLeftButton(ActionEvent event)
     {
-        System.out.println("pressLeftButton");
-
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
+            System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

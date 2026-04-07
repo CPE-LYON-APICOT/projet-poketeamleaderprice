@@ -3,14 +3,11 @@ package fr.cpe.Controller;
 import fr.cpe.db.PokemonDAO;
 import fr.cpe.model.Pokemon;
 import javafx.collections.FXCollections;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ChooseTeamController {
@@ -34,5 +31,26 @@ public class ChooseTeamController {
     private static final String FILLED_SLOT_STYLE = "-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3b82f6 0%, #1d4ed8 100%); -fx-border-color: #facc15; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;";
 
     public void initialize() {
+        try {
+            PokemonDAO pokemonDAO = new PokemonDAO();
+            ObservableList<Pokemon> items = FXCollections.observableArrayList(pokemonDAO.getAll());
+            pokemonListView.setItems(items);
+            pokemonListView.setCellFactory(lv -> new ListCell<>() {
+                @Override
+                protected void updateItem(Pokemon p, boolean empty) {
+                    super.updateItem(p, empty);
+                    setText(empty || p == null ? null : p.getNom());
+                }
+            });
+        }
+        catch (Exception ex) {
+
+        }
+
     }
+
+    public void changeDresseurNom(ActionEvent actionEvent) {
+        
+    }
+
 }

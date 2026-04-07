@@ -43,7 +43,8 @@
                            -fx-background-color: #d9534f;
                            -fx-border-color: #7a1f1c;
                            -fx-border-width: 4;
-                           -fx-text-fill: white;"/>
+                           -fx-text-fill: white;"
+                    onAction="#pressLeftButton"/>
         </VBox>
 
         <!-- PRESS START TEXT -->
