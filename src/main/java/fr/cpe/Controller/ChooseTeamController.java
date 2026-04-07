@@ -1,17 +1,25 @@
 package fr.cpe.Controller;
 
-import fr.cpe.db.PokemonDAO;
+import fr.cpe.dao.PokemonDAO;
+import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
+import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ChooseTeamController {
     public Button hostGameButton;
@@ -28,6 +36,8 @@ public class ChooseTeamController {
     public TextArea pokemonDescriptionArea;
 
     private final List<Button> teamSlotButtons = new ArrayList<>();
+    public Button ItemsButton;
+    public Button LeftButton;
     private Pokemon selectedPokemon;
 
     private Dresseur dresseur;
@@ -92,7 +102,33 @@ public class ChooseTeamController {
     public void changeDresseurNom(ActionEvent actionEvent) {
         String newnom = playerNameField.getText();
         dresseur.setNom(newnom);
+    }
 
+    public void pressNextButton(ActionEvent event)
+    {
+        String fxmlPath = "/fr/cpe/views/ChooseItems.fxml";
+        String title = "Poke-Cheap - Choisissez vos Items !";
+
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(title);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pressLeftButton(ActionEvent event)
+    {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -54,8 +54,8 @@
                 </GridPane>
 
                 <HBox styleClass="choose-team-actions">
-                    <Button fx:id="ItemsButton" styleClass="pokemon-main-button" text="Choisir ses items" />
-                    <Button fx:id="LeftButton" styleClass="pokemon-quit-button" text="Quitter" />
+                    <Button fx:id="ItemsButton" styleClass="pokemon-main-button" text="Choisir ses items" onAction="#pressNextButton"/>
+                    <Button fx:id="LeftButton" styleClass="pokemon-quit-button" text="Quitter" onAction="#pressLeftButton"/>
                 </HBox>
             </VBox>
         </bottom>
