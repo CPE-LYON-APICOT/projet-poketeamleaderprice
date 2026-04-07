@@ -1,84 +1,85 @@
-create table Type (
-    id int primary key auto_increment,
-    name varchar(255) not null
+-- Création des tables (si elles n'existent pas déjà)
+CREATE TABLE IF NOT EXISTS Type (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
 );
 
-create table Stade (
-    id int primary key auto_increment,
-    name varchar(255) not null,
-    type_id int,
-    foreign key (type_id) references Type(id)
+CREATE TABLE IF NOT EXISTS Stade (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    type_id INTEGER,
+    FOREIGN KEY (type_id) REFERENCES Type(id)
 );
 
-create table Abilite (
-    id int primary key auto_increment,
-    name varchar(255) not null,
-    description text
+CREATE TABLE IF NOT EXISTS Abilite (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT
 );
 
-create table Pokemon (
-    id int primary key auto_increment,
-    name varchar(255) not null,
-    hp int not null,
-    attack int not null,
-    special_attack int not null,
-    defense int not null,
-    defense_special int not null,
-    speed int not null,
-    imageFacePath varchar(255),
-    imageDosPath varchar(255),
-    imageSpritePath varchar(255),
-    description text,
-    abilityId int,
-    foreign key (abilityId) references Abilite(id)
+CREATE TABLE IF NOT EXISTS Pokemon (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    hp INTEGER NOT NULL,
+    attack INTEGER NOT NULL,
+    special_attack INTEGER NOT NULL,
+    defense INTEGER NOT NULL,
+    defense_special INTEGER NOT NULL,
+    speed INTEGER NOT NULL,
+    imageFacePath TEXT,
+    imageDosPath TEXT,
+    imageSpritePath TEXT,
+    description TEXT,
+    abilityId INTEGER,
+    FOREIGN KEY (abilityId) REFERENCES Abilite(id)
 );
 
-create table Pokemon_Type (
-    pokemon_id int,
-    type_id int,
-    primary key (pokemon_id, type_id),
-    foreign key (pokemon_id) references Pokemon(id),
-    foreign key (type_id) references Type(id)
+CREATE TABLE IF NOT EXISTS Pokemon_Type (
+    pokemon_id INTEGER,
+    type_id INTEGER,
+    PRIMARY KEY (pokemon_id, type_id),
+    FOREIGN KEY (pokemon_id) REFERENCES Pokemon(id),
+    FOREIGN KEY (type_id) REFERENCES Type(id)
 );
 
-create table Type_Type_Avantages (
-    type_id int,
-    avantage_type_id int,
-    primary key (type_id, avantage_type_id),
-    foreign key (type_id) references Type(id),
-    foreign key (avantage_type_id) references Type(id)
+CREATE TABLE IF NOT EXISTS Type_Type_Avantages (
+    type_id INTEGER,
+    avantage_type_id INTEGER,
+    PRIMARY KEY (type_id, avantage_type_id),
+    FOREIGN KEY (type_id) REFERENCES Type(id),
+    FOREIGN KEY (avantage_type_id) REFERENCES Type(id)
 );
 
-create table Type_Type_Faiblesses (
-    type_id int,
-    faiblesse_type_id int,
-    primary key (type_id, faiblesse_type_id),
-    foreign key (type_id) references Type(id),
-    foreign key (faiblesse_type_id) references Type(id)
+CREATE TABLE IF NOT EXISTS Type_Type_Faiblesses (
+    type_id INTEGER,
+    faiblesse_type_id INTEGER,
+    PRIMARY KEY (type_id, faiblesse_type_id),
+    FOREIGN KEY (type_id) REFERENCES Type(id),
+    FOREIGN KEY (faiblesse_type_id) REFERENCES Type(id)
 );
 
-create table Attaque (
-    id int primary key auto_increment,
-    name varchar(255) not null,
-    power int not null,
-    accuracy int not null,
-    pp int not null,
-    type_id int,
-    foreign key (type_id) references Type(id)
+CREATE TABLE IF NOT EXISTS Attaque (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    power INTEGER NOT NULL,
+    accuracy INTEGER NOT NULL,
+    pp INTEGER NOT NULL,
+    type_id INTEGER,
+    FOREIGN KEY (type_id) REFERENCES Type(id)
 );
 
-create table HealingItem (
-    id int primary key auto_increment,
-    name varchar(255) not null,
-    hp_heal int not null
+CREATE TABLE IF NOT EXISTS HealingItem (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    hp_heal INTEGER NOT NULL
 );
 
-create table EffectItem (
-    id int primary key auto_increment,
-    name varchar(255) not null,
-    attack int not null,
-    special_attack int not null,
-    defense int not null,
-    defense_special int not null,
-    speed int not null
+CREATE TABLE IF NOT EXISTS EffectItem (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    attack INTEGER NOT NULL,
+    special_attack INTEGER NOT NULL,
+    defense INTEGER NOT NULL,
+    defense_special INTEGER NOT NULL,
+    speed INTEGER NOT NULL
 );
