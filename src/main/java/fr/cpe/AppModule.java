@@ -15,7 +15,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import fr.cpe.bus.BusProxy;
-import fr.cpe.service.HelloService;
+import fr.cpe.service.GameMessageService;
 
 import java.util.logging.Logger;
 
@@ -71,15 +71,15 @@ public class AppModule extends AbstractModule {
     }
 
     /**
-     * Provides the HelloService as a BusProxy that sends calls over Web PubSub.
+     * Provides the GameMessageService as a BusProxy that sends calls over Web PubSub.
      *
      * @param publisher the WebPubSubServiceClient to use for publishing
-     * @return a proxy implementation of HelloService
+     * @return a proxy implementation of GameMessageService
      */
     @Provides
     @Singleton
-    public HelloService provideHelloService(WebPubSubServiceClient publisher) {
-        return BusProxy.create(HelloService.class, publisher);
+    public GameMessageService provideGameMessageService(WebPubSubServiceClient publisher) {
+        return BusProxy.create(GameMessageService.class, publisher);
     }
 
     private static final Logger LOGGER = Logger.getLogger(AppModule.class.getName());
