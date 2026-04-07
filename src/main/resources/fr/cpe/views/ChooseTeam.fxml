@@ -21,7 +21,12 @@
                 <padding>
                     <Insets left="20.0" right="20.0" />
                 </padding>
-                <ListView fx:id="pokemonListView" HBox.hgrow="ALWAYS" styleClass="pokemon-list" />
+                <TableView fx:id="pokemonTableView" HBox.hgrow="ALWAYS" styleClass="pokemon-table">
+                    <columns>
+                        <TableColumn text="Nom" prefWidth="120.0" fx:id="nomColumn" />
+                        <TableColumn text="Type(s)" prefWidth="120.0" fx:id="typeColumn" />
+                    </columns>
+                </TableView>
                 <TextArea fx:id="pokemonDescriptionArea" editable="false" prefWidth="430.0" promptText="Cliquez sur un pokémon pour afficher sa description." wrapText="true" styleClass="pokemon-description" />
             </HBox>
         </center>

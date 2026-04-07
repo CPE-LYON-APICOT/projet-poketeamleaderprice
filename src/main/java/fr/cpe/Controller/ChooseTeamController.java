@@ -3,27 +3,25 @@ package fr.cpe.Controller;
 import fr.cpe.dao.PokemonDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
+import fr.cpe.model.StatType;
+import fr.cpe.model.Type;
 import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ChooseTeamController {
-    public Button hostGameButton;
-    public Button joinGameButton;
     public TextField playerNameField;
     public Button teamSlot1;
     public Button teamSlot2;
@@ -32,7 +30,15 @@ public class ChooseTeamController {
     public Button teamSlot5;
     public Button teamSlot6;
 
-    public ListView<Pokemon> pokemonListView;
+    public TableView<Pokemon> pokemonTableView;
+    public TableColumn<Pokemon, String> nomColumn;
+    public TableColumn<Pokemon, String> typeColumn;
+    public TableColumn<Pokemon, Integer> hpColumn;
+    public TableColumn<Pokemon, Integer> attackColumn;
+    public TableColumn<Pokemon, Integer> defenseColumn;
+    public TableColumn<Pokemon, Integer> spAtkColumn;
+    public TableColumn<Pokemon, Integer> spDefColumn;
+    public TableColumn<Pokemon, Integer> speedColumn;
     public TextArea pokemonDescriptionArea;
 
     private final List<Button> teamSlotButtons = new ArrayList<>();
@@ -53,6 +59,7 @@ public class ChooseTeamController {
     }
 
     public void initialize() {
+        //Boutons de sélections de Team
         teamSlotButtons.addAll(Arrays.asList(teamSlot1, teamSlot2, teamSlot3, teamSlot4, teamSlot5, teamSlot6));
         for (Button slot : teamSlotButtons) {
             slot.setStyle(EMPTY_SLOT_STYLE);
@@ -60,21 +67,26 @@ public class ChooseTeamController {
             slot.setOnAction(e -> addPokemonToTeam(slot));
         }
 
-        List<Pokemon> pokemons = new PokemonDAO().getAll();
-        pokemonListView.setItems(FXCollections.observableArrayList(pokemons));
-        pokemonListView.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(Pokemon pokemon, boolean empty) {
-                super.updateItem(pokemon, empty);
-                if (empty || pokemon == null) {
-                    setText(null);
-                } else {
-                    setText(pokemon.getNom());
-                }
-            }
-        });
+        //Configuration  des colonnes du Sprite
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("Sprite"));
 
-        pokemonListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        // Configuration des colonnes du TableView
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+
+        // Colonnes avec Types
+        typeColumn.setCellValueFactory(cellData ->
+            new javafx.beans.property.SimpleStringProperty(
+                cellData.getValue().getTypes() == null || cellData.getValue().getTypes().isEmpty() ? "N/A"
+                : cellData.getValue().getTypes().stream().map(Type::getNom).collect(Collectors.joining(", "))
+            )
+        );
+
+        // Chargement des pokémons et ajout à la TableView
+        List<Pokemon> pokemons = new PokemonDAO().getAll();
+        pokemonTableView.setItems(FXCollections.observableArrayList(pokemons));
+
+        // Listener pour la sélection d'une ligne
+        pokemonTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             selectedPokemon = newSelection;
             if (newSelection != null) {
                 pokemonDescriptionArea.setText(newSelection.getDescription());
@@ -130,5 +142,4 @@ public class ChooseTeamController {
             e.printStackTrace();
         }
     }
-
 }
