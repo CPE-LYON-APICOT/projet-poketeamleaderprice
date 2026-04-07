@@ -24,7 +24,8 @@ application {
 
 dependencies {
     implementation 'com.google.inject:guice:7.0.0'
-    
+
+    implementation 'org.xerial:sqlite-jdbc:3.46.1.0'
     // Azure Web PubSub (serveur — pour publier)
     implementation 'com.azure:azure-messaging-webpubsub:1.3.0'
     // Azure Web PubSub (client — pour écouter via WebSocket)
