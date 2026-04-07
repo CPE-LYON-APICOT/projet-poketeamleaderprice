@@ -1,4 +1,4 @@
-package fr.cpe.db;
+package fr.cpe.dao;
 
 import java.util.List;
 import java.util.Optional;

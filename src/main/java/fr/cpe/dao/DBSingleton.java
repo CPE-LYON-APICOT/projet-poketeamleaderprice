@@ -1,4 +1,4 @@
-package fr.cpe.db;
+package fr.cpe.dao;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;

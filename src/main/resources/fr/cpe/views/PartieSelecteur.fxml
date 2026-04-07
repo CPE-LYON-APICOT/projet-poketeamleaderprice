@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.cpe.Controller.PartieSelecteurController">
+
+    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <top>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <padding>
+                    <Insets top="16.0" right="16.0" bottom="10.0" left="16.0" />
+                </padding>
+                <Label text="Selection d'une partie" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                <HBox HBox.hgrow="ALWAYS" />
+                <Button fx:id="refreshButton" text="Rafraichir" />
+            </HBox>
+        </top>
+
+        <center>
+            <VBox spacing="8.0">
+                <padding>
+                    <Insets top="6.0" right="16.0" bottom="12.0" left="16.0" />
+                </padding>
+                <Label text="Parties hebergees disponibles :" />
+                <ListView fx:id="hostedGamesListView" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </center>
+
+        <bottom>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                <padding>
+                    <Insets top="8.0" right="16.0" bottom="16.0" left="16.0" />
+                </padding>
+                <Button fx:id="cancelButton" text="Retour" />
+                <Button fx:id="joinButton" text="Rejoindre" />
+            </HBox>
+        </bottom>
+    </BorderPane>
 
 </AnchorPane>
