@@ -49,11 +49,10 @@ public class IndexController
 
     public void pressLeftButton(ActionEvent event)
     {
-        System.out.println("pressLeftButton");
-
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
+            System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -46,7 +46,7 @@ SELECT id INTO @synchrono_id FROM AbiliteIds WHERE name = 'Synchrono';
 
 -- Insertion des Pokémon de Bublizarre à Raichu
 INSERT INTO Pokemon (name, hp, attack, special_attack, defense, defense_special, speed, imageFacePath, imageDosPath, imageSpritePath, description, abilityId) VALUES
-('Bublizarre', 80, 82, 110, 100, 100, 40, 'path/to/bublizarre_face.png', 'path/to/bublizarre_dos.png', 'path/to/bublizarre_sprite.png', 'Description de Bublizarre', (SELECT id FROM Abilite WHERE name = 'Chlorophylle')),
+('Bublizarre', 80, 82, 110, 100, 100, 40, 'fr/cpe/sprite/Face/bublizarre.png', 'path/to/bublizarre_dos.png', 'path/to/bublizarre_sprite.png', 'Description de Bublizarre', (SELECT id FROM Abilite WHERE name = 'Chlorophylle')),
 ('Abo', 45, 90, 60, 65, 30, 65, 'path/to/abo_face.png', 'path/to/abo_dos.png', 'path/to/abo_sprite.png', 'Description de Abo', (SELECT id FROM Abilite WHERE name = 'Synchrono')),
 ('Raflepia', 70, 110, 65, 80, 80, 95, 'path/to/raflepia_face.png', 'path/to/raflepia_dos.png', 'path/to/raflepia_sprite.png', 'Description de Raflepia', (SELECT id FROM Abilite WHERE name = 'Synchrono')),
 ('Arbok', 60, 95, 65, 69, 80, 80, 'path/to/arbok_face.png', 'path/to/arbok_dos.png', 'path/to/arbok_sprite.png', 'Description de Arbok', (SELECT id FROM Abilite WHERE name = 'Synchrono')),

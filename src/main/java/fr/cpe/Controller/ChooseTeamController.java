@@ -1,6 +1,6 @@
 package fr.cpe.Controller;
 
-import fr.cpe.dao.PokemonDAO;
+import fr.cpe.db.PokemonDAO;
 import fr.cpe.model.Pokemon;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
@@ -30,8 +30,17 @@ public class ChooseTeamController {
     private final List<Button> teamSlotButtons = new ArrayList<>();
     private Pokemon selectedPokemon;
 
+    private Dresseur dresseur;
+
     private static final String EMPTY_SLOT_STYLE = "-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #2a75bb; -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%); -fx-border-color: #2a75bb; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;";
     private static final String FILLED_SLOT_STYLE = "-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3b82f6 0%, #1d4ed8 100%); -fx-border-color: #facc15; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;";
+
+
+    public void setDresseur(Dresseur dresseur)
+    {
+        this.dresseur =  dresseur;
+        initialize();
+    }
 
     public void initialize() {
         teamSlotButtons.addAll(Arrays.asList(teamSlot1, teamSlot2, teamSlot3, teamSlot4, teamSlot5, teamSlot6));
@@ -79,4 +88,11 @@ public class ChooseTeamController {
         }
         return null;
     }
+
+    public void changeDresseurNom(ActionEvent actionEvent) {
+        String newnom = playerNameField.getText();
+        dresseur.setNom(newnom);
+
+    }
+
 }
