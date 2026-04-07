@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import fr.cpe.model.Stade;
-import fr.cpe.model.Type;
 
 public class StadeDAO implements IDAO<Stade> {
 

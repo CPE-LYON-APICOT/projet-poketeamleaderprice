@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import fr.cpe.model.Abilite;
 import fr.cpe.model.Attaque;
 import fr.cpe.model.Pokemon;
 import fr.cpe.model.StatType;
@@ -17,7 +16,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
 
     @Override
     public Optional<Pokemon> get(int id) {
-        String sql = "SELECT * FROM pokemon WHERE id = ?";
+        String sql = "SELECT * FROM Pokemon WHERE id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
@@ -44,7 +43,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
                     rs.getString("imageDosPath"),
                     rs.getString("imageSpritePath"),
                     rs.getString("description"),
-                    this.getAbility(rs.getInt("abilityId"))
+                    new AbiliteDAO().get(rs.getInt("abilityId")).orElse(null)
                 );
                 return Optional.of(pokemon);
             }
@@ -56,7 +55,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
 
     @Override
     public List<Pokemon> getAll() {
-        String sql = "SELECT * FROM pokemon";
+        String sql = "SELECT * FROM Pokemon";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
@@ -83,7 +82,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
                     rs.getString("imageDosPath"),
                     rs.getString("imageSpritePath"),
                     rs.getString("description"),
-                    this.getAbility(rs.getInt("abilityId"))
+                    new AbiliteDAO().get(rs.getInt("abilityId")).orElse(null)
                 ));
             }
             return pokemonList;
@@ -183,25 +182,5 @@ public class PokemonDAO implements IDAO<Pokemon> {
             e.printStackTrace();
             return new Attaque[0];
         }
-    }
-
-    private Abilite getAbility(int abilityId) {
-        String sql = "SELECT * FROM abilite WHERE id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, abilityId);
-            var rs = stmt.executeQuery();
-            if (rs.next()) {
-                return new Abilite(
-                    rs.getString("index"),
-                    rs.getString("name")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

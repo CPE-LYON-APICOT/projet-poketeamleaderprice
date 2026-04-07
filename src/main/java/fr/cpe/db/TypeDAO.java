@@ -11,7 +11,7 @@ public class TypeDAO implements IDAO<Type> {
 
     @Override
     public Optional<Type> get(int id) {
-        String sql = "SELECT * FROM type WHERE id = ?";
+        String sql = "SELECT * FROM Type WHERE id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
@@ -33,7 +33,7 @@ public class TypeDAO implements IDAO<Type> {
 
     @Override
     public List<Type> getAll() {
-        String sql = "SELECT * FROM type";
+        String sql = "SELECT * FROM Type";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql);
@@ -72,7 +72,7 @@ public class TypeDAO implements IDAO<Type> {
     }
 
     public List<Type> getFaiblesses(int int1) {
-        String sql = "SELECT * FROM type, type_type_faiblesses tt join on type.id = tt.type_id WHERE tt.type_id = ?";
+        String sql = "SELECT * FROM Type, Type_Type_Faiblesses tt join on Type.id = tt.type_id WHERE tt.type_id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
@@ -94,7 +94,7 @@ public class TypeDAO implements IDAO<Type> {
     }
 
     public List<Type> getAvantages(int int1) {
-        String sql = "SELECT * FROM type, type_type_avantages tt join on type.id = tt.type_id WHERE tt.type_id = ?";
+        String sql = "SELECT * FROM Type, Type_Type_Avantages tt join on Type.id = tt.type_id WHERE tt.type_id = ?";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
