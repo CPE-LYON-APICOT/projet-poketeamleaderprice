@@ -16,9 +16,7 @@
 
         <!-- LOGO -->
         <ImageView fitWidth="650" preserveRatio="true">
-            <image>
-                <Image url="@../assets/assets/logo.png"/>
-            </image>
+            <Image url="@../assets/logo.png"/>
         </ImageView>
 
         <!-- MENU BUTTONS -->
