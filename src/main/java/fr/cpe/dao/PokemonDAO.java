@@ -56,7 +56,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
 
     @Override
     public List<Pokemon> getAll() {
-        String sql = "SELECT * FROM pokemon";
+        String sql = "SELECT * FROM Pokemon";
         try (
             var cnx = DBSingleton.getInstance().getConnection();
             var stmt = cnx.prepareStatement(sql)
