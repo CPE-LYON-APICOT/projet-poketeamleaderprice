@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import fr.cpe.AppModule;
 import fr.cpe.service.GameMessageService;
-import fr.cpe.service.HelloServiceImpl;
+import fr.cpe.service.GameMessageServiceImpl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,29 +18,28 @@ import java.util.logging.Logger;
  * Call {@link #start()} to begin listening for messages and {@link #stop()}
  * to clean up when the application shuts down.
  */
-
 @Singleton
 public class OnlineInitializer {
 
     private static final Logger LOGGER = Logger.getLogger(OnlineInitializer.class.getName());
     private static final String HUB = "game";
 
-    private final HelloService helloService;
-    private final HelloServiceImpl helloServiceImpl;
+    private final GameMessageService GameMessageService;
+    private final GameMessageServiceImpl GameMessageServiceImpl;
     private MethodCallHandler handler;
     private boolean connected = false;
 
     @Inject
-    public OnlineInitializer(HelloService helloService, HelloServiceImpl helloServiceImpl) {
-        this.helloService = helloService;
-        this.helloServiceImpl = helloServiceImpl;
+    public OnlineInitializer(GameMessageService GameMessageService, GameMessageServiceImpl GameMessageServiceImpl) {
+        this.GameMessageService = GameMessageService;
+        this.GameMessageServiceImpl = GameMessageServiceImpl;
     }
 
     /**
      * Starts the online infrastructure:
      * <ol>
      *   <li>Creates a MethodCallHandler to listen for remote calls</li>
-     *   <li>Registers the HelloServiceImpl implementation</li>
+     *   <li>Registers the GameMessageServiceImpl implementation</li>
      *   <li>Sends a test message to demonstrate the bus</li>
      * </ol>
      */
@@ -53,11 +52,11 @@ public class OnlineInitializer {
 
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
-            handler.register(HelloService.class, helloServiceImpl);
+            handler.register(GameMessageService.class, GameMessageServiceImpl);
             handler.start();
 
             // Send a test message via the proxy
-            helloService.sayHello("Hello depuis JavaFX !");
+            GameMessageService.saySearching();
             connected = true;
 
             LOGGER.info("Online infrastructure started successfully");
