@@ -1,6 +1,8 @@
 package fr.cpe.dao;
 
-import java.sql.SQLException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,40 +16,27 @@ import fr.cpe.model.Type;
 
 public class PokemonDAO implements IDAO<Pokemon> {
 
+    private JSONManager jsonManager;
+    private TypeDAO typeDAO;
+    private AttaqueDAO attaqueDAO;
+    private AbiliteDAO abiliteDAO;
+
+    public PokemonDAO() {
+        this.jsonManager = DBSingleton.getInstance().getJSONManager();
+        this.typeDAO = new TypeDAO();
+        this.attaqueDAO = new AttaqueDAO();
+        this.abiliteDAO = new AbiliteDAO();
+    }
+
     @Override
     public Optional<Pokemon> get(int id) {
-        String sql = "SELECT * FROM Pokemon WHERE id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, id);
-            var rs = stmt.executeQuery();
-            if (rs.next()) {
-                Map<StatType, Integer> stats = new HashMap<StatType, Integer>() {{
-                    put(StatType.Atk, rs.getInt("attack"));
-                    put(StatType.AtkSpe, rs.getInt("special_attack"));
-                    put(StatType.Def, rs.getInt("defense"));
-                    put(StatType.DefSpe, rs.getInt("special_defense"));
-                    put(StatType.Spd, rs.getInt("speed"));
-                }};
-                Pokemon pokemon = new Pokemon(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    this.getTypes(rs.getInt("id")),
-                    this.getLesAttaquesDisponibles(rs.getInt("id")),
-                    this.getLesAttaquesPrises(rs.getInt("id")),
-                    rs.getInt("hp"),
-                    stats,
-                    rs.getString("imageFacePath"),
-                    rs.getString("imageDosPath"),
-                    rs.getString("imageSpritePath"),
-                    rs.getString("description"),
-                    new AbiliteDAO().get(rs.getInt("abilityId")).orElse(null)
-                );
+        try {
+            JsonNode node = jsonManager.getObjectById("pokemons", id);
+            if (node != null) {
+                Pokemon pokemon = buildPokemonFromNode(node);
                 return Optional.of(pokemon);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return Optional.empty();
@@ -55,132 +44,182 @@ public class PokemonDAO implements IDAO<Pokemon> {
 
     @Override
     public List<Pokemon> getAll() {
-        String sql = "SELECT * FROM Pokemon";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            var rs = stmt.executeQuery();
-            List<Pokemon> pokemonList = new ArrayList<>();
-            while(rs.next()) {
-                Map<StatType, Integer> stats = new HashMap<StatType, Integer>() {{
-                    put(StatType.Atk, rs.getInt("attack"));
-                    put(StatType.AtkSpe, rs.getInt("special_attack"));
-                    put(StatType.Def, rs.getInt("defense"));
-                    put(StatType.DefSpe, rs.getInt("special_defense"));
-                    put(StatType.Spd, rs.getInt("speed"));
-                }};
-                pokemonList.add(new Pokemon(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    this.getTypes(rs.getInt("id")),
-                    this.getLesAttaquesDisponibles(rs.getInt("id")),
-                    this.getLesAttaquesPrises(rs.getInt("id")),
-                    rs.getInt("hp"),
-                    stats,
-                    rs.getString("imageFacePath"),
-                    rs.getString("imageDosPath"),
-                    rs.getString("imageSpritePath"),
-                    rs.getString("description"),
-                    new AbiliteDAO().get(rs.getInt("abilityId")).orElse(null)
-                ));
+        List<Pokemon> pokemonList = new ArrayList<>();
+        try {
+            var array = jsonManager.getArray("pokemons");
+            for (JsonNode node : array) {
+                pokemonList.add(buildPokemonFromNode(node));
             }
-            return pokemonList;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
+        }
+        return pokemonList;
+    }
+
+    @Override
+    public void save(Pokemon pokemon) {
+        try {
+            ObjectNode node = jsonManager.getObjectMapper().createObjectNode();
+            node.put("id", pokemon.getNum_Poke());
+            node.put("name", pokemon.getNom());
+            node.put("hp", pokemon.getHp());
+            node.put("imageFacePath", pokemon.getImage_face());
+            node.put("imageDosPath", pokemon.getImage_dos());
+            node.put("imageSpritePath", pokemon.getSprite());
+            node.put("description", pokemon.getDescription());
+            
+            // Store ability ID
+            if (pokemon.getAbility() != null) {
+                node.put("abilityId", pokemon.getAbility().getId());
+            } else {
+                node.put("abilityId", 0);
+            }
+            
+            // Store types as array of IDs
+            ArrayNode typesArray = jsonManager.getObjectMapper().createArrayNode();
+            for (Type type : pokemon.getTypes()) {
+                typesArray.add(type.getId());
+            }
+            node.set("types", typesArray);
+            
+            // Store available attacks as array of IDs
+            ArrayNode availableAttacksArray = jsonManager.getObjectMapper().createArrayNode();
+            for (Attaque attack : pokemon.getLesattaquesdisponibles()) {
+                availableAttacksArray.add(attack.getId());
+            }
+            node.set("availableAttacks", availableAttacksArray);
+            
+            // Store learned attacks as array of IDs
+            ArrayNode learnedAttacksArray = jsonManager.getObjectMapper().createArrayNode();
+            for (Attaque attack : pokemon.getLesattaquesprises()) {
+                learnedAttacksArray.add(attack.getId());
+            }
+            node.set("learnedAttacks", learnedAttacksArray);
+            
+            // Store stats
+            ObjectNode statsNode = jsonManager.getObjectMapper().createObjectNode();
+            for (Map.Entry<StatType, Integer> entry : pokemon.getStats().entrySet()) {
+                statsNode.put(entry.getKey().toString(), entry.getValue());
+            }
+            node.set("stats", statsNode);
+            
+            jsonManager.saveObject("pokemons", node);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void save(Pokemon t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public void update(Pokemon pokemon, String[] params) {
+        save(pokemon);
     }
 
     @Override
-    public void update(Pokemon t, String[] params) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
-
-    @Override
-    public void delete(Pokemon t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-    }
-
-    private List<Type> getTypes(int pokemonId) {
-        String sql = "SELECT * FROM type, pokemon, pokemon_type pt join on type.id = pt.type_id WHERE pt.pokemon_id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, pokemonId);
-            var rs = stmt.executeQuery();
-            List<Type> pokemonList = new ArrayList<>();
-            while(rs.next()) {
-                pokemonList.add(new Type(
-                    rs.getInt("index"),
-                    rs.getString("name")
-                ));
-            }
-            return pokemonList;
-        } catch (SQLException e) {
+    public void delete(Pokemon pokemon) {
+        try {
+            jsonManager.deleteObject("pokemons", pokemon.getNum_Poke());
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
         }
     }
 
-    private Attaque[] getLesAttaquesDisponibles(int pokemonId) {
-        String sql = "SELECT * FROM type, pokemon, pokemon_type pt join on type.id = pt.type_id WHERE pt.pokemon_id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, pokemonId);
-            var rs = stmt.executeQuery();
-            List<Attaque> attaqueList = new ArrayList<>();
-            while(rs.next()) {
-                attaqueList.add(new Attaque(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getInt("power"),
-                    rs.getInt("accuracy"),
-                    rs.getInt("pp"),
-                    new TypeDAO().get(rs.getInt("type_id")).orElseThrow()
-                ));
-            }
-            return attaqueList.toArray(new Attaque[0]);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new Attaque[0];
+    /**
+     * Build a Pokemon object from a JSON node
+     */
+    private Pokemon buildPokemonFromNode(JsonNode node) {
+        int id = node.get("id").asInt();
+        String name = node.get("name").asText();
+        int hp = node.get("hp").asInt();
+        String imageFace = node.get("imageFacePath").asText();
+        String imageDos = node.get("imageDosPath").asText();
+        String sprite = node.get("imageSpritePath").asText();
+        String description = node.get("description").asText();
+        
+        // Get types
+        List<Type> types = getTypes(id, node);
+        
+        // Get available attacks
+        Attaque[] availableAttacks = getLesAttaquesDisponibles(id, node);
+        
+        // Get learned attacks
+        Attaque[] learnedAttacks = getLesAttaquesPrises(id, node);
+        
+        // Get ability
+        int abilityId = node.has("abilityId") ? node.get("abilityId").asInt() : 0;
+        var ability = abilityId > 0 ? abiliteDAO.get(abilityId).orElse(null) : null;
+        
+        // Get stats
+        Map<StatType, Integer> stats = new HashMap<>();
+        if (node.has("stats")) {
+            JsonNode statsNode = node.get("stats");
+            if (statsNode.has("Atk")) stats.put(StatType.Atk, statsNode.get("Atk").asInt());
+            if (statsNode.has("AtkSpe")) stats.put(StatType.AtkSpe, statsNode.get("AtkSpe").asInt());
+            if (statsNode.has("Def")) stats.put(StatType.Def, statsNode.get("Def").asInt());
+            if (statsNode.has("DefSpe")) stats.put(StatType.DefSpe, statsNode.get("DefSpe").asInt());
+            if (statsNode.has("Spd")) stats.put(StatType.Spd, statsNode.get("Spd").asInt());
         }
+        
+        return new Pokemon(id, name, types, availableAttacks, learnedAttacks, hp, stats, 
+                          imageFace, imageDos, sprite, description, ability);
     }
 
-    private Attaque[] getLesAttaquesPrises(int pokemonId) {
-        String sql = "SELECT * FROM attaque, pokemon, pokemon_attaque pa join on attaque.id = pa.attaque_id WHERE pa.pokemon_id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, pokemonId);
-            var rs = stmt.executeQuery();
-            List<Attaque> attaqueList = new ArrayList<>();
-            while(rs.next()) {
-                attaqueList.add(new Attaque(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getInt("power"),
-                    rs.getInt("accuracy"),
-                    rs.getInt("pp"),
-                    new TypeDAO().get(rs.getInt("type_id")).orElseThrow()
-                ));
+    /**
+     * Get types for a Pokemon from the node
+     */
+    private List<Type> getTypes(int pokemonId, JsonNode node) {
+        List<Type> types = new ArrayList<>();
+        try {
+            if (node.has("types") && node.get("types").isArray()) {
+                ArrayNode typesArray = (ArrayNode) node.get("types");
+                for (JsonNode typeIdNode : typesArray) {
+                    int typeId = typeIdNode.asInt();
+                    Optional<Type> type = typeDAO.get(typeId);
+                    type.ifPresent(types::add);
+                }
             }
-            return attaqueList.toArray(new Attaque[0]);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return new Attaque[0];
         }
+        return types;
+    }
+
+    /**
+     * Get available attacks for a Pokemon from the node
+     */
+    private Attaque[] getLesAttaquesDisponibles(int pokemonId, JsonNode node) {
+        List<Attaque> attaques = new ArrayList<>();
+        try {
+            if (node.has("availableAttacks") && node.get("availableAttacks").isArray()) {
+                ArrayNode attacksArray = (ArrayNode) node.get("availableAttacks");
+                for (JsonNode attackIdNode : attacksArray) {
+                    int attackId = attackIdNode.asInt();
+                    Optional<Attaque> attack = attaqueDAO.get(attackId);
+                    attack.ifPresent(attaques::add);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return attaques.toArray(new Attaque[0]);
+    }
+
+    /**
+     * Get learned attacks for a Pokemon from the node
+     */
+    private Attaque[] getLesAttaquesPrises(int pokemonId, JsonNode node) {
+        List<Attaque> attaques = new ArrayList<>();
+        try {
+            if (node.has("learnedAttacks") && node.get("learnedAttacks").isArray()) {
+                ArrayNode attacksArray = (ArrayNode) node.get("learnedAttacks");
+                for (JsonNode attackIdNode : attacksArray) {
+                    int attackId = attackIdNode.asInt();
+                    Optional<Attaque> attack = attaqueDAO.get(attackId);
+                    attack.ifPresent(attaques::add);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return attaques.toArray(new Attaque[0]);
     }
 }

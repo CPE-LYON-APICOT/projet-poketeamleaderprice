@@ -1,5 +1,7 @@
 package fr.cpe.dao;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,30 +13,32 @@ import fr.cpe.model.StatType;
 
 public class EffectItemDAO implements IDAO<EffectItem> {
 
+    private JSONManager jsonManager;
+
+    public EffectItemDAO() {
+        this.jsonManager = DBSingleton.getInstance().getJSONManager();
+    }
+
     @Override
     public Optional<EffectItem> get(int id) {
-        String sql = "SELECT * FROM EffectItem WHERE id = ?";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, id);
-            var rs = stmt.executeQuery();
-            if (rs.next()) {
-                Map<StatType, Integer> stats = new HashMap<StatType, Integer>() {{
-                    put(StatType.Atk, rs.getInt("attack"));
-                    put(StatType.AtkSpe, rs.getInt("special_attack"));
-                    put(StatType.Def, rs.getInt("defense"));
-                    put(StatType.DefSpe, rs.getInt("special_defense"));
-                    put(StatType.Spd, rs.getInt("speed"));
-                }};
-                EffectItem EffectItem = new EffectItem(
-                    rs.getInt("id"),
-                    rs.getString("name"),
+        try {
+            JsonNode node = jsonManager.getObjectById("effectItems", id);
+            if (node != null) {
+                Map<StatType, Integer> stats = new HashMap<>();
+                if (node.has("affectedStat")) {
+                    JsonNode statsNode = node.get("affectedStat");
+                    if (statsNode.has("Atk")) stats.put(StatType.Atk, statsNode.get("Atk").asInt());
+                    if (statsNode.has("AtkSpe")) stats.put(StatType.AtkSpe, statsNode.get("AtkSpe").asInt());
+                    if (statsNode.has("Def")) stats.put(StatType.Def, statsNode.get("Def").asInt());
+                    if (statsNode.has("DefSpe")) stats.put(StatType.DefSpe, statsNode.get("DefSpe").asInt());
+                    if (statsNode.has("Spd")) stats.put(StatType.Spd, statsNode.get("Spd").asInt());
+                }
+                EffectItem effectItem = new EffectItem(
+                    node.get("id").asInt(),
+                    node.get("nom").asText(),
                     stats
-
                 );
-                return Optional.of(EffectItem);
+                return Optional.of(effectItem);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,50 +48,61 @@ public class EffectItemDAO implements IDAO<EffectItem> {
 
     @Override
     public List<EffectItem> getAll() {
-        String sql = "SELECT * FROM EffectItem";
-        try (
-            var cnx = DBSingleton.getInstance().getConnection();
-            var stmt = cnx.prepareStatement(sql);
-            var rs = stmt.executeQuery()
-        ) {
-             List<EffectItem> itemList = new ArrayList<>();
-             while(rs.next()) {
-                Map<StatType, Integer> stats = new HashMap<StatType, Integer>() {{
-                    put(StatType.Atk, rs.getInt("attack"));
-                    put(StatType.AtkSpe, rs.getInt("special_attack"));
-                    put(StatType.Def, rs.getInt("defense"));
-                    put(StatType.DefSpe, rs.getInt("special_defense"));
-                    put(StatType.Spd, rs.getInt("speed"));
-                }};
-                 itemList.add(new EffectItem(
-                    rs.getInt("id"),
-                    rs.getString("name"),
+        List<EffectItem> itemList = new ArrayList<>();
+        try {
+            var array = jsonManager.getArray("effectItems");
+            for (JsonNode node : array) {
+                Map<StatType, Integer> stats = new HashMap<>();
+                if (node.has("affectedStat")) {
+                    JsonNode statsNode = node.get("affectedStat");
+                    if (statsNode.has("Atk")) stats.put(StatType.Atk, statsNode.get("Atk").asInt());
+                    if (statsNode.has("AtkSpe")) stats.put(StatType.AtkSpe, statsNode.get("AtkSpe").asInt());
+                    if (statsNode.has("Def")) stats.put(StatType.Def, statsNode.get("Def").asInt());
+                    if (statsNode.has("DefSpe")) stats.put(StatType.DefSpe, statsNode.get("DefSpe").asInt());
+                    if (statsNode.has("Spd")) stats.put(StatType.Spd, statsNode.get("Spd").asInt());
+                }
+                itemList.add(new EffectItem(
+                    node.get("id").asInt(),
+                    node.get("nom").asText(),
                     stats
                 ));
-             }
-             return itemList;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return List.of();
+        return itemList;
     }
 
     @Override
-    public void save(EffectItem t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public void save(EffectItem item) {
+        try {
+            ObjectNode node = jsonManager.getObjectMapper().createObjectNode();
+            node.put("id", item.getId());
+            node.put("nom", item.getNom());
+            
+            ObjectNode statsNode = jsonManager.getObjectMapper().createObjectNode();
+            for (Map.Entry<StatType, Integer> entry : item.getAffectedStat().entrySet()) {
+                statsNode.put(entry.getKey().toString(), entry.getValue());
+            }
+            node.set("affectedStat", statsNode);
+            
+            jsonManager.saveObject("effectItems", node);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void update(EffectItem t, String[] params) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public void update(EffectItem item, String[] params) {
+        save(item);
     }
 
     @Override
-    public void delete(EffectItem t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public void delete(EffectItem item) {
+        try {
+            jsonManager.deleteObject("effectItems", item.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }
