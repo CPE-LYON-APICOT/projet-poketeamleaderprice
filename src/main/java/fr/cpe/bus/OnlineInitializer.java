@@ -3,9 +3,7 @@ package fr.cpe.bus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import fr.cpe.AppModule;
-import fr.cpe.service.GameMessageService;
-import fr.cpe.service.GameMessageServiceImpl;
-
+import fr.cpe.service.PartieService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,22 +22,20 @@ public class OnlineInitializer {
     private static final Logger LOGGER = Logger.getLogger(OnlineInitializer.class.getName());
     private static final String HUB = "game";
 
-    private final GameMessageService GameMessageService;
-    private final GameMessageServiceImpl GameMessageServiceImpl;
+    private PartieService PartieService;
     private MethodCallHandler handler;
     private boolean connected = false;
 
     @Inject
-    public OnlineInitializer(GameMessageService GameMessageService, GameMessageServiceImpl GameMessageServiceImpl) {
-        this.GameMessageService = GameMessageService;
-        this.GameMessageServiceImpl = GameMessageServiceImpl;
+    public OnlineInitializer(PartieService PartieService) {
+        this.PartieService = PartieService;
     }
 
     /**
      * Starts the online infrastructure:
      * <ol>
      *   <li>Creates a MethodCallHandler to listen for remote calls</li>
-     *   <li>Registers the GameMessageServiceImpl implementation</li>
+     *   <li>Registers the PartieServiceImpl implementation</li>
      *   <li>Sends a test message to demonstrate the bus</li>
      * </ol>
      */
@@ -52,11 +48,9 @@ public class OnlineInitializer {
 
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
-            handler.register(GameMessageService.class, GameMessageServiceImpl);
+            handler.register(PartieService.class, PartieService);
             handler.start();
 
-            // Send a test message via the proxy
-            GameMessageService.saySearching();
             connected = true;
 
             LOGGER.info("Online infrastructure started successfully");

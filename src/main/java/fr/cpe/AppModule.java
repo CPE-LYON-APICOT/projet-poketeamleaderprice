@@ -15,7 +15,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import fr.cpe.bus.BusProxy;
-import fr.cpe.service.GameMessageService;
+import fr.cpe.service.PartieService;
 
 import java.util.logging.Logger;
 
@@ -46,6 +46,7 @@ import java.util.logging.Logger;
 public class AppModule extends AbstractModule {
 
     private static final String DEFAULT_HUB = "game";
+    //private static final Logger LOGGER = Logger.getLogger(AppModule.class.getName());
 
     @Override
     protected void configure() {
@@ -71,18 +72,16 @@ public class AppModule extends AbstractModule {
     }
 
     /**
-     * Provides the GameMessageService as a BusProxy that sends calls over Web PubSub.
+     * Provides the PartieService as a BusProxy that sends calls over Web PubSub.
      *
      * @param publisher the WebPubSubServiceClient to use for publishing
-     * @return a proxy implementation of GameMessageService
+     * @return a proxy implementation of PartieService
      */
     @Provides
     @Singleton
-    public GameMessageService provideGameMessageService(WebPubSubServiceClient publisher) {
-        return BusProxy.create(GameMessageService.class, publisher);
+    public PartieService providePartieService(WebPubSubServiceClient publisher) {
+        return BusProxy.create(PartieService.class, publisher);
     }
-
-    private static final Logger LOGGER = Logger.getLogger(AppModule.class.getName());
 
     /**
      * Gets the Azure Web PubSub connection string from environment or default.
@@ -95,7 +94,7 @@ public class AppModule extends AbstractModule {
             return envValue;
         }
         // Warning: Using test configuration - should set AZURE_WEBPUBSUB_CONNECTION_STRING in production
-        LOGGER.warning("AZURE_WEBPUBSUB_CONNECTION_STRING not set. Using test configuration that will not work in production.");
+        //LOGGER.warning("AZURE_WEBPUBSUB_CONNECTION_STRING not set. Using test configuration that will not work in production.");
         return "Endpoint=https://projet-poo-pokemon.webpubsub.azure.com;AccessKey=7etYXQBwM6MemPU4tSnfoAxV4ZYYnxu8MCY2s8SSGv3ZEZA9XdnGJQQJ99CCAC5T7U2XJ3w3AAAAAWPSl8V6;Version=1.0;";
     }
 }
