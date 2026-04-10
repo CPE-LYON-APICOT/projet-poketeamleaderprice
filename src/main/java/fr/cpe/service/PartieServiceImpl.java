@@ -1,6 +1,12 @@
 package fr.cpe.service;
 import com.google.inject.Singleton;
 import fr.cpe.App;
+import fr.cpe.bus.commands.AttackCommand;
+import fr.cpe.bus.commands.ChangePokemonCommand;
+import fr.cpe.bus.commands.QuitCommand;
+import fr.cpe.bus.commands.UseItemCommand;
+import fr.cpe.model.Attaque;
+import fr.cpe.model.Pokemon;
 
 /**
  * Implementation of PartieService.
@@ -24,8 +30,8 @@ public class PartieServiceImpl implements PartieService {
     }
 
     @Override
-    public void handleAttack() {
-        this.commandExecutor.execute(new AttackCommand(messageStore));
+    public void handleAttack(Pokemon pokemonAttaquant, Pokemon pokemonVise, Attaque attaque) {
+        this.commandExecutor.execute(new AttackCommand(messageStore, pokemonAttaquant, pokemonVise, attaque));
     }
 
     @Override

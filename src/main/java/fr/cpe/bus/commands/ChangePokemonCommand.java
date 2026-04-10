@@ -1,4 +1,6 @@
-package fr.cpe.service;
+package fr.cpe.bus.commands;
+
+import fr.cpe.service.MessageStore;
 
 /**
  * Command for changing Pokemon.

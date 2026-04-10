@@ -2,6 +2,8 @@ package fr.cpe.service;
 
 import com.google.inject.Singleton;
 
+import fr.cpe.bus.commands.Command;
+
 /**
  * Executor for Command objects.
  * Receives and executes commands sent via the bus.

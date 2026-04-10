@@ -1,4 +1,4 @@
-package fr.cpe.service;
+package fr.cpe.bus.commands;
 
 /**
  * Interface for the Command pattern.
