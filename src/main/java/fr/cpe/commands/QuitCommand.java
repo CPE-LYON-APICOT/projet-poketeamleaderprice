@@ -1,4 +1,4 @@
-package fr.cpe.bus.commands;
+package fr.cpe.commands;
 
 import fr.cpe.service.MessageStore;
 

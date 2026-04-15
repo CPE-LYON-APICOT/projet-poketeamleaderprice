@@ -1,29 +1,28 @@
-package fr.cpe.bus;
+package fr.cpe.observers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import fr.cpe.dao.AttaqueDAO;
 import fr.cpe.model.Attaque;
+import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
-import fr.cpe.service.PartieService;
+import fr.cpe.service.Partie;
 import fr.cpe.service.PartieService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * Observer that converts incoming JSON bus messages into local PartieService mediator calls.
+ * Observer that converts incoming JSON bus messages into local Partie mediator calls.
  */
-public class PartieServiceMessageObserver implements MessageObserver {
+public class PartieServiceMessageObserver extends MessageObserver {
 
-    private static final Logger LOGGER = Logger.getLogger(PartieServiceMessageObserver.class.getName());
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private final Partie partie;
 
-    private final PartieService PartieService;
-
-    public PartieServiceMessageObserver(PartieService PartieService) {
-        this.PartieService = PartieService;
+    public PartieServiceMessageObserver(Partie partie) {
+        this.partie = partie;
     }
 
     @Override
@@ -31,7 +30,7 @@ public class PartieServiceMessageObserver implements MessageObserver {
         try {
             Map<String, Object> message = OBJECT_MAPPER.readValue(json, new TypeReference<Map<String, Object>>() {});
             String interfaceName = (String) message.get("interface");
-            if (interfaceName == null || !interfaceName.equals(PartieService.class.getName())) {
+            if (interfaceName == null || !interfaceName.equals(Partie.class.getName())) {
                 return false;
             }
 
@@ -43,22 +42,22 @@ public class PartieServiceMessageObserver implements MessageObserver {
 
             switch (methodName) {
                 case "handleAttack":
-                    if (args.size() != 3) {
+                    if (args.size() != 2) {
                         return false;
                     }
-                    Pokemon attaquant = OBJECT_MAPPER.convertValue(args.get(0), Pokemon.class);
-                    Pokemon vise = OBJECT_MAPPER.convertValue(args.get(1), Pokemon.class);
-                    Attaque attaque = OBJECT_MAPPER.convertValue(args.get(2), Attaque.class);
-                    PartieService.handleAttack(attaquant, vise, attaque);
+                    Optional<Attaque> attaque = new AttaqueDAO().get(OBJECT_MAPPER.convertValue(args.get(1), Integer.class));
+                    this.partie.attack(
+                        this.partie.getDresseurFromId(OBJECT_MAPPER.convertValue(args.get(0), Integer.class)),
+                        attaque.orElseThrow(() -> new IllegalArgumentException("Invalid attack ID: " + args.get(1)))
+                    );
                     return true;
                 case "handleChangePokemon":
-                    PartieService.handleChangePokemon();
                     return true;
                 case "handleUseItem":
-                    PartieService.handleUseItem();
+                    this.partie.useItem();
                     return true;
                 case "handleQuit":
-                    PartieService.handleQuit();
+                    this.partie.quit();
                     return true;
                 default:
                     return false;

@@ -1,13 +1,13 @@
-package fr.cpe.bus.commands;
+package fr.cpe.commands;
 
 import fr.cpe.service.MessageStore;
 
-public class ConnectCommand implements Command {
+public class DisconnectCommand implements Command {
 
     private final String username;
     private MessageStore messageStore;
 
-    public ConnectCommand(MessageStore messageStore, String username) {
+    public DisconnectCommand(MessageStore messageStore, String username) {
         this.messageStore = messageStore;
         this.username = username;
     }
@@ -18,7 +18,7 @@ public class ConnectCommand implements Command {
 
     @Override
     public void execute() {
-        String json = "{\"type\":\"connect\",\"username\":\"" + username + "\"}";
+        String json = "{\"type\":\"disconnect\",\"username\":\"" + username + "\"}";
         this.messageStore.setLastMessage(json);
     }
 

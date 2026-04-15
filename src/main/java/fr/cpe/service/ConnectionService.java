@@ -2,9 +2,9 @@ package fr.cpe.service;
 
 import com.google.inject.Singleton;
 
-import fr.cpe.bus.commands.ConnectCommand;
-import fr.cpe.bus.commands.DisconnectCommand;
-import fr.cpe.bus.commands.HostGameCommand;
+import fr.cpe.commands.ConnectCommand;
+import fr.cpe.commands.DisconnectCommand;
+import fr.cpe.commands.HostGameCommand;
 
 @Singleton
 public class ConnectionService extends CommandService {

@@ -16,7 +16,6 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import fr.cpe.bus.BusProxy;
 import fr.cpe.service.PartieService;
-import fr.cpe.service.PartieService;
 
 import java.util.logging.Logger;
 

@@ -8,7 +8,7 @@ import com.azure.messaging.webpubsub.models.GetClientAccessTokenOptions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.cpe.App;
-import fr.cpe.bus.MessageObserver;
+import fr.cpe.observers.MessageObserver;
 
 import java.lang.reflect.Method;
 import java.util.List;

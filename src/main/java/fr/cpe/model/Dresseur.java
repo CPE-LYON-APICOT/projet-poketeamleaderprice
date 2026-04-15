@@ -6,10 +6,10 @@ import java.util.Map;
 public class Dresseur {
     private Integer index;
     private String nom;
-    private Map<Pokemon, Integer> pokemon;
+    private Map<Integer, Pokemon> pokemon;
     private List<Item> items;
 
-    public Dresseur(Integer index, String nom, Map<Pokemon, Integer> pokemon, List<Item> items) {
+    public Dresseur(Integer index, String nom, Map<Integer, Pokemon> pokemon, List<Item> items) {
         this.index = index;
         this.nom = nom;
         this.pokemon = pokemon;
@@ -35,11 +35,11 @@ public class Dresseur {
         this.nom = nom;
     }
 
-    public Map<Pokemon, Integer> getPokemon() {
+    public Map<Integer, Pokemon> getPokemon() {
         return pokemon;
     }
 
-    public void setPokemon(Map<Pokemon, Integer> pokemon) {
+    public void setPokemon(Map<Integer, Pokemon> pokemon) {
         this.pokemon = pokemon;
     }
 

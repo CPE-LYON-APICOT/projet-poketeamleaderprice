@@ -2,13 +2,14 @@ package fr.cpe.service;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import fr.cpe.bus.MessageObserver;
-import fr.cpe.bus.commands.AttackCommand;
-import fr.cpe.bus.commands.ChangePokemonCommand;
-import fr.cpe.bus.commands.Command;
-import fr.cpe.bus.commands.QuitCommand;
-import fr.cpe.bus.commands.UseItemCommand;
+import fr.cpe.observers.MessageObserver;
+import fr.cpe.commands.AttackCommand;
+import fr.cpe.commands.ChangePokemonCommand;
+import fr.cpe.commands.Command;
+import fr.cpe.commands.QuitCommand;
+import fr.cpe.commands.UseItemCommand;
 import fr.cpe.model.Attaque;
+import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
 
 import java.util.List;
@@ -67,8 +68,8 @@ public class PartieService extends CommandService {
         }
     }
 
-    public void handleAttack(Pokemon pokemonAttaquant, Pokemon pokemonVise, Attaque attaque) {
-        executeCommand(new AttackCommand(this.messageStore, pokemonAttaquant, pokemonVise, attaque));
+    public void handleAttack(Dresseur dresseurAttaquant, Attaque attaque) {
+        executeCommand(new AttackCommand(this.messageStore, dresseurAttaquant, attaque));
     }
 
     public void handleChangePokemon() {
