@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Manages JSON database operations for Pokemon app
+ * Manages JSON database operations for Pokémon app
  * Handles reading and writing data from/to db.json
  */
 public class JSONManager {

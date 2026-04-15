@@ -24,8 +24,8 @@ public class OnlineInitializer {
     private static final Logger LOGGER = Logger.getLogger(OnlineInitializer.class.getName());
     private static final String HUB = "game";
 
-    private PartieService partieService;
-    private Partie partieMediator;
+    private final PartieService partieService;
+    private final Partie partieMediator;
     private MethodCallHandler handler;
     private boolean connected = false;
 

@@ -3,7 +3,6 @@ package fr.cpe.Controller;
 import fr.cpe.dao.PokemonDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
-import fr.cpe.model.StatType;
 import fr.cpe.model.Type;
 import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
@@ -67,7 +66,7 @@ public class ChooseTeamController {
             slot.setOnAction(e -> addPokemonToTeam(slot));
         }
 
-        //Configuration  des colonnes du Sprite
+        //Configuration des colonnes du Sprite
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("Sprite"));
 
         // Configuration des colonnes du TableView
@@ -96,9 +95,9 @@ public class ChooseTeamController {
         });
     }
 
-    private Object addPokemonToTeam(Button slot) {
+    private void addPokemonToTeam(Button slot) {
         if (selectedPokemon == null) {
-            return null;
+            return;
         }
 
         if (slot.getText().equals("+")) {
@@ -108,7 +107,6 @@ public class ChooseTeamController {
             slot.setText("+");
             slot.setStyle(EMPTY_SLOT_STYLE);
         }
-        return null;
     }
 
     public void changeDresseurNom(ActionEvent actionEvent) {
