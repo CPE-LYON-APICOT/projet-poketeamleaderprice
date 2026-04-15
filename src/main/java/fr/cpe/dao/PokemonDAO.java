@@ -16,10 +16,10 @@ import fr.cpe.model.Type;
 
 public class PokemonDAO implements IDAO<Pokemon> {
 
-    private JSONManager jsonManager;
-    private TypeDAO typeDAO;
-    private AttaqueDAO attaqueDAO;
-    private AbiliteDAO abiliteDAO;
+    private final JSONManager jsonManager;
+    private final TypeDAO typeDAO;
+    private final AttaqueDAO attaqueDAO;
+    private final AbiliteDAO abiliteDAO;
 
     public PokemonDAO() {
         this.jsonManager = DBSingleton.getInstance().getJSONManager();
@@ -52,6 +52,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error loading pokemons: " + e.getMessage());
         }
         return pokemonList;
     }

@@ -1,0 +1,27 @@
+.menu-button {
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-width: 4;
+}
+
+.start-button {
+    -fx-font-size: 24px;
+    -fx-background-color: #ffcb05;
+    -fx-border-color: #2a75bb;
+    -fx-text-fill: #2a75bb;
+}
+
+.quit-button {
+    -fx-font-size: 22px;
+    -fx-background-color: #d9534f;
+    -fx-border-color: #7a1f1c;
+    -fx-text-fill: white;
+}
+
+.press-start-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, black, 8, 0.5, 0, 0);
+}
+

@@ -3,11 +3,11 @@ package fr.cpe.bus.commands;
 import fr.cpe.service.MessageStore;
 
 /**
- * Command for changing Pokemon.
+ * Command for changing Pokémon.
  */
 public class ChangePokemonCommand implements Command {
 
-    private MessageStore messageStore;
+    private final MessageStore messageStore;
 
     public ChangePokemonCommand(MessageStore messageStore) {
         this.messageStore = messageStore;

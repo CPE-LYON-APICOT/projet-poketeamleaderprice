@@ -7,7 +7,7 @@ import fr.cpe.service.MessageStore;
  */
 public class QuitCommand implements Command {
 
-    private MessageStore messageStore;
+    private final MessageStore messageStore;
 
     public QuitCommand(MessageStore messageStore) {
         this.messageStore = messageStore;

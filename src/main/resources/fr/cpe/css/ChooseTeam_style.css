@@ -30,6 +30,13 @@
     -fx-text-fill: #2a75bb;
 }
 
+.pokemon-table {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #9dc4ea;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
 .player-name-field {
     -fx-background-radius: 10;
     -fx-border-color: #9dc4ea;
