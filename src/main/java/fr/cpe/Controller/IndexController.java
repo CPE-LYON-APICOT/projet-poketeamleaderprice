@@ -36,7 +36,7 @@ public class IndexController
         String fxmlPath = "/fr/cpe/views/ChooseTeam.fxml";
         String title = "Poke-Cheap - Choisissez vos Pokémon !";
 
-        try {
+        try{
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
