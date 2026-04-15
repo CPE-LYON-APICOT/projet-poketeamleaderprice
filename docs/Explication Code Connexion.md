@@ -33,26 +33,26 @@ dependencies {
 
 ## Classes à créer
 
-### 1. `GameMessageService` (interface)
+### 1. `PartieService` (interface)
 
 Dans le package approprié du projet.
 
 Java
 
 ```
-public interface GameMessageService {
+public interface PartieService {
     void saySearching(String message);
 }
 ```
 
-### 2. `GameMessageServiceImpl` (implémentation réelle)
+### 2. `PartieServiceImpl` (implémentation réelle)
 
-Implémente `GameMessageService`. La méthode `saySearching` écrit simplement dans la console :
+Implémente `PartieService`. La méthode `saySearching` écrit simplement dans la console :
 
 Code
 
 ```
-[GameMessageService] Hello : <message>
+[PartieService] Hello : <message>
 ```
 
 ### 3. `BusProxy`
@@ -69,7 +69,7 @@ Proxy dynamique générique (`InvocationHandler`).
     
     ```
     {
-      "interface":  "com.example.GameMessageService",
+      "interface":  "com.example.PartieService",
       "method":     "saySearching",
       "paramTypes": ["java.lang.String"],
       "args":       ["bonjour"]
@@ -103,7 +103,7 @@ Proxy dynamique générique (`InvocationHandler`).
 
 - Crée un `WebPubSubServiceClient` avec la connection string lue depuis une variable d’environnement `AZURE_WEBPUBSUB_CONNECTION_STRING` (ou une constante en dur pour les tests)
 - Hub name : `"game-events"`
-- Bind `GameMessageService` → `BusProxy.create(GameMessageService.class, publisher)`
+- Bind `PartieService` → `BusProxy.create(PartieService.class, publisher)`
 - Exposer le `WebPubSubServiceClient` en `@Singleton` si nécessaire
 
 ### 6. Intégration dans le point d’entrée (Main ou Application JavaFX)
@@ -116,11 +116,11 @@ Java
 // Démarrer le handler (écoute le bus)
 String sub = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
 MethodCallHandler handler = new MethodCallHandler(CONNECTION_STRING, "game-events");
-handler.register(GameMessageService.class, new GameMessageServiceImpl());
+handler.register(PartieService.class, new PartieServiceImpl());
 handler.start();
 
 // Récupérer le proxy injecté et envoyer un HelloCommand de test
-GameMessageService hello = injector.getInstance(GameMessageService.class);
+PartieService hello = injector.getInstance(PartieService.class);
 hello.saySearching("Hello depuis JavaFX !");
 ```
 
@@ -132,8 +132,8 @@ hello.saySearching("Hello depuis JavaFX !");
 2. Le handler se connecte à Azure Web PubSub via WebSocket
 3. `hello.saySearching("Hello depuis JavaFX !")` est intercepté par le proxy
 4. Le message JSON est envoyé sur Web PubSub
-5. Le handler reçoit le message et invoque `GameMessageServiceImpl.saySearching(...)`
-6. La console affiche : `[GameMessageService] Hello : Hello depuis JavaFX !`
+5. Le handler reçoit le message et invoque `PartieServiceImpl.saySearching(...)`
+6. La console affiche : `[PartieService] Hello : Hello depuis JavaFX !`
 
 ---
 
@@ -143,7 +143,7 @@ hello.saySearching("Hello depuis JavaFX !");
 - Ne pas modifier le module Guice existant — créer un nouveau module `AppModule` et le combiner avec `Modules.combine()` si nécessaire
 - Tout doit compiler avec Java 17+
 - Les primitifs dans `resolveType()` doivent être gérés explicitement car `Class.forName("int")` lève une exception
-- `BusProxy` doit être générique et réutilisable pour n’importe quelle interface, pas seulement `GameMessageService`
+- `BusProxy` doit être générique et réutilisable pour n’importe quelle interface, pas seulement `PartieService`
   
 # Réponse Copilot
   
@@ -234,9 +234,9 @@ Edit build.gradle
 |`   testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'   `|
 |`   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'   `|
 
-Now let me create the `GameMessageService` interface:
+Now let me create the `PartieService` interface:
 
-Create src/main/java/fr/cpe/service/GameMessageService.java
+Create src/main/java/fr/cpe/service/PartieService.java
 
 |Original file line number|Diff line number|Diff line change|
 |---|---|---|
@@ -246,14 +246,14 @@ Create src/main/java/fr/cpe/service/GameMessageService.java
 |`   /**   `|
 |`   * Service interface for distributed hello messaging via Azure Web PubSub.   `|
 |`   */   `|
-|`   public interface GameMessageService {   `|
+|`   public interface PartieService {   `|
 |`   void saySearching(String message);   `|
 |`   }   `|
 ||
 
-Now let me create the `GameMessageServiceImpl`:
+Now let me create the `PartieServiceImpl`:
 
-Create src/main/java/fr/cpe/service/GameMessageServiceImpl.java
+Create src/main/java/fr/cpe/service/PartieServiceImpl.java
 
 |Original file line number|Diff line number|Diff line change|
 |---|---|---|
@@ -261,13 +261,13 @@ Create src/main/java/fr/cpe/service/GameMessageServiceImpl.java
 |`   package fr.cpe.service;   `|
 ||
 |`   /**   `|
-|`   * Implementation of GameMessageService that prints messages to the console.   `|
+|`   * Implementation of PartieService that prints messages to the console.   `|
 |`   */   `|
-|`   public class GameMessageServiceImpl implements GameMessageService {   `|
+|`   public class PartieServiceImpl implements PartieService {   `|
 ||
 |`   @Override   `|
 |`   public void saySearching(String message) {   `|
-|`   System.out.println("[GameMessageService] Hello : " + message);   `|
+|`   System.out.println("[PartieService] Hello : " + message);   `|
 |`   }   `|
 |`   }   `|
 ||
@@ -346,7 +346,7 @@ Create src/main/java/fr/cpe/bus/OnlineModule.java
 |`   import com.google.inject.AbstractModule;   `|
 |`   import com.google.inject.Provides;   `|
 |`   import com.google.inject.Singleton;   `|
-|`   import fr.cpe.service.GameMessageService;   `|
+|`   import fr.cpe.service.PartieService;   `|
 ||
 |`   /**   `|
 |`   * Guice module for online/distributed functionality via Azure Web PubSub.   `|
@@ -369,7 +369,7 @@ But there's already an AppModule. The statement also says to combine with `Modu
 
 Looking at the App.java, I see it creates the injector with `new AppModule()`. Since I cannot modify App.java, I need to modify AppModule to include the online functionality. The constraints say I can modify AppModule (it says "✏️ FICHIER MODIFIABLE").
 
-Let me update the AppModule to integrate the MethodCallHandler and GameMessageService:
+Let me update the AppModule to integrate the MethodCallHandler and PartieService:
 
 Edit src/main/java/fr/cpe/AppModule.java
 
@@ -385,7 +385,7 @@ Edit src/main/java/fr/cpe/AppModule.java
 |`   import com.google.inject.Provides;   `|
 |`   import com.google.inject.Singleton;   `|
 |`   import fr.cpe.bus.BusProxy;   `|
-|`   import fr.cpe.service.GameMessageService;   `|
+|`   import fr.cpe.service.PartieService;   `|
 ||
 |`   /**   `|
 |`   * Module Guice — c'est ici que vous déclarez vos bindings (interface → implémentation).   `|
@@ -427,8 +427,8 @@ Create src/main/java/fr/cpe/bus/OnlineInitializer.java
 |`   import com.google.inject.Inject;   `|
 |`   import com.google.inject.Singleton;   `|
 |`   import fr.cpe.AppModule;   `|
-|`   import fr.cpe.service.GameMessageService;   `|
-|`   import fr.cpe.service.GameMessageServiceImpl;   `|
+|`   import fr.cpe.service.PartieService;   `|
+|`   import fr.cpe.service.PartieServiceImpl;   `|
 ||
 |`   import java.util.logging.Level;   `|
 |`   import java.util.logging.Logger;   `|
@@ -715,7 +715,7 @@ Edit src/main/java/fr/cpe/AppModule.java
 |Original file line number|Diff line number|Diff line change|
 |---|---|---|
 ||   |   |   |
-|`   return BusProxy.create(GameMessageService.class, publisher);   `|
+|`   return BusProxy.create(PartieService.class, publisher);   `|
 |`   }   `|
 ||
 |`   private static final Logger LOGGER = Logger.getLogger(AppModule.class.getName());   `|
@@ -744,7 +744,7 @@ Edit src/main/java/fr/cpe/AppModule.java
 |---|---|---|
 ||   |   |   |
 |`   import fr.cpe.bus.BusProxy;   `|
-|`   import fr.cpe.service.GameMessageService;   `|
+|`   import fr.cpe.service.PartieService;   `|
 ||
 |`   import java.util.logging.Logger;   `|
 ||
@@ -833,8 +833,8 @@ I have successfully implemented the Azure Web PubSub distributed method bus inte
 
 ### New Files Created
 
-1. **`src/main/java/fr/cpe/service/GameMessageService.java`** - Interface for the hello service
-2. **`src/main/java/fr/cpe/service/GameMessageServiceImpl.java`** - Implementation that prints messages to console
+1. **`src/main/java/fr/cpe/service/PartieService.java`** - Interface for the hello service
+2. **`src/main/java/fr/cpe/service/PartieServiceImpl.java`** - Implementation that prints messages to console
 3. **`src/main/java/fr/cpe/bus/BusProxy.java`** - Dynamic proxy that intercepts method calls and sends them over Web PubSub
 4. **`src/main/java/fr/cpe/bus/MethodCallHandler.java`** - Listens to Web PubSub via WebSocket and dispatches method calls
 5. **`src/main/java/fr/cpe/bus/OnlineInitializer.java`** - Helper class to start/stop the online infrastructure
@@ -843,7 +843,7 @@ I have successfully implemented the Azure Web PubSub distributed method bus inte
 ### Modified Files
 
 1. **`build.gradle`** - Added Azure Web PubSub and Jackson dependencies
-2. **`src/main/java/fr/cpe/AppModule.java`** - Added Guice bindings for GameMessageService and WebPubSubServiceClient
+2. **`src/main/java/fr/cpe/AppModule.java`** - Added Guice bindings for PartieService and WebPubSubServiceClient
 3. **`src/main/java/fr/cpe/service/BallService.java`** - Added import for Ball class
 4. **`src/test/java/fr/cpe/AppTest.java`** - Added missing JUnit import
 
@@ -851,7 +851,7 @@ I have successfully implemented the Azure Web PubSub distributed method bus inte
 
 - **BusProxy**: Generic proxy that serializes method calls to JSON and sends them via `sendToAll()`
 - **MethodCallHandler**: Listens for messages, resolves parameter types (including primitives), and invokes implementations via reflection
-- **AppModule**: Provides singleton bindings for WebPubSubServiceClient and GameMessageService (as BusProxy)
+- **AppModule**: Provides singleton bindings for WebPubSubServiceClient and PartieService (as BusProxy)
 - **OnlineInitializer**: Injectable class for managing the bus lifecycle
 
 ### Code Review Fixes Applied

@@ -28,11 +28,6 @@ public class JSONManager {
             Dotenv dotenv = Dotenv.load();
             this.dbPath = dotenv.get("DB_PATH", "db/db.json");
             
-            // If DB_PATH points to a SQLite database, redirect to JSON
-            if (this.dbPath.endsWith(".db") || this.dbPath.endsWith(".sqlite")) {
-                this.dbPath = "db/db.json";
-            }
-            
             loadDatabase();
         } catch (Exception e) {
             System.out.println("Error initializing JSONManager: " + e);

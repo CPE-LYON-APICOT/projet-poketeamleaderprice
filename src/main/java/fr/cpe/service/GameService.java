@@ -69,7 +69,7 @@ public class GameService {
     private static final double WINDOW_HEIGHT = 917.0;
 
     @Inject
-    public GameService(OnlineInitializer onlineInitializer, GameMessageService GameMessageService) {
+    public GameService(OnlineInitializer onlineInitializer, PartieService PartieService) {
         onlineInitializer.start();
     }
 
