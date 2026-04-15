@@ -2,18 +2,18 @@ package fr.cpe.model;
 
 import java.util.List;
 
-public class Partie {
+public class PartieService {
     private String index;
     private List<Dresseur> dresseurs;
     private Stade stade;
 
-    public Partie(String index, List<Dresseur> dresseurs, Stade stade) {
+    public PartieService(String index, List<Dresseur> dresseurs, Stade stade) {
         this.index = index;
         this.dresseurs = dresseurs;
         this.stade = stade;
     }
 
-    public Partie() {
+    public PartieService() {
     }
 
     public String getIndex() {

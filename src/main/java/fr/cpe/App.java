@@ -4,7 +4,7 @@ package fr.cpe;
 // ║                                                                            ║
 // ║   🔒  FICHIER INTERDIT — NE PAS MODIFIER CE FICHIER  🔒                    ║
 // ║                                                                            ║
-// ║   Ce fichier fait partie du socle technique du projet.                      ║
+// ║   Ce fichier fait PartieService du socle technique du projet.                      ║
 // ║   Il gère le démarrage de l'application JavaFX et l'initialisation          ║
 // ║   de l'injecteur Guice.                                                    ║
 // ║                                                                            ║

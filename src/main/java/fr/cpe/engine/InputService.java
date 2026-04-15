@@ -5,7 +5,7 @@ package fr.cpe.engine;
 // ║   🔒  FICHIER INTERDIT — NE PAS MODIFIER CE FICHIER  🔒                    ║
 // ║                                                                            ║
 // ║   Ce service gère les entrées clavier.                                     ║
-// ║   Il fait partie du socle technique.                                       ║
+// ║   Il fait PartieService du socle technique.                                       ║
 // ║                                                                            ║
 // ║   Vous pouvez l'UTILISER (lire les touches, ajouter des observers)         ║
 // ║   mais ne le modifiez pas.                                                 ║

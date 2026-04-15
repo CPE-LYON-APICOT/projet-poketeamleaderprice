@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.cpe.model.Attaque;
 import fr.cpe.model.Pokemon;
-import fr.cpe.service.Partie;
+import fr.cpe.service.PartieService;
 import fr.cpe.service.PartieService;
 
 import java.util.List;
@@ -13,17 +13,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Observer that converts incoming JSON bus messages into local Partie mediator calls.
+ * Observer that converts incoming JSON bus messages into local PartieService mediator calls.
  */
-public class PartieMessageObserver implements MessageObserver {
+public class PartieServiceMessageObserver implements MessageObserver {
 
-    private static final Logger LOGGER = Logger.getLogger(PartieMessageObserver.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PartieServiceMessageObserver.class.getName());
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    private final Partie partie;
+    private final PartieService PartieService;
 
-    public PartieMessageObserver(Partie partie) {
-        this.partie = partie;
+    public PartieServiceMessageObserver(PartieService PartieService) {
+        this.PartieService = PartieService;
     }
 
     @Override
@@ -49,22 +49,22 @@ public class PartieMessageObserver implements MessageObserver {
                     Pokemon attaquant = OBJECT_MAPPER.convertValue(args.get(0), Pokemon.class);
                     Pokemon vise = OBJECT_MAPPER.convertValue(args.get(1), Pokemon.class);
                     Attaque attaque = OBJECT_MAPPER.convertValue(args.get(2), Attaque.class);
-                    partie.handleAttack(attaquant, vise, attaque);
+                    PartieService.handleAttack(attaquant, vise, attaque);
                     return true;
                 case "handleChangePokemon":
-                    partie.handleChangePokemon();
+                    PartieService.handleChangePokemon();
                     return true;
                 case "handleUseItem":
-                    partie.handleUseItem();
+                    PartieService.handleUseItem();
                     return true;
                 case "handleQuit":
-                    partie.handleQuit();
+                    PartieService.handleQuit();
                     return true;
                 default:
                     return false;
             }
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to parse incoming message for Partie mediator", e);
+            LOGGER.log(Level.WARNING, "Failed to parse incoming message for PartieService mediator", e);
             return false;
         }
     }

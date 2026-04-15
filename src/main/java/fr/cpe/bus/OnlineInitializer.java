@@ -3,8 +3,8 @@ package fr.cpe.bus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import fr.cpe.AppModule;
-import fr.cpe.bus.PartieMessageObserver;
-import fr.cpe.service.Partie;
+import fr.cpe.bus.PartieServiceMessageObserver;
+import fr.cpe.service.PartieService;
 import fr.cpe.service.PartieService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,22 +24,22 @@ public class OnlineInitializer {
     private static final Logger LOGGER = Logger.getLogger(OnlineInitializer.class.getName());
     private static final String HUB = "game";
 
-    private PartieService partieService;
-    private Partie partieMediator;
+    private PartieService PartieService;
+    private PartieService PartieServiceMediator;
     private MethodCallHandler handler;
     private boolean connected = false;
 
     @Inject
-    public OnlineInitializer(PartieService partieService, Partie partieMediator) {
-        this.partieService = partieService;
-        this.partieMediator = partieMediator;
+    public OnlineInitializer(PartieService PartieService, PartieService PartieServiceMediator) {
+        this.PartieService = PartieService;
+        this.PartieServiceMediator = PartieServiceMediator;
     }
 
     /**
      * Starts the online infrastructure:
      * <ol>
      *   <li>Creates a MethodCallHandler to listen for remote calls</li>
-     *   <li>Registers the local Partie mediator implementation</li>
+     *   <li>Registers the local PartieService mediator implementation</li>
      *   <li>Adds an observer that converts incoming JSON into local mediator calls</li>
      * </ol>
      */
@@ -52,8 +52,8 @@ public class OnlineInitializer {
 
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
-            handler.register(PartieService.class, partieService);
-            handler.addObserver(new PartieMessageObserver(partieMediator));
+            handler.register(PartieService.class, PartieService);
+            handler.addObserver(new PartieServiceMessageObserver(PartieServiceMediator));
             handler.start();
 
             connected = true;

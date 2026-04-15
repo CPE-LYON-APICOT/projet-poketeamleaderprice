@@ -22,7 +22,7 @@
 
 ## Limitations techniques
 
-<!-- Ce qui ne fonctionne pas ou fonctionne partiellement. -->
+<!-- Ce qui ne fonctionne pas ou fonctionne PartieServicellement. -->
 
 ## Points de vigilance pour la reprise
 
