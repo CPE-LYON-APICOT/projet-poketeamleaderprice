@@ -23,6 +23,7 @@ public class AttackCommand implements Command {
 
     @Override
     public void execute() {
-        this.messageStore.setLastMessage("{commandType: \"attack\" {attaquantID: \""+this.pokemonAttaquant.getNum_Poke()+"\", viseID: \""+this.pokemonVise.getNum_Poke()+"\", attackID: \""+this.attaque.getId()+"\"}}");
+        String json = "{\"commandType\":\"attack\",\"attaquantID\":\"" + pokemonAttaquant.getNum_Poke() + "\",\"viseID\":\"" + pokemonVise.getNum_Poke() + "\",\"attackID\":\"" + attaque.getId() + "\"}";
+        this.messageStore.setLastMessage(json);
     }
 }

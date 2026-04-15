@@ -8,10 +8,12 @@ import com.azure.messaging.webpubsub.models.GetClientAccessTokenOptions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.cpe.App;
+import fr.cpe.bus.MessageObserver;
 
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +33,7 @@ public class MethodCallHandler {
     private final String connectionString;
     private final String hub;
     private final Map<String, Object> implementations = new ConcurrentHashMap<>();
+    private final List<MessageObserver> messageObservers = new CopyOnWriteArrayList<>();
     private WebPubSubClient client;
 
     /**
@@ -102,7 +105,9 @@ public class MethodCallHandler {
             client.addOnServerMessageEventHandler(event -> {
                 String json = extractJsonFromData(event.getData());
                 if (json != null) {
-                    dispatch(json);
+                    if (!notifyObservers(json)) {
+                        dispatch(json);
+                    }
                 }
             });
 
@@ -110,7 +115,9 @@ public class MethodCallHandler {
             client.addOnGroupMessageEventHandler(event -> {
                 String json = extractJsonFromData(event.getData());
                 if (json != null) {
-                    dispatch(json);
+                    if (!notifyObservers(json)) {
+                        dispatch(json);
+                    }
                 }
             });
 
@@ -212,6 +219,34 @@ public class MethodCallHandler {
      * @return the Class object
      * @throws ClassNotFoundException if the class cannot be found
      */
+    /**
+     * Registers a message observer to receive raw JSON messages from the bus.
+     */
+    public void addObserver(MessageObserver observer) {
+        if (observer != null) {
+            messageObservers.add(observer);
+        }
+    }
+
+    /**
+     * Removes a previously registered message observer.
+     */
+    public void removeObserver(MessageObserver observer) {
+        messageObservers.remove(observer);
+    }
+
+    private boolean notifyObservers(String json) {
+        boolean handled = false;
+        for (MessageObserver observer : messageObservers) {
+            try {
+                handled |= observer.onMessage(json);
+            } catch (Exception e) {
+                LOGGER.log(Level.WARNING, "Error while notifying message observer", e);
+            }
+        }
+        return handled;
+    }
+
     private Class<?> resolveType(String typeName) throws ClassNotFoundException {
         switch (typeName) {
             case "int":

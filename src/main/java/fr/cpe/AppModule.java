@@ -15,6 +15,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import fr.cpe.bus.BusProxy;
+import fr.cpe.service.Partie;
 import fr.cpe.service.PartieService;
 
 import java.util.logging.Logger;
@@ -50,10 +51,7 @@ public class AppModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        // Pas de binding pour l'instant : Guice sait instancier les classes concrètes
-        // tout seul (GameEngine, GameService) grâce à @Inject.
-        //
-        // Quand vous introduirez des interfaces, ajoutez vos bindings ici.
+        bind(PartieService.class).to(Partie.class).in(Singleton.class);
     }
 
     /**
@@ -72,14 +70,15 @@ public class AppModule extends AbstractModule {
     }
 
     /**
-     * Provides the PartieService as a BusProxy that sends calls over Web PubSub.
+     * Provides the remote PartieService proxy used to send method calls over Web PubSub.
      *
      * @param publisher the WebPubSubServiceClient to use for publishing
      * @return a proxy implementation of PartieService
      */
     @Provides
     @Singleton
-    public PartieService providePartieService(WebPubSubServiceClient publisher) {
+    @com.google.inject.name.Named("remotePartieService")
+    public PartieService provideRemotePartieService(WebPubSubServiceClient publisher) {
         return BusProxy.create(PartieService.class, publisher);
     }
 

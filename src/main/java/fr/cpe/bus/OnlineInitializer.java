@@ -3,6 +3,8 @@ package fr.cpe.bus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import fr.cpe.AppModule;
+import fr.cpe.bus.PartieMessageObserver;
+import fr.cpe.service.Partie;
 import fr.cpe.service.PartieService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,21 +24,23 @@ public class OnlineInitializer {
     private static final Logger LOGGER = Logger.getLogger(OnlineInitializer.class.getName());
     private static final String HUB = "game";
 
-    private PartieService PartieService;
+    private PartieService partieService;
+    private Partie partieMediator;
     private MethodCallHandler handler;
     private boolean connected = false;
 
     @Inject
-    public OnlineInitializer(PartieService PartieService) {
-        this.PartieService = PartieService;
+    public OnlineInitializer(PartieService partieService, Partie partieMediator) {
+        this.partieService = partieService;
+        this.partieMediator = partieMediator;
     }
 
     /**
      * Starts the online infrastructure:
      * <ol>
      *   <li>Creates a MethodCallHandler to listen for remote calls</li>
-     *   <li>Registers the PartieServiceImpl implementation</li>
-     *   <li>Sends a test message to demonstrate the bus</li>
+     *   <li>Registers the local Partie mediator implementation</li>
+     *   <li>Adds an observer that converts incoming JSON into local mediator calls</li>
      * </ol>
      */
     public boolean start() {
@@ -48,7 +52,8 @@ public class OnlineInitializer {
 
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
-            handler.register(PartieService.class, PartieService);
+            handler.register(PartieService.class, partieService);
+            handler.addObserver(new PartieMessageObserver(partieMediator));
             handler.start();
 
             connected = true;

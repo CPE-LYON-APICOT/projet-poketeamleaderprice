@@ -14,5 +14,7 @@ public class UseItemCommand implements Command {
     }
 
     @Override
-    public void execute() {}
+    public void execute() {
+        this.messageStore.setLastMessage("{\"commandType\":\"useItem\"}");
+    }
 }
