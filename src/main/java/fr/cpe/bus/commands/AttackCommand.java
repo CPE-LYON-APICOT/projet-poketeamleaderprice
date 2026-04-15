@@ -9,10 +9,10 @@ import fr.cpe.service.MessageStore;
  */
 public class AttackCommand implements Command {
 
-    private MessageStore messageStore;
-    private Pokemon pokemonAttaquant;
-    private Pokemon pokemonVise;
-    private Attaque attaque;
+    private final MessageStore messageStore;
+    private final Pokemon pokemonAttaquant;
+    private final Pokemon pokemonVise;
+    private final Attaque attaque;
 
     public AttackCommand(MessageStore messageStore, Pokemon pokemonAttaquant, Pokemon pokemonVise, Attaque attaque) {
         this.messageStore = messageStore;

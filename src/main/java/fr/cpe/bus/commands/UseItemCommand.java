@@ -7,7 +7,7 @@ import fr.cpe.service.MessageStore;
  */
 public class UseItemCommand implements Command {
 
-    private MessageStore messageStore;
+    private final MessageStore messageStore;
 
     public UseItemCommand(MessageStore messageStore) {
         this.messageStore = messageStore;

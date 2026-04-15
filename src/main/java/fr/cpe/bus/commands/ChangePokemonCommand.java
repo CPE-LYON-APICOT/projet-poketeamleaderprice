@@ -7,7 +7,7 @@ import fr.cpe.service.MessageStore;
  */
 public class ChangePokemonCommand implements Command {
 
-    private MessageStore messageStore;
+    private final MessageStore messageStore;
 
     public ChangePokemonCommand(MessageStore messageStore) {
         this.messageStore = messageStore;
