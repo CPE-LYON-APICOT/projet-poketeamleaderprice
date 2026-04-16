@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.cpe.Controller.ChooseAttackController"
+            prefHeight="760.0" prefWidth="1000.0"
+            stylesheets="@../css/ChooseAttack_Style.css"
+            styleClass="choose-attack-pane">
+
+    <top>
+        <VBox spacing="6.0" styleClass="choose-attack-header" BorderPane.alignment="CENTER">
+            <Label fx:id="pokemonNameLabel" text="Choisis tes 4 attaques" styleClass="choose-attack-title"/>
+            <Label fx:id="pokemonTypeLabel" text="Sélectionne les attaques du pokémon actif"
+                   styleClass="choose-attack-subtitle"/>
+            <Label fx:id="pokemonDescriptionLabel"
+                   text="Ajoute les attaques une par une pour composer ton set de combat."
+                   wrapText="true"
+                   styleClass="choose-attack-hint"/>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox spacing="18.0" alignment="CENTER" styleClass="choose-attack-content">
+            <VBox spacing="10.0" styleClass="attack-card" HBox.hgrow="ALWAYS">
+                <Label text="Attaques disponibles" styleClass="card-title"/>
+                <Label text="Toutes les attaques possibles de ce pokémon." styleClass="card-subtitle"/>
+                <ListView fx:id="availableAttacksListView" VBox.vgrow="ALWAYS" styleClass="choose-attack-list"/>
+
+                <Label text="Détails de l'attaque sélectionnée" styleClass="card-subtitle"/>
+                <GridPane hgap="10.0" vgap="8.0" styleClass="attack-detail-grid">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="35.0"/>
+                        <ColumnConstraints percentWidth="65.0"/>
+                    </columnConstraints>
+                    <Label text="Nom" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                           styleClass="attack-detail-label"/>
+                    <Label fx:id="attackNameValueLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                           styleClass="attack-detail-value"/>
+
+                    <Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                           styleClass="attack-detail-label"/>
+                    <Label fx:id="attackTypeValueLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                           styleClass="attack-detail-value"/>
+
+                    <Label text="Puissance" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                           styleClass="attack-detail-label"/>
+                    <Label fx:id="attackPowerValueLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                           styleClass="attack-detail-value"/>
+
+                    <Label text="Précision" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                           styleClass="attack-detail-label"/>
+                    <Label fx:id="attackAccuracyValueLabel" text="-" GridPane.columnIndex="1"
+                           GridPane.rowIndex="3" styleClass="attack-detail-value"/>
+
+                    <Label text="PP" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                           styleClass="attack-detail-label"/>
+                    <Label fx:id="attackPpValueLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4"
+                           styleClass="attack-detail-value"/>
+                </GridPane>
+            </VBox>
+
+            <VBox spacing="12.0" alignment="CENTER" styleClass="attack-actions-column">
+                <Button fx:id="addAttackButton" text="Ajouter ▶" onAction="#handleAddAttack"
+                        styleClass="attack-primary-button"/>
+                <Button fx:id="removeAttackButton" text="◀ Retirer" onAction="#handleRemoveAttack"
+                        styleClass="attack-secondary-button"/>
+                <Button fx:id="clearButton" text="Réinitialiser" onAction="#handleClearSelection"
+                        styleClass="attack-ghost-button"/>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="attack-card" HBox.hgrow="ALWAYS">
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <Label text="Ta sélection" styleClass="card-title"/>
+                    <Label fx:id="selectionCountLabel" text="0 / 4" styleClass="selection-counter"/>
+                </HBox>
+                <Label text="Remplis les 4 emplacements avant validation." styleClass="card-subtitle"/>
+                <ListView fx:id="selectedAttacksListView" VBox.vgrow="ALWAYS" styleClass="choose-attack-list"/>
+                <Label text="Astuce : les attaques sont conservées dans l'ordre de sélection."
+                       styleClass="choose-attack-hint"/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="12.0" alignment="CENTER_LEFT" styleClass="choose-attack-footer">
+            <padding>
+                <Insets right="24.0" bottom="20.0" left="24.0"/>
+            </padding>
+            <Label fx:id="statusLabel" text="Sélectionne 4 attaques pour valider." styleClass="status-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="cancelButton" text="Retour" onAction="#handleClose" styleClass="attack-ghost-button"/>
+            <Button fx:id="validateButton" text="Valider les 4 attaques" onAction="#handleValidate" disable="true"
+                    styleClass="attack-confirm-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

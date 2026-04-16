@@ -12,8 +12,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,17 +36,13 @@ public class ChooseTeamController {
     public TableView<Pokemon> pokemonTableView;
     public TableColumn<Pokemon, String> nomColumn;
     public TableColumn<Pokemon, String> typeColumn;
-    public TableColumn<Pokemon, Integer> hpColumn;
-    public TableColumn<Pokemon, Integer> attackColumn;
-    public TableColumn<Pokemon, Integer> defenseColumn;
-    public TableColumn<Pokemon, Integer> spAtkColumn;
-    public TableColumn<Pokemon, Integer> spDefColumn;
-    public TableColumn<Pokemon, Integer> speedColumn;
+    public TableColumn<Pokemon, String> spriteColumn;
     public TextArea pokemonDescriptionArea;
 
     private final List<Button> teamSlotButtons = new ArrayList<>();
     public Button ItemsButton;
     public Button LeftButton;
+
     private Pokemon selectedPokemon;
 
     private Dresseur dresseur;
@@ -63,11 +63,40 @@ public class ChooseTeamController {
         for (Button slot : teamSlotButtons) {
             slot.setStyle(EMPTY_SLOT_STYLE);
             slot.setText("+");
-            slot.setOnAction(e -> addPokemonToTeam(slot));
+            slot.setGraphic(null);
+            slot.setOnAction(e -> {
+                try {
+                    ChooseAttack(slot);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
         }
 
         //Configuration des colonnes du Sprite
-        nomColumn.setCellValueFactory(new PropertyValueFactory<>("Sprite"));
+        spriteColumn.setCellValueFactory(new PropertyValueFactory<>("sprite"));
+        spriteColumn.setCellFactory(col -> new TableCell<>() {
+            protected void updateItem(String path, boolean empty) {
+                super.updateItem(path, empty);
+                if (empty || path == null || path.isBlank()) {
+                    setGraphic(null);
+                    return;
+                }
+
+                String resolvedPath = resolveSpritePath(path);
+                var spriteUrl = getClass().getResource(resolvedPath);
+                if (spriteUrl == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                ImageView imageView = new ImageView(new Image(spriteUrl.toExternalForm()));
+                imageView.setFitWidth(48);
+                imageView.setFitHeight(48);
+                imageView.setPreserveRatio(true);
+                setGraphic(imageView);
+            }
+        });
 
         // Configuration des colonnes du TableView
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -95,15 +124,65 @@ public class ChooseTeamController {
         });
     }
 
-    private void addPokemonToTeam(Button slot) {
+    private String resolveSpritePath(String rawPath) {
+        String normalized = rawPath.startsWith("/") ? rawPath : "/fr/cpe/" + rawPath;
+
+        if (getClass().getResource(normalized) != null) {
+            return normalized;
+        }
+
+        if (normalized.endsWith(".png") && !normalized.endsWith("_mini.png")) {
+            String withMiniSuffix = normalized.substring(0, normalized.length() - 4) + "_mini.png";
+            if (getClass().getResource(withMiniSuffix) != null) {
+                return withMiniSuffix;
+            }
+        }
+
+        return normalized;
+    }
+
+    private void ChooseAttack(Button slot) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/cpe/views/ChooseAttack.fxml"));
+        Parent root1 = fxmlLoader.load();
+
+        ChooseAttackController controller = fxmlLoader.getController();
+        controller.setPokemon(selectedPokemon);
+
+        Stage stage = new Stage();
+        stage.initOwner(((Node) slot).getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root1));
+        stage.setTitle("Poke-Cheap - Choisis tes attaques");
+        stage.showAndWait();
+
+        if (controller.isValidated()) {
+            addPokemonToTeam(slot);
+        }
+    }
+    private void addPokemonToTeam(Button slot) throws IOException {
         if (selectedPokemon == null) {
             return;
         }
 
-        if (slot.getText().equals("+")) {
-            slot.setText(selectedPokemon.getNom());
+        boolean isEmptySlot = slot.getGraphic() == null && "+".equals(slot.getText());
+
+        if (isEmptySlot) {
+            String resolvedPath = resolveSpritePath(selectedPokemon.getSprite());
+            var spriteUrl = getClass().getResource(resolvedPath);
+            if (spriteUrl == null) {
+                return;
+            }
+
+            ImageView spriteView = new ImageView(new Image(spriteUrl.toExternalForm()));
+            spriteView.setFitWidth(60);
+            spriteView.setFitHeight(60);
+            spriteView.setPreserveRatio(true);
+
+            slot.setGraphic(spriteView);
+            slot.setText("");
             slot.setStyle(FILLED_SLOT_STYLE);
         } else {
+            slot.setGraphic(null);
             slot.setText("+");
             slot.setStyle(EMPTY_SLOT_STYLE);
         }
@@ -111,7 +190,7 @@ public class ChooseTeamController {
 
     public void changeDresseurNom(ActionEvent actionEvent) {
         String newnom = playerNameField.getText();
-        dresseur.setNom(newnom);
+
     }
 
     public void pressNextButton(ActionEvent event)

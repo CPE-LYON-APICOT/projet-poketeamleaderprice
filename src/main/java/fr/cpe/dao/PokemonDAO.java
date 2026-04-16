@@ -42,6 +42,24 @@ public class PokemonDAO implements IDAO<Pokemon> {
         return Optional.empty();
     }
 
+    public List<Attaque> getAttaquesDisponibles(int pokemonId) {
+        List<Attaque> attaques = new ArrayList<>();
+        try {
+            JsonNode node = jsonManager.getObjectById("pokemons", pokemonId);
+            if (node != null && node.has("availableAttacks") && node.get("availableAttacks").isArray()) {
+                ArrayNode attacksArray = (ArrayNode) node.get("availableAttacks");
+                for (JsonNode attackIdNode : attacksArray) {
+                    int attackId = attackIdNode.asInt();
+                    Optional<Attaque> attack = attaqueDAO.get(attackId);
+                    attack.ifPresent(attaques::add);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return attaques;
+    }
+
     @Override
     public List<Pokemon> getAll() {
         List<Pokemon> pokemonList = new ArrayList<>();

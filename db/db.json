@@ -10,7 +10,7 @@
       "description": "Bulbasaur is a small, quadrupedal Pokémon with a bulb on its back. The bulb absorbs solar energy, which gives it the energy it needs to live.",
       "abilityId": 1,
       "types": [1, 5],
-      "availableAttacks": [1, 2, 3],
+      "availableAttacks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
       "learnedAttacks": [1],
       "stats": {
         "Atk": 49,
@@ -575,6 +575,12 @@
       "nom": "Rock",
       "faiblesses": [3, 6, 7],
       "avantages": [1, 8, 12]
+    },
+    {
+      "id": 10,
+      "nom": "Psychic",
+      "faiblesses": [],
+      "avantages": []
     }
   ],
   "attaques": [
@@ -601,6 +607,110 @@
       "accuracy": 100,
       "pp": 40,
       "type_id": 7
+    },
+    {
+      "id": 4,
+      "name": "Vine Whip",
+      "power": 45,
+      "accuracy": 100,
+      "pp": 25,
+      "type_id": 1
+    },
+    {
+      "id": 5,
+      "name": "Growth",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 20,
+      "type_id": 7
+    },
+    {
+      "id": 6,
+      "name": "Leech Seed",
+      "power": 0,
+      "accuracy": 90,
+      "pp": 10,
+      "type_id": 1
+    },
+    {
+      "id": 7,
+      "name": "Razor Leaf",
+      "power": 55,
+      "accuracy": 95,
+      "pp": 25,
+      "type_id": 1
+    },
+    {
+      "id": 8,
+      "name": "Poison Powder",
+      "power": 0,
+      "accuracy": 75,
+      "pp": 35,
+      "type_id": 5
+    },
+    {
+      "id": 9,
+      "name": "Sleep Powder",
+      "power": 0,
+      "accuracy": 75,
+      "pp": 15,
+      "type_id": 1
+    },
+    {
+      "id": 10,
+      "name": "Take Down",
+      "power": 90,
+      "accuracy": 85,
+      "pp": 20,
+      "type_id": 7
+    },
+    {
+      "id": 11,
+      "name": "Magical Leaf",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20,
+      "type_id": 1
+    },
+    {
+      "id": 12,
+      "name": "Synthesis",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 5,
+      "type_id": 1
+    },
+    {
+      "id": 13,
+      "name": "Amnesia",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 20,
+      "type_id": 10
+    },
+    {
+      "id": 14,
+      "name": "Sludge Wave",
+      "power": 95,
+      "accuracy": 100,
+      "pp": 10,
+      "type_id": 5
+    },
+    {
+      "id": 15,
+      "name": "Double-Edge",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 15,
+      "type_id": 7
+    },
+    {
+      "id": 16,
+      "name": "Solar Beam",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 10,
+      "type_id": 1
     }
   ],
   "abilites": [
@@ -613,6 +723,12 @@
       "id": 2,
       "nom": "Blaze",
       "description": "Powers up Fire-type moves when the Pokémon is in a pinch"
+    },
+    {
+      "id": 10,
+      "nom": "Psychic",
+      "faiblesses": [],
+      "avantages": []
     },
     {
       "id": 3,

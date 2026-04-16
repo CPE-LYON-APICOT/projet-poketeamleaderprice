@@ -23,6 +23,7 @@
                 </padding>
                 <TableView fx:id="pokemonTableView" HBox.hgrow="ALWAYS" styleClass="pokemon-table">
                     <columns>
+                        <TableColumn text="Sprite" prefWidth="120.0" fx:id="spriteColumn" />
                         <TableColumn text="Nom" prefWidth="120.0" fx:id="nomColumn" />
                         <TableColumn text="Type(s)" prefWidth="120.0" fx:id="typeColumn" />
                     </columns>
