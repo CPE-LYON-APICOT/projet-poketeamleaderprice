@@ -51,7 +51,7 @@ public class OnlineInitializer {
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
             handler.register(Partie.class, Partie);
-            handler.addObserver(new PartieServiceMessageObserver(this.Partie));
+            handler.addObserver(new PartieServiceMessageObserver());
             handler.start();
 
             connected = true;

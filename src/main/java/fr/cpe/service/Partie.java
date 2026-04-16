@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import fr.cpe.model.Attaque;
@@ -23,6 +24,7 @@ public class Partie {
     private List<CommandService> commandServices;
     private static Partie instance;
 
+    @Inject
     private Partie() {
         this.commandServices = new ArrayList<>();
         this.commandServices.add(new ConnectionService(new CommandExecutor(), new MessageStore()));

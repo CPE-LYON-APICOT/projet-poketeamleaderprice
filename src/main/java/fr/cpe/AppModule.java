@@ -50,7 +50,7 @@ public class AppModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(PartieService.class).to(PartieService.class).in(Singleton.class);
+        bind(PartieService.class).in(Singleton.class);
     }
 
     /**
