@@ -23,25 +23,16 @@ public class Partie {
     private List<CommandService> commandServices;
     private static Partie instance;
 
-    private Partie(Dresseur dresseur1, Dresseur dresseur2, Stade stade) {
-        this.dresseur1 = dresseur1;
-        this.dresseur2 = dresseur2;
-        this.stade = stade;
-        this.activePokemonDresseur1 = dresseur1.getPokemon().get(0);
-        this.activePokemonDresseur2 = dresseur2.getPokemon().get(0);
+    private Partie() {
         this.commandServices = new ArrayList<>();
         this.commandServices.add(new ConnectionService(new CommandExecutor(), new MessageStore()));
         this.commandServices.add(new PartieService(new CommandExecutor(), new MessageStore()));
     }
 
-    public static Partie createPartie(Dresseur dresseur1, List<Pokemon> pokemonsDresseur1, Dresseur dresseur2, List<Pokemon> pokemonsDresseur2, Stade stade) {
-        instance = new Partie(dresseur1, dresseur2, stade);
-        return instance;
-    }
-
     public static Partie getInstance() {
         if (instance == null) {
-            throw new IllegalStateException("Partie instance has not been created yet.");
+            instance = new Partie();
+            return instance;
         }
         return instance;
     }
@@ -51,8 +42,18 @@ public class Partie {
         return dresseur1;
     }
 
+    public Partie setDresseur1(Dresseur dresseur1) {
+        this.dresseur1 = dresseur1;
+        return this;
+    }
+
     public Dresseur getDresseur2() {
         return dresseur2;
+    }
+
+    public Partie setDresseur2(Dresseur dresseur2) {
+        this.dresseur2 = dresseur2;
+        return this;
     }
 
     public Dresseur getDresseurFromId(Integer id) {
@@ -75,8 +76,24 @@ public class Partie {
         }
     }
 
+    public Partie setActivePokemonOf(Dresseur dresseur, Pokemon pokemon) {
+        if (dresseur == dresseur1) {
+            this.activePokemonDresseur1 = pokemon;
+        } else if (dresseur == dresseur2) {
+            this.activePokemonDresseur2 = pokemon;
+        } else {
+            throw new IllegalArgumentException("Dresseur inconnu");
+        }
+        return this;
+    }
+
     public Stade getStade() {
         return stade;
+    }
+
+    public Partie setStade(Stade stade) {
+        this.stade = stade;
+        return this;
     }
 
     public void attack(Dresseur dresseur, Attaque attaque) {

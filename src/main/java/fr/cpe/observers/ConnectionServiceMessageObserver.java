@@ -1,22 +1,16 @@
 package fr.cpe.observers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import fr.cpe.dao.AttaqueDAO;
-import fr.cpe.model.Attaque;
-import fr.cpe.model.Dresseur;
-import fr.cpe.model.Pokemon;
-import fr.cpe.service.Partie;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
+import com.fasterxml.jackson.core.type.TypeReference;
+import fr.cpe.dao.AttaqueDAO;
+import fr.cpe.model.Attaque;
+import fr.cpe.model.Dresseur;
+import fr.cpe.service.Partie;
 
-/**
- * Observer that converts incoming JSON bus messages into local Partie mediator calls.
- */
-public class PartieServiceMessageObserver extends MessageObserver {
+public class ConnectionServiceMessageObserver extends MessageObserver {
 
     @Override
     public boolean onMessage(String json) {
@@ -34,23 +28,17 @@ public class PartieServiceMessageObserver extends MessageObserver {
             }
 
             switch (methodName) {
-                case "handleAttack":
-                    if (args.size() != 2) {
+                case "connect":
+                    if (args.size() != 1) {
                         return false;
                     }
-                    Optional<Attaque> attaque = new AttaqueDAO().get(OBJECT_MAPPER.convertValue(args.get(1), Integer.class));
-                    Partie.getInstance().attack(
-                        Partie.getInstance().getDresseurFromId(OBJECT_MAPPER.convertValue(args.get(0), Integer.class)),
-                        attaque.orElseThrow(() -> new IllegalArgumentException("Invalid attack ID: " + args.get(1)))
-                    );
+                    Partie.getInstance().setDresseur2(OBJECT_MAPPER.convertValue(args.get(0), Dresseur.class));
                     return true;
-                case "handleChangePokemon":
-                    return true;
-                case "handleUseItem":
-                    Partie.getInstance().useItem();
-                    return true;
-                case "handleQuit":
-                    Partie.getInstance().quit();
+                case "hostGame":
+                    if (args.size() != 1) {
+                        return false;
+                    }
+                    Partie.getInstance().setDresseur1(OBJECT_MAPPER.convertValue(args.get(0), Dresseur.class));
                     return true;
                 default:
                     return false;

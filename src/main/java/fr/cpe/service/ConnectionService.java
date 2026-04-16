@@ -5,6 +5,8 @@ import com.google.inject.Singleton;
 import fr.cpe.commands.ConnectCommand;
 import fr.cpe.commands.DisconnectCommand;
 import fr.cpe.commands.HostGameCommand;
+import fr.cpe.model.Dresseur;
+import fr.cpe.model.Stade;
 
 @Singleton
 public class ConnectionService extends CommandService {
@@ -13,58 +15,33 @@ public class ConnectionService extends CommandService {
         super(commandExecutor, messageStore);
     }
 
-    public void connect(String username) {
-        if (username == null || username.isBlank()) {
+    public void connect(Dresseur dresseur) {
+        if (dresseur == null) {
             LOGGER.warning("Attempted to connect with an invalid username.");
             return;
         }
-
-        ConnectCommand command = new ConnectCommand(messageStore, username);
-        this.commandExecutor.execute(command);
-        String json = this.messageStore.getLastMessage();
-
-        if (json == null || json.isBlank()) {
-            LOGGER.warning("ConnectCommand did not produce a JSON message for username: " + username);
-            return;
-        }
-
-        LOGGER.info("User connected successfully: " + username);
+        this.executeCommand(new ConnectCommand(messageStore, dresseur));
     }
 
-    public void disconnect(String username) {
-        if (username == null || username.isBlank()) {
+    public void disconnect(Dresseur dresseur) {
+        if (dresseur == null) {
             LOGGER.warning("Attempted to disconnect with an invalid username.");
             return;
         }
-
-        DisconnectCommand command = new DisconnectCommand(messageStore, username);
-        this.commandExecutor.execute(command);
-        String json = this.messageStore.getLastMessage();
-
-        if (json == null || json.isBlank()) {
-            LOGGER.warning("DisconnectCommand did not produce a JSON message for username: " + username);
-            return;
-        }
-
-        LOGGER.info("User disconnected successfully: " + username);
+        this.executeCommand(new DisconnectCommand(messageStore, dresseur));
     }
 
-    public void hostGame(String username) {
-        if (username == null || username.isBlank()) {
+    public void hostGame(Dresseur dresseur, Stade stade) {
+        if (dresseur == null) {
             LOGGER.warning("Attempted to host a game with an invalid username.");
             return;
         }
-
-        HostGameCommand command = new HostGameCommand(messageStore, username);
-        this.commandExecutor.execute(command);
-        String json = this.messageStore.getLastMessage();
-
-        if (json == null || json.isBlank()) {
-            LOGGER.warning("HostGameCommand did not produce a JSON message for username: " + username);
+        if (stade == null) {
+            LOGGER.warning("Attempted to host a game with an invalid stadium.");
             return;
         }
-
-        LOGGER.info("User hosted a game successfully: " + username);
+        this.executeCommand(new HostGameCommand(messageStore, dresseur, stade));
+        LOGGER.info("User hosted a game successfully: " + dresseur.getNom());
     }
 
 }
