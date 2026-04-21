@@ -43,21 +43,17 @@ public class ChooseTeamController {
     public Button ItemsButton;
     public Button LeftButton;
 
-    private Pokemon selectedPokemon;
 
     private Dresseur dresseur;
+    private Pokemon selectedPokemon;
 
     private static final String EMPTY_SLOT_STYLE = "-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #2a75bb; -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%); -fx-border-color: #2a75bb; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;";
     private static final String FILLED_SLOT_STYLE = "-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3b82f6 0%, #1d4ed8 100%); -fx-border-color: #facc15; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;";
 
 
-    public void setDresseur(Dresseur dresseur)
-    {
-        this.dresseur =  dresseur;
-        initialize();
-    }
-
     public void initialize() {
+        this.dresseur = new Dresseur();
+
         //Boutons de sélections de Team
         teamSlotButtons.addAll(Arrays.asList(teamSlot1, teamSlot2, teamSlot3, teamSlot4, teamSlot5, teamSlot6));
         for (Button slot : teamSlotButtons) {
@@ -122,6 +118,13 @@ public class ChooseTeamController {
                 pokemonDescriptionArea.clear();
             }
         });
+
+        playerNameField.focusedProperty().addListener((obs, oldValue, newValue) -> {
+            if (!newValue) {
+                ChangeName(dresseur);
+            }
+        });
+
     }
 
     private String resolveSpritePath(String rawPath) {
@@ -149,7 +152,7 @@ public class ChooseTeamController {
         controller.setPokemon(selectedPokemon);
 
         Stage stage = new Stage();
-        stage.initOwner(((Node) slot).getScene().getWindow());
+        stage.initOwner(slot.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(root1));
         stage.setTitle("Poke-Cheap - Choisis tes attaques");
@@ -159,7 +162,13 @@ public class ChooseTeamController {
             addPokemonToTeam(slot);
         }
     }
-    private void addPokemonToTeam(Button slot) throws IOException {
+
+    private void ChangeName(Dresseur dresseur)
+    {
+        String DresseurName = this.playerNameField.getText();
+        dresseur.setNom(DresseurName);
+    }
+    private void addPokemonToTeam(Button slot) {
         if (selectedPokemon == null) {
             return;
         }
@@ -181,16 +190,14 @@ public class ChooseTeamController {
             slot.setGraphic(spriteView);
             slot.setText("");
             slot.setStyle(FILLED_SLOT_STYLE);
+
+            dresseur.addPokemon(teamSlotButtons.indexOf(slot), selectedPokemon);
+
         } else {
             slot.setGraphic(null);
             slot.setText("+");
             slot.setStyle(EMPTY_SLOT_STYLE);
         }
-    }
-
-    public void changeDresseurNom(ActionEvent actionEvent) {
-        String newnom = playerNameField.getText();
-
     }
 
     public void pressNextButton(ActionEvent event)
@@ -199,7 +206,10 @@ public class ChooseTeamController {
         String title = "Poke-Cheap - Choisissez vos Items !";
 
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Parent root = loader.load();
+            ChooseItemsController controller = loader.getController();
+            controller.initialize(this.dresseur);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle(title);
