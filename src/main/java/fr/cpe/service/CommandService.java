@@ -15,7 +15,12 @@ public abstract class CommandService {
         this.messageStore = messageStore;
     }
 
+    public MessageStore getMessageStore() {
+        return this.messageStore;
+    }
+
     public void executeCommand(Command command) {
+        System.out.println("FZJZJOFZJOFZOIJFZOFZIJOIJF");
         Thread newThread = new Thread(() -> {
             if (command == null) {
                 return;

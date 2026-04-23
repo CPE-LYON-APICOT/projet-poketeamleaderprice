@@ -40,7 +40,7 @@
 
                 <HBox alignment="CENTER" spacing="20.0" styleClass="choose-items-actions">
                     <Button fx:id="backToTeamButton" onAction="#setBackToTeamButton" styleClass="secondary-button" text="Retour equipe" />
-                    <Button fx:id="hostGameButton" styleClass="pokemon-main-button" text="Héberger une partie" />
+                    <Button fx:id="hostGameButton" onAction="#pressHostGameButton" styleClass="pokemon-main-button" text="Héberger une partie" />
                     <Button fx:id="joinGameButton" styleClass="pokemon-main-button" text="Rejoindre une partie" />
                     <Button fx:id="LeftButton" onAction="#pressLeftButton" styleClass="pokemon-quit-button" text="Quitter" />
                 </HBox>

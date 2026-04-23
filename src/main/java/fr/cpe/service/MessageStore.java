@@ -12,6 +12,7 @@ public class MessageStore {
 
     public void setLastMessage(String message) {
         this.lastMessage = message;
+        System.out.println(this.lastMessage);
     }
 
     public String getLastMessage() {

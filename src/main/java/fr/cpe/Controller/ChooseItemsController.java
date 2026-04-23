@@ -1,10 +1,16 @@
 package fr.cpe.Controller;
 
+import fr.cpe.commands.HostGameCommand;
 import fr.cpe.dao.EffectItemDAO;
 import fr.cpe.dao.HealingItemDAO;
+import fr.cpe.dao.StadeDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.HealingItem;
 import fr.cpe.model.Item;
+import fr.cpe.service.CommandExecutor;
+import fr.cpe.service.CommandService;
+import fr.cpe.service.ConnectionService;
+import fr.cpe.service.MessageStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -68,6 +74,15 @@ public class ChooseItemsController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
             System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pressHostGameButton() {
+        try {
+            ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
+            cs.executeCommand(new HostGameCommand(cs.getMessageStore(), this.dresseur, new StadeDAO().get(1).orElseThrow()));
         } catch (Exception e) {
             e.printStackTrace();
         }
