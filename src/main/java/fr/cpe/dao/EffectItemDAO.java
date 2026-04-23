@@ -74,6 +74,20 @@ public class EffectItemDAO implements IDAO<EffectItem> {
         return itemList;
     }
 
+    public List<String> getAllNom() {
+        List<String> noms = new ArrayList<>();
+        try {
+            var array = jsonManager.getArray("effectItems");
+            for (JsonNode node : array) {
+                Map<StatType, Integer> stats = new HashMap<>();
+                noms.add(node.get("nom").asText());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return noms;
+    }
+
     @Override
     public void save(EffectItem item) {
         try {

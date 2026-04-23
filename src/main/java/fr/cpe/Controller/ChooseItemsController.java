@@ -35,9 +35,9 @@ public class ChooseItemsController {
 
         EffectItemDAO effectItemDAO = new EffectItemDAO();
         HealingItemDAO healingItemDAO = new HealingItemDAO();
-        List<Item> lesitems = new ArrayList<>();
-        lesitems.addAll(effectItemDAO.getAll());
-        lesitems.addAll(healingItemDAO.getAll());
+        List<String> lesitems = new ArrayList<>();
+        lesitems.addAll(effectItemDAO.getAllNom());
+        lesitems.addAll(healingItemDAO.getAllNom());
 
         itemListView.getItems().setAll(lesitems);
 
