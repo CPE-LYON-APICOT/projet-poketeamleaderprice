@@ -3,7 +3,6 @@ package fr.cpe.Controller;
 import fr.cpe.dao.PokemonDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
-import fr.cpe.model.StatType;
 import fr.cpe.model.Type;
 import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
@@ -13,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -33,17 +34,13 @@ public class ChooseTeamController {
     public TableView<Pokemon> pokemonTableView;
     public TableColumn<Pokemon, String> nomColumn;
     public TableColumn<Pokemon, String> typeColumn;
-    public TableColumn<Pokemon, Integer> hpColumn;
-    public TableColumn<Pokemon, Integer> attackColumn;
-    public TableColumn<Pokemon, Integer> defenseColumn;
-    public TableColumn<Pokemon, Integer> spAtkColumn;
-    public TableColumn<Pokemon, Integer> spDefColumn;
-    public TableColumn<Pokemon, Integer> speedColumn;
+    public TableColumn<Pokemon, String> spriteColumn;
     public TextArea pokemonDescriptionArea;
 
     private final List<Button> teamSlotButtons = new ArrayList<>();
     public Button ItemsButton;
     public Button LeftButton;
+
     private Pokemon selectedPokemon;
 
     private Dresseur dresseur;
@@ -67,8 +64,6 @@ public class ChooseTeamController {
             slot.setOnAction(e -> addPokemonToTeam(slot));
         }
 
-        //Configuration  des colonnes du Sprite
-        nomColumn.setCellValueFactory(new PropertyValueFactory<>("Sprite"));
 
         // Configuration des colonnes du TableView
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -80,6 +75,22 @@ public class ChooseTeamController {
                 : cellData.getValue().getTypes().stream().map(Type::getNom).collect(Collectors.joining(", "))
             )
         );
+
+        // Colonnes avec Sprite
+        spriteColumn.setCellFactory(col -> new TableCell<>() {
+            protected void updateItem(String path, boolean empty) {
+                super.updateItem(path, empty);
+                if (empty || path == null) {
+                    setGraphic(null);
+                } else {
+                    ImageView iv = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/cpe/" + path))));
+                    iv.setFitWidth(40);
+                    iv.setPreserveRatio(true);
+                    setGraphic(iv);
+                }
+            }
+        });
+
 
         // Chargement des pokémons et ajout à la TableView
         List<Pokemon> pokemons = new PokemonDAO().getAll();
