@@ -112,7 +112,7 @@ public class JSONManager {
     }
 
     /**
-     * Get an array from the database (e.g., "pokemons", "types")
+     * Get an array from the database (e.g., "Pokémon", "types")
      */
     public ArrayNode getArray(String arrayName) {
         if (rootNode.has(arrayName) && rootNode.get(arrayName).isArray()) {

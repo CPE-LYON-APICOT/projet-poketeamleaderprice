@@ -9,11 +9,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import fr.cpe.model.EffectItem;
+import fr.cpe.model.Item;
 import fr.cpe.model.StatType;
 
 public class EffectItemDAO implements IDAO<EffectItem> {
 
-    private JSONManager jsonManager;
+    private final JSONManager jsonManager;
 
     public EffectItemDAO() {
         this.jsonManager = DBSingleton.getInstance().getJSONManager();
