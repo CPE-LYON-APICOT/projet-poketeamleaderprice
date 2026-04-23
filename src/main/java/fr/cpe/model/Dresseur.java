@@ -23,7 +23,7 @@ public class Dresseur {
         this.items = new ArrayList<>();
     }
 
-    public void getPokemonTeam(int index_List)
+    public Pokemon getPokemonTeam(int index_List)
     {
         return this.pokemon.get(index_List);
     }
