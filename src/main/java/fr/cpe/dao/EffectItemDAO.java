@@ -9,11 +9,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import fr.cpe.model.EffectItem;
+import fr.cpe.model.Item;
 import fr.cpe.model.StatType;
 
 public class EffectItemDAO implements IDAO<EffectItem> {
 
-    private JSONManager jsonManager;
+    private final JSONManager jsonManager;
 
     public EffectItemDAO() {
         this.jsonManager = DBSingleton.getInstance().getJSONManager();
@@ -71,6 +72,20 @@ public class EffectItemDAO implements IDAO<EffectItem> {
             e.printStackTrace();
         }
         return itemList;
+    }
+
+    public List<String> getAllNom() {
+        List<String> noms = new ArrayList<>();
+        try {
+            var array = jsonManager.getArray("effectItems");
+            for (JsonNode node : array) {
+                Map<StatType, Integer> stats = new HashMap<>();
+                noms.add(node.get("nom").asText());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return noms;
     }
 
     @Override

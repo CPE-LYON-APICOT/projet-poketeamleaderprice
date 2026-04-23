@@ -9,7 +9,10 @@
 
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/17.0.12"
-           fx:controller="fr.cpe.Controller.IndexController">
+           fx:controller="fr.cpe.Controller.IndexController"
+           prefWidth="1134.0"
+           prefHeight="917.0"
+           stylesheets="@../css/index_style.css">
 
     <!-- === MAIN CONTAINER (toujours centré) === -->
     <VBox alignment="CENTER" spacing="40">
@@ -24,35 +27,21 @@
 
             <Button text="START"
                     fx:id="startButton"
+                    styleClass="menu-button,start-button"
                     prefWidth="250" prefHeight="50"
-                    style="-fx-font-size: 24px;
-                           -fx-font-weight: bold;
-                           -fx-background-radius: 20;
-                           -fx-background-color: #ffcb05;
-                           -fx-border-color: #2a75bb;
-                           -fx-border-width: 4;
-                           -fx-text-fill: #2a75bb;"
                     onAction="#pressStartButton"/>
 
             <Button text="QUITTER"
                     fx:id="quitButton"
+                    styleClass="menu-button,quit-button"
                     prefWidth="250" prefHeight="50"
-                    style="-fx-font-size: 22px;
-                           -fx-font-weight: bold;
-                           -fx-background-radius: 20;
-                           -fx-background-color: #d9534f;
-                           -fx-border-color: #7a1f1c;
-                           -fx-border-width: 4;
-                           -fx-text-fill: white;"
                     onAction="#pressLeftButton"/>
         </VBox>
 
         <!-- PRESS START TEXT -->
-        <Label fx:id="pressStartLabel" text="PRESS START"
-               style="-fx-font-size: 26px;
-                      -fx-font-weight: bold;
-                      -fx-text-fill: white;
-                      -fx-effect: dropshadow(gaussian, black, 8, 0.5, 0, 0);"/>
+        <Label fx:id="pressStartLabel"
+               text="PRESS START"
+               styleClass="press-start-label"/>
     </VBox>
 
 </StackPane>

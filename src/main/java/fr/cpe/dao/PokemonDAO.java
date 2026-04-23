@@ -16,10 +16,10 @@ import fr.cpe.model.Type;
 
 public class PokemonDAO implements IDAO<Pokemon> {
 
-    private JSONManager jsonManager;
-    private TypeDAO typeDAO;
-    private AttaqueDAO attaqueDAO;
-    private AbiliteDAO abiliteDAO;
+    private final JSONManager jsonManager;
+    private final TypeDAO typeDAO;
+    private final AttaqueDAO attaqueDAO;
+    private final AbiliteDAO abiliteDAO;
 
     public PokemonDAO() {
         this.jsonManager = DBSingleton.getInstance().getJSONManager();
@@ -42,6 +42,24 @@ public class PokemonDAO implements IDAO<Pokemon> {
         return Optional.empty();
     }
 
+    public List<Attaque> getAttaquesDisponibles(int pokemonId) {
+        List<Attaque> attaques = new ArrayList<>();
+        try {
+            JsonNode node = jsonManager.getObjectById("pokemons", pokemonId);
+            if (node != null && node.has("availableAttacks") && node.get("availableAttacks").isArray()) {
+                ArrayNode attacksArray = (ArrayNode) node.get("availableAttacks");
+                for (JsonNode attackIdNode : attacksArray) {
+                    int attackId = attackIdNode.asInt();
+                    Optional<Attaque> attack = attaqueDAO.get(attackId);
+                    attack.ifPresent(attaques::add);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return attaques;
+    }
+
     @Override
     public List<Pokemon> getAll() {
         List<Pokemon> pokemonList = new ArrayList<>();
@@ -52,6 +70,7 @@ public class PokemonDAO implements IDAO<Pokemon> {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error loading pokemons: " + e.getMessage());
         }
         return pokemonList;
     }

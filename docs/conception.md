@@ -18,7 +18,7 @@
 
 ### DP 2 — *Observer*
 
-**Feature associée** : Connexion à internet pour les parties + les évenements claviers/sonores
+**Feature associée** : Connexion à internet pour les PartieServices + les évenements claviers/sonores
 
 **Justification** : Tous ces éléments étant asynchrone, il faut qu'un élément du code attende qu'un événement se produise pour activer certains comportements. Un observeur nous permettra d'attendre "en arrière plan" (le code ne s'arrête pas pendant l'attente) qu'un évenement se produise pour activer du son / des images / la réception d'une connexion
 
@@ -26,9 +26,9 @@
 
 ### DP 3 — *Mediator*
 
-**Feature associée** : Lancement et gestion d'une Partie
+**Feature associée** : Lancement et gestion d'une PartieService
 
-**Justification** : Une partie gère les interactions entre les objets (dresseurs, objets, pokemon, terrain). Au niveau du code, il serait étrange qu'une attaque d'un pokemon permette à celui-ci de directement prendre la barre de vie de son adversaire et de lui enlever des points... Il serait préférable de gérer les interactions au sein d'une classe spécifique, pour alléger le nombre de méthodes spécifiques aux combat dans les objets.
+**Justification** : Une PartieService gère les interactions entre les objets (dresseurs, objets, pokemon, terrain). Au niveau du code, il serait étrange qu'une attaque d'un pokemon permette à celui-ci de directement prendre la barre de vie de son adversaire et de lui enlever des points... Il serait préférable de gérer les interactions au sein d'une classe spécifique, pour alléger le nombre de méthodes spécifiques aux combat dans les objets.
 
 **Intégration** : une classe Combat, intégrant une liste de dresseurs, de pokemon, d'objets et un terrain.
 
@@ -49,7 +49,7 @@
 skinparam groupInheritance 4
 top to bottom direction
 
-class Partie {
+class PartieService {
   - index : String
   - dresseurs : List<Dresseur>
   - stade : Stade
@@ -133,8 +133,8 @@ class NetworkService {
     +listenForNewPlayers()
 }
 
-Partie --o Dresseur : has
-Partie --o Stade : has
+PartieService --o Dresseur : has
+PartieService --o Stade : has
 Dresseur --o Pokemon : has
 Dresseur --o Item : has
 Pokemon --o Type : has

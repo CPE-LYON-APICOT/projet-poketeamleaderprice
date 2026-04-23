@@ -16,8 +16,11 @@ import com.google.inject.Inject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.beans.binding.Bindings;
 
 import java.io.IOException;
 
@@ -62,8 +65,11 @@ import java.io.IOException;
  */
 public class GameService {
 
+    private static final double WINDOW_WIDTH = 1134.0;
+    private static final double WINDOW_HEIGHT = 917.0;
+
     @Inject
-    public GameService(OnlineInitializer onlineInitializer, GameMessageService GameMessageService) {
+    public GameService(OnlineInitializer onlineInitializer, PartieService PartieService) {
         onlineInitializer.start();
     }
 
@@ -76,6 +82,26 @@ public class GameService {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/cpe/views/index.fxml"));
             Parent root = loader.load();
             gamePane.getChildren().setAll(root);
+
+            if (root instanceof Region region) {
+                region.prefWidthProperty().bind(gamePane.widthProperty());
+                region.prefHeightProperty().bind(gamePane.heightProperty());
+            } else {
+                root.layoutXProperty().bind(Bindings.createDoubleBinding(
+                        () -> (gamePane.getWidth() - root.getLayoutBounds().getWidth()) / 2.0,
+                        gamePane.widthProperty(), root.layoutBoundsProperty()
+                ));
+                root.layoutYProperty().bind(Bindings.createDoubleBinding(
+                        () -> (gamePane.getHeight() - root.getLayoutBounds().getHeight()) / 2.0,
+                        gamePane.heightProperty(), root.layoutBoundsProperty()
+                ));
+            }
+
+            if (gamePane.getScene() != null && gamePane.getScene().getWindow() instanceof Stage stage) {
+                stage.setWidth(WINDOW_WIDTH);
+                stage.setHeight(WINDOW_HEIGHT);
+                stage.centerOnScreen();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

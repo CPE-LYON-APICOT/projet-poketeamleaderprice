@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="917.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.cpe.Controller.ChooseTeamController" stylesheets="@../css/ChooseTeam_style.css">
+<AnchorPane prefHeight="917.0" prefWidth="1134.0" stylesheets="@../css/ChooseTeam_style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.cpe.Controller.ChooseTeamController">
     <BorderPane prefHeight="917.0" prefWidth="1134.0" styleClass="choose-team-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <top>
             <HBox styleClass="pokemon-header">
@@ -21,14 +21,14 @@
                 <padding>
                     <Insets left="20.0" right="20.0" />
                 </padding>
-                <TableView fx:id="pokemonTableView" HBox.hgrow="ALWAYS" styleClass="pokemon-table">
+                <TableView fx:id="pokemonTableView" styleClass="pokemon-table" HBox.hgrow="ALWAYS">
                     <columns>
-                        <TableColumn prefWidth="120.0" fx:id="spriteColumn" />
-                        <TableColumn text="Nom" prefWidth="120.0" fx:id="nomColumn" />
-                        <TableColumn text="Type(s)" prefWidth="120.0" fx:id="typeColumn" />
+                        <TableColumn fx:id="spriteColumn" prefWidth="120.0" text="Sprite" />
+                        <TableColumn fx:id="nomColumn" prefWidth="120.0" text="Nom" />
+                        <TableColumn fx:id="typeColumn" prefWidth="120.0" text="Type(s)" />
                     </columns>
                 </TableView>
-                <TextArea fx:id="pokemonDescriptionArea" editable="false" prefWidth="430.0" promptText="Cliquez sur un pokémon pour afficher sa description." wrapText="true" styleClass="pokemon-description" />
+                <TextArea fx:id="pokemonDescriptionArea" editable="false" prefWidth="430.0" promptText="Cliquez sur un pokémon pour afficher sa description." styleClass="pokemon-description" wrapText="true" />
             </HBox>
         </center>
 
@@ -39,7 +39,7 @@
                 </padding>
 
                 <!-- Les cases de l'équipe -->
-                <GridPane hgap="10.0" vgap="10.0" maxWidth="1.7976931348623157E308" styleClass="team-grid">
+                <GridPane hgap="10.0" maxWidth="1.7976931348623157E308" styleClass="team-grid" vgap="10.0">
                     <Button fx:id="teamSlot1" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <Button fx:id="teamSlot2" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                     <Button fx:id="teamSlot3" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="2" GridPane.rowIndex="0" />
@@ -60,8 +60,8 @@
                 </GridPane>
 
                 <HBox styleClass="choose-team-actions">
-                    <Button fx:id="ItemsButton" styleClass="pokemon-main-button" text="Choisir ses items" onAction="#pressNextButton"/>
-                    <Button fx:id="LeftButton" styleClass="pokemon-quit-button" text="Quitter" onAction="#pressLeftButton"/>
+                    <Button fx:id="ItemsButton" onAction="#pressNextButton" styleClass="pokemon-main-button" text="Choisir ses items" />
+                    <Button fx:id="LeftButton" onAction="#pressLeftButton" styleClass="pokemon-quit-button" text="Quitter" />
                 </HBox>
             </VBox>
         </bottom>

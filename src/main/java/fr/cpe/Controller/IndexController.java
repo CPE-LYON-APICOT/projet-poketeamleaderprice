@@ -1,5 +1,6 @@
 package fr.cpe.Controller;
 
+import fr.cpe.model.Dresseur;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -36,8 +37,11 @@ public class IndexController
         String fxmlPath = "/fr/cpe/views/ChooseTeam.fxml";
         String title = "Poke-Cheap - Choisissez vos Pokémon !";
 
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+        try{
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Parent root = loader.load();
+            ChooseTeamController controller = loader.getController();
+            controller.initialize(new Dresseur());
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle(title);

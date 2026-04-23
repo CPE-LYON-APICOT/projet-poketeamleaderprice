@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Manages JSON database operations for Pokemon app
+ * Manages JSON database operations for Pokémon app
  * Handles reading and writing data from/to db.json
  */
 public class JSONManager {
@@ -27,11 +27,6 @@ public class JSONManager {
             this.objectMapper = new ObjectMapper();
             Dotenv dotenv = Dotenv.load();
             this.dbPath = dotenv.get("DB_PATH", "db/db.json");
-            
-            // If DB_PATH points to a SQLite database, redirect to JSON
-            if (this.dbPath.endsWith(".db") || this.dbPath.endsWith(".sqlite")) {
-                this.dbPath = "db/db.json";
-            }
             
             loadDatabase();
         } catch (Exception e) {
@@ -117,7 +112,7 @@ public class JSONManager {
     }
 
     /**
-     * Get an array from the database (e.g., "pokemons", "types")
+     * Get an array from the database (e.g., "Pokémon", "types")
      */
     public ArrayNode getArray(String arrayName) {
         if (rootNode.has(arrayName) && rootNode.get(arrayName).isArray()) {

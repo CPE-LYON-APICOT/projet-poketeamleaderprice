@@ -2,11 +2,11 @@ package fr.cpe.dao;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 import fr.cpe.model.HealingItem;
+import fr.cpe.model.StatType;
 
 public class HealingItemDAO implements IDAO<HealingItem> {
 
@@ -51,6 +51,20 @@ public class HealingItemDAO implements IDAO<HealingItem> {
             e.printStackTrace();
         }
         return itemList;
+    }
+
+    public List<String> getAllNom() {
+        List<String> noms = new ArrayList<>();
+        try {
+            var array = jsonManager.getArray("healingItems");
+            for (JsonNode node : array) {
+                Map<StatType, Integer> stats = new HashMap<>();
+                noms.add(node.get("nom").asText());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return noms;
     }
 
     @Override
