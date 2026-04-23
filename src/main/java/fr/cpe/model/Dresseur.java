@@ -25,7 +25,7 @@ public class Dresseur {
 
     public void getPokemonTeam(int index_List)
     {
-        // return this.pokemon[index_List];
+        return this.pokemon.get(index_List);
     }
 
     public Integer getIndex() {

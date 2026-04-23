@@ -803,12 +803,6 @@
       "description": "Powers up Fire-type moves when the Pokémon is in a pinch"
     },
     {
-      "id": 10,
-      "nom": "Psychic",
-      "faiblesses": [],
-      "avantages": []
-    },
-    {
       "id": 3,
       "nom": "Torrent",
       "description": "Powers up Water-type moves when the Pokémon is in a pinch"
