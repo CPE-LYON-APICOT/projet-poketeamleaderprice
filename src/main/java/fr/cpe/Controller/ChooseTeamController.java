@@ -60,11 +60,11 @@ public class ChooseTeamController {
         //Boutons de sélections de Team
         teamSlotButtons.addAll(Arrays.asList(teamSlot1, teamSlot2, teamSlot3, teamSlot4, teamSlot5, teamSlot6));
         for (Button slot : teamSlotButtons) {
-            boolean isEmptySlot = slot.getGraphic() == null && "+".equals(slot.getText());
 
-            if (isEmptySlot) {
-                Pokemon pokemonTeam = dresseur.getPokemon().get()
-                String resolvedPath = resolveSpritePath(selectedPokemon.getSprite());
+            Pokemon dresseurPokemonTeam = dresseur.getPokemonTeam(teamSlotButtons.indexOf(slot));
+
+            if (dresseurPokemonTeam != null) {
+                String resolvedPath = resolveSpritePath(dresseurPokemonTeam.getSprite());
                 var spriteUrl = getClass().getResource(resolvedPath);
                 if (spriteUrl == null) {
                     return;
