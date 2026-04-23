@@ -1,15 +1,17 @@
 package fr.cpe.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Dresseur {
     private Integer index;
     private String nom;
-    private Map<Pokemon, Integer> pokemon;
+    private Map<Integer,Pokemon> pokemon;
     private List<Item> items;
 
-    public Dresseur(Integer index, String nom, Map<Pokemon, Integer> pokemon, List<Item> items) {
+    public Dresseur(Integer index, String nom, Map<Integer, Pokemon> pokemon, List<Item> items) {
         this.index = index;
         this.nom = nom;
         this.pokemon = pokemon;
@@ -17,6 +19,13 @@ public class Dresseur {
     }
 
     public Dresseur() {
+        this.pokemon = new HashMap<>();
+        this.items = new ArrayList<>();
+    }
+
+    public void getPokemonTeam(int index_List)
+    {
+        // return this.pokemon[index_List];
     }
 
     public Integer getIndex() {
@@ -35,12 +44,18 @@ public class Dresseur {
         this.nom = nom;
     }
 
-    public Map<Pokemon, Integer> getPokemon() {
+    public Map<Integer, Pokemon> getPokemon() {
         return pokemon;
     }
 
-    public void setPokemon(Map<Pokemon, Integer> pokemon) {
-        this.pokemon = pokemon;
+    public void addPokemon(Integer slot, Pokemon pokemon) {
+        if (this.pokemon.size() > 6)
+        {
+            throw new IllegalStateException("Un dresseur ne peut pas avoir plus de 6 Pokémon.");
+        }
+        else {
+            this.pokemon.put(slot, pokemon);
+        }
     }
 
     public List<Item> getItems() {
