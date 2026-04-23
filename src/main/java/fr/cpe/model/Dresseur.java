@@ -23,6 +23,11 @@ public class Dresseur {
         this.items = new ArrayList<>();
     }
 
+    public Pokemon getPokemonTeam(int index_List)
+    {
+        // return this.pokemon[index_List];
+    }
+
     public Integer getIndex() {
         return index;
     }

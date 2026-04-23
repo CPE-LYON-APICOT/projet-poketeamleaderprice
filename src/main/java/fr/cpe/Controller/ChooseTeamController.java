@@ -51,22 +51,46 @@ public class ChooseTeamController {
     private static final String FILLED_SLOT_STYLE = "-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3b82f6 0%, #1d4ed8 100%); -fx-border-color: #facc15; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;";
 
 
-    public void initialize() {
-        this.dresseur = new Dresseur();
+    public void initialize(Dresseur dresseur) {
+        // Initialize le dresseur
+        this.dresseur = dresseur;
+
+        this.playerNameField.setText(dresseur.getNom());
 
         //Boutons de sélections de Team
         teamSlotButtons.addAll(Arrays.asList(teamSlot1, teamSlot2, teamSlot3, teamSlot4, teamSlot5, teamSlot6));
         for (Button slot : teamSlotButtons) {
-            slot.setStyle(EMPTY_SLOT_STYLE);
-            slot.setText("+");
-            slot.setGraphic(null);
-            slot.setOnAction(e -> {
-                try {
-                    ChooseAttack(slot);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+            boolean isEmptySlot = slot.getGraphic() == null && "+".equals(slot.getText());
+
+            if (isEmptySlot) {
+                Pokemon pokemonTeam = dresseur.getPokemon().get()
+                String resolvedPath = resolveSpritePath(selectedPokemon.getSprite());
+                var spriteUrl = getClass().getResource(resolvedPath);
+                if (spriteUrl == null) {
+                    return;
                 }
-            });
+
+                ImageView spriteView = new ImageView(new Image(spriteUrl.toExternalForm()));
+                spriteView.setFitWidth(60);
+                spriteView.setFitHeight(60);
+                spriteView.setPreserveRatio(true);
+
+                slot.setGraphic(spriteView);
+                slot.setText("");
+                slot.setStyle(FILLED_SLOT_STYLE);
+            }
+            else {
+                slot.setStyle(EMPTY_SLOT_STYLE);
+                slot.setText("+");
+                slot.setGraphic(null);
+                slot.setOnAction(e -> {
+                    try {
+                        ChooseAttack(slot);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
         }
 
         //Configuration des colonnes du Sprite
