@@ -1,19 +1,45 @@
 package fr.cpe.service;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import fr.cpe.observers.MessageObserver;
+import fr.cpe.commands.AttackCommand;
+import fr.cpe.commands.ChangePokemonCommand;
+import fr.cpe.commands.Command;
+import fr.cpe.commands.QuitCommand;
+import fr.cpe.commands.UseItemCommand;
 import fr.cpe.model.Attaque;
+import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+
 /**
- * Service for managing game logic related to Partie.
- * Acts as the receiver for Command objects.
+ * PartieService mediator that executes commands
  */
-public interface PartieService {
+@Singleton
+public class PartieService extends CommandService {
 
-    void handleAttack(Pokemon pokemonAttaquant, Pokemon pokemonVise, Attaque attaque);
+    @Inject
+    public PartieService(CommandExecutor commandExecutor, MessageStore messageStore) {
+        super(commandExecutor, messageStore);
+    }
 
-    void handleChangePokemon();
+    public void handleAttack(Dresseur dresseurAttaquant, Attaque attaque) {
+        this.executeCommand(new AttackCommand(this.messageStore, dresseurAttaquant, attaque));
+    }
 
-    void handleUseItem();
+    public void handleChangePokemon() {
+        this.executeCommand(new ChangePokemonCommand(this.messageStore));
+    }
 
-    void handleQuit();
+    public void handleUseItem() {
+        this.executeCommand(new UseItemCommand(this.messageStore));
+    }
+
+    public void handleQuit() {
+        this.executeCommand(new QuitCommand(this.messageStore));
+    }
 }

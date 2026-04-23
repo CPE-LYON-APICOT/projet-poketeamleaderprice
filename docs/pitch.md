@@ -17,10 +17,10 @@ Les utilisateurs auront le choix de sélectionner leur équipe de Pokémon, leur
 Avant de démarrer un éventuel combat, le joueur doit choisir ses pokemons. Une liste est à sa disposition pour qu'il ajoute des pokemons à son équipe (composé de 6 pokemons).
 
 ### Fonctionnalité 2 — *rechercher un combat en ligne*
-Pour rechercher une partie, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut rechercher sur le réseau une partie hébergée par un autre joueur.
+Pour rechercher une PartieService, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut rechercher sur le réseau une PartieService hébergée par un autre joueur.
 
 ### Fonctionnalité 3 — *héberger un combat en ligne*
-Avant de commencer à choisir son équipe, l'utilisateur peut choisir d'héberger une partie ou d'en rejoindre une.
+Avant de commencer à choisir son équipe, l'utilisateur peut choisir d'héberger une PartieService ou d'en rejoindre une.
 
 ### Fonctionnalité 4 — *Attaquer*
 Lors de son tour, le dresseur peut choisir une attaque parmi les quatres attaques disponibles du pokemon actif.
@@ -41,7 +41,7 @@ Un objet peut :
 Lors de son tour, le dresseur peut changer le pokémon actif en choisissant un pokemon de son banc pour le remplacer
 
 ### Fonctionnalité 7— *Abandonner*
-Lors de son tour, le dresseur pourra abandonner la partie sans demander l'accord de l'autre utilisateur. Ce qui donnera la victoire à l'autre dresseur.
+Lors de son tour, le dresseur pourra abandonner la PartieService sans demander l'accord de l'autre utilisateur. Ce qui donnera la victoire à l'autre dresseur.
 
 ## Évolutions envisagées
 - Système de comptes avec mot de passe

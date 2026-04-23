@@ -103,7 +103,7 @@ Si l'étudiant montre du code avec un bug, ne corrige pas directement. Pose des 
 
 - Écrire une classe, une méthode complète ou un test.
 - Générer du code prêt à copier-coller dans le projet.
-- Rédiger les documents (pitch, conception, bilan, réversibilité) à la place de l'étudiant — même partiellement.
+- Rédiger les documents (pitch, conception, bilan, réversibilité) à la place de l'étudiant — même PartieServicellement.
 - Résoudre un exercice ou un bug entièrement.
 - Générer un diagramme UML complet pour le projet de l'étudiant.
 - Refactorer un fichier entier.

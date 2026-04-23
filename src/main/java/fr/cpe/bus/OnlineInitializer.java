@@ -3,9 +3,9 @@ package fr.cpe.bus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import fr.cpe.AppModule;
-import fr.cpe.bus.PartieMessageObserver;
+import fr.cpe.observers.PartieServiceMessageObserver;
 import fr.cpe.service.Partie;
-import fr.cpe.service.PartieService;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,15 +24,13 @@ public class OnlineInitializer {
     private static final Logger LOGGER = Logger.getLogger(OnlineInitializer.class.getName());
     private static final String HUB = "game";
 
-    private final PartieService partieService;
-    private final Partie partieMediator;
+    private Partie Partie;
     private MethodCallHandler handler;
     private boolean connected = false;
 
     @Inject
-    public OnlineInitializer(PartieService partieService, Partie partieMediator) {
-        this.partieService = partieService;
-        this.partieMediator = partieMediator;
+    public OnlineInitializer(Partie Partie) {
+        this.Partie = Partie;
     }
 
     /**
@@ -52,8 +50,8 @@ public class OnlineInitializer {
 
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
-            handler.register(PartieService.class, partieService);
-            handler.addObserver(new PartieMessageObserver(partieMediator));
+            handler.register(Partie.class, Partie);
+            handler.addObserver(new PartieServiceMessageObserver());
             handler.start();
 
             connected = true;

@@ -49,13 +49,15 @@ public class Dresseur {
     }
 
     public void addPokemon(Integer slot, Pokemon pokemon) {
-        if (this.pokemon.size() > 6)
-        {
+        if (this.pokemon.size() > 6) {
             throw new IllegalStateException("Un dresseur ne peut pas avoir plus de 6 Pokémon.");
-        }
-        else {
+        } else {
             this.pokemon.put(slot, pokemon);
         }
+    }
+
+    public void setPokemon(Map<Integer, Pokemon> pokemon) {
+        this.pokemon = pokemon;
     }
 
     public List<Item> getItems() {

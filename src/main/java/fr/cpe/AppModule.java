@@ -15,7 +15,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import fr.cpe.bus.BusProxy;
-import fr.cpe.service.Partie;
 import fr.cpe.service.PartieService;
 
 import java.util.logging.Logger;
@@ -51,7 +50,7 @@ public class AppModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(PartieService.class).to(Partie.class).in(Singleton.class);
+        bind(PartieService.class).in(Singleton.class);
     }
 
     /**

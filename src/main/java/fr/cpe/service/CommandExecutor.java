@@ -2,7 +2,7 @@ package fr.cpe.service;
 
 import com.google.inject.Singleton;
 
-import fr.cpe.bus.commands.Command;
+import fr.cpe.commands.Command;
 
 /**
  * Executor for Command objects.
