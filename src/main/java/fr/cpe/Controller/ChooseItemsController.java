@@ -90,7 +90,7 @@ public class ChooseItemsController {
     public void pressHostGameButton(ActionEvent event) {
         try {
             ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
-            cs.executeCommand(new HostGameCommand(cs.getMessageStore(), this.dresseur, new StadeDAO().get(1).orElseThrow()));
+            cs.hostGame(this.dresseur, new StadeDAO().get(1).orElseThrow());
             
             // Navigate to loading page while waiting for opponent
             navigateToChargement(event);
@@ -102,7 +102,7 @@ public class ChooseItemsController {
     public void pressJoinGameButton(ActionEvent event) {
         try {
             ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
-            cs.executeCommand(new ConnectCommand(cs.getMessageStore(), this.dresseur));
+            cs.connect(this.dresseur);
             
             // Navigate to loading page while waiting for game to start
             navigateToChargement(event);

@@ -28,6 +28,15 @@ public class PartieService {
         return dresseurs;
     }
 
+    public void addDresseur(Dresseur dresseur)
+    {
+        if (this.dresseurs.size() > 3) {
+            throw new IllegalStateException("Une partie ne peut avoir que 2 dresseurs ");
+        } else {
+            this.dresseurs.add(dresseur);
+        }
+    }
+
     public void setDresseurs(List<Dresseur> dresseurs) {
         this.dresseurs = dresseurs;
     }
