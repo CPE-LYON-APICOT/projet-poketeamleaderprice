@@ -49,6 +49,13 @@ public class ChooseItemsController {
 
     }
 
+    public void addItemtoBag(Button slot)
+    {
+
+    }
+
+
+
     public void setBackToTeamButton(ActionEvent event)
     {
         String fxmlPath = "/fr/cpe/views/ChooseTeam.fxml";

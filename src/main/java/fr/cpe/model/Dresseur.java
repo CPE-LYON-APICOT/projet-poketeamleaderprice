@@ -9,9 +9,9 @@ public class Dresseur {
     private Integer index;
     private String nom;
     private Map<Integer,Pokemon> pokemon;
-    private List<Item> items;
+    private Map<Integer, Item> items;
 
-    public Dresseur(Integer index, String nom, Map<Integer, Pokemon> pokemon, List<Item> items) {
+    public Dresseur(Integer index, String nom, Map<Integer, Pokemon> pokemon, Map<Integer, Item> items) {
         this.index = index;
         this.nom = nom;
         this.pokemon = pokemon;
@@ -20,7 +20,7 @@ public class Dresseur {
 
     public Dresseur() {
         this.pokemon = new HashMap<>();
-        this.items = new ArrayList<>();
+        this.items = new HashMap<>();
     }
 
     public Pokemon getPokemonTeam(int index_List)
@@ -60,11 +60,16 @@ public class Dresseur {
         this.pokemon = pokemon;
     }
 
-    public List<Item> getItems() {
+    public Map<Integer, Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Map<Integer, Item> items) {
         this.items = items;
+    }
+
+    public void addItem(Integer nb,Item item)
+    {
+        this.items.put(nb, item);
     }
 }
