@@ -1,5 +1,6 @@
 package fr.cpe.Controller;
 
+import fr.cpe.commands.ConnectCommand;
 import fr.cpe.commands.HostGameCommand;
 import fr.cpe.dao.EffectItemDAO;
 import fr.cpe.dao.HealingItemDAO;
@@ -79,10 +80,44 @@ public class ChooseItemsController {
         }
     }
 
-    public void pressHostGameButton() {
+    public void pressHostGameButton(ActionEvent event) {
         try {
             ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
             cs.executeCommand(new HostGameCommand(cs.getMessageStore(), this.dresseur, new StadeDAO().get(1).orElseThrow()));
+            
+            // Navigate to loading page while waiting for opponent
+            navigateToChargement(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pressJoinGameButton(ActionEvent event) {
+        try {
+            ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
+            cs.executeCommand(new ConnectCommand(cs.getMessageStore(), this.dresseur));
+            
+            // Navigate to loading page while waiting for game to start
+            navigateToChargement(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void navigateToChargement(ActionEvent event) {
+        try {
+            String fxmlPath = "/fr/cpe/views/Chargement.fxml";
+            String title = "Poke-Cheap - Chargement...";
+
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Parent root = loader.load();
+            ChargementController controller = loader.getController();
+            controller.initialize(this.dresseur);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(title);
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
