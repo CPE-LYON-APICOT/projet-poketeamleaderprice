@@ -5,9 +5,7 @@ import fr.cpe.commands.HostGameCommand;
 import fr.cpe.dao.EffectItemDAO;
 import fr.cpe.dao.HealingItemDAO;
 import fr.cpe.dao.StadeDAO;
-import fr.cpe.model.Dresseur;
-import fr.cpe.model.HealingItem;
-import fr.cpe.model.Item;
+import fr.cpe.model.*;
 import fr.cpe.service.CommandExecutor;
 import fr.cpe.service.CommandService;
 import fr.cpe.service.ConnectionService;
@@ -90,7 +88,18 @@ public class ChooseItemsController {
     public void pressHostGameButton(ActionEvent event) {
         try {
             ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
-            cs.hostGame(this.dresseur, new StadeDAO().get(1).orElseThrow());
+
+            Stade stade = new StadeDAO().get(1).orElseThrow();
+
+            cs.hostGame(this.dresseur, stade);
+
+            // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
+            List<Dresseur> dresseurList = new ArrayList<>();
+            this.dresseur.setIndex(0);
+            dresseurList.addFirst(this.dresseur);
+
+            //Crée une nouvelle partie Service
+            PartieService ps = new PartieService("1", dresseurList, stade);
             
             // Navigate to loading page while waiting for opponent
             navigateToChargement(event);
@@ -103,6 +112,12 @@ public class ChooseItemsController {
         try {
             ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
             cs.connect(this.dresseur);
+
+
+            // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
+            List<Dresseur> dresseursList = new ArrayList<>();
+            this.dresseur.setIndex(1);
+            dresseursList.addLast(this.dresseur);
             
             // Navigate to loading page while waiting for game to start
             navigateToChargement(event);
