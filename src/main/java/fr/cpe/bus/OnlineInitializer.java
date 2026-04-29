@@ -3,6 +3,7 @@ package fr.cpe.bus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import fr.cpe.AppModule;
+import fr.cpe.observers.ConnectionServiceMessageObserver;
 import fr.cpe.observers.PartieServiceMessageObserver;
 import fr.cpe.service.Partie;
 
@@ -51,6 +52,7 @@ public class OnlineInitializer {
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
             handler.register(Partie.class, Partie);
+            handler.addObserver(new ConnectionServiceMessageObserver());
             handler.addObserver(new PartieServiceMessageObserver());
             handler.start();
 

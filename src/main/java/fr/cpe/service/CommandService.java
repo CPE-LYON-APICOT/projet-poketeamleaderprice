@@ -20,7 +20,6 @@ public abstract class CommandService {
     }
 
     public void executeCommand(Command command) {
-        System.out.println("FZJZJOFZJOFZOIJFZOFZIJOIJF");
         Thread newThread = new Thread(() -> {
             if (command == null) {
                 return;
