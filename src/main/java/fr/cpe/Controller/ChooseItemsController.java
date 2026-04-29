@@ -10,6 +10,8 @@ import fr.cpe.service.CommandExecutor;
 import fr.cpe.service.CommandService;
 import fr.cpe.service.ConnectionService;
 import fr.cpe.service.MessageStore;
+import fr.cpe.service.PartieService;
+import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -32,8 +34,13 @@ public class ChooseItemsController {
     public Button joinGameButton;
     public Button LeftButton;
 
-
     private Dresseur dresseur;
+
+    @Inject
+    private ConnectionService connectionService;
+
+    @Inject
+    private PartieService partieService;
 
     public void initialize(Dresseur dresseur){
         this.dresseur = dresseur;
@@ -87,20 +94,15 @@ public class ChooseItemsController {
 
     public void pressHostGameButton(ActionEvent event) {
         try {
-            ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
-
             Stade stade = new StadeDAO().get(1).orElseThrow();
 
-            cs.hostGame(this.dresseur, stade);
+            connectionService.hostGame(this.dresseur, stade);
 
             // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
             List<Dresseur> dresseurList = new ArrayList<>();
             this.dresseur.setIndex(0);
             dresseurList.addFirst(this.dresseur);
 
-            //Crée une nouvelle partie Service
-            PartieService ps = new PartieService("1", dresseurList, stade);
-            
             // Navigate to loading page while waiting for opponent
             navigateToChargement(event);
         } catch (Exception e) {
@@ -110,9 +112,7 @@ public class ChooseItemsController {
 
     public void pressJoinGameButton(ActionEvent event) {
         try {
-            ConnectionService cs = new ConnectionService(new CommandExecutor(), new MessageStore());
-            cs.connect(this.dresseur);
-
+            connectionService.connect(this.dresseur);
 
             // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
             List<Dresseur> dresseursList = new ArrayList<>();

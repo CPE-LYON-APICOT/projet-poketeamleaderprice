@@ -2,6 +2,7 @@ package fr.cpe.service;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.azure.messaging.webpubsub.WebPubSubServiceClient;
 import fr.cpe.observers.MessageObserver;
 import fr.cpe.commands.AttackCommand;
 import fr.cpe.commands.ChangePokemonCommand;
@@ -23,8 +24,8 @@ import java.util.logging.Level;
 public class PartieService extends CommandService {
 
     @Inject
-    public PartieService(CommandExecutor commandExecutor, MessageStore messageStore) {
-        super(commandExecutor, messageStore);
+    public PartieService(CommandExecutor commandExecutor, MessageStore messageStore, WebPubSubServiceClient publisher) {
+        super(commandExecutor, messageStore, publisher);
     }
 
     public void handleAttack(Dresseur dresseurAttaquant, Attaque attaque) {

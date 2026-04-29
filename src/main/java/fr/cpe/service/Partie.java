@@ -27,8 +27,6 @@ public class Partie {
     @Inject
     private Partie() {
         this.commandServices = new ArrayList<>();
-        this.commandServices.add(new ConnectionService(new CommandExecutor(), new MessageStore()));
-        this.commandServices.add(new PartieService(new CommandExecutor(), new MessageStore()));
     }
 
     public static Partie getInstance() {
