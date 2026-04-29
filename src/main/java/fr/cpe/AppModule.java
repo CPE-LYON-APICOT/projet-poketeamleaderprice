@@ -15,6 +15,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import fr.cpe.bus.BusProxy;
+import fr.cpe.service.ConnectionService;
 import fr.cpe.service.PartieService;
 
 import java.util.logging.Logger;
@@ -77,8 +78,8 @@ public class AppModule extends AbstractModule {
     @Provides
     @Singleton
     @com.google.inject.name.Named("remotePartieService")
-    public PartieService provideRemotePartieService(WebPubSubServiceClient publisher) {
-        return BusProxy.create(PartieService.class, publisher);
+    public ConnectionService provideRemotePartieService(WebPubSubServiceClient publisher) {
+        return BusProxy.create(ConnectionService.class, publisher);
     }
 
     /**
