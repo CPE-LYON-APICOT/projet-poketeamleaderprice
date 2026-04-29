@@ -1,5 +1,6 @@
 package fr.cpe.Controller;
 
+import fr.cpe.App;
 import fr.cpe.dao.PokemonDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
@@ -233,6 +234,9 @@ public class ChooseTeamController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             Parent root = loader.load();
             ChooseItemsController controller = loader.getController();
+            if (App.injector != null) {
+                App.injector.injectMembers(controller);
+            }
             controller.initialize(this.dresseur);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));

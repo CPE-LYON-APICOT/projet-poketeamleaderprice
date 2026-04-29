@@ -1,16 +1,11 @@
 package fr.cpe.Controller;
 
-import fr.cpe.commands.ConnectCommand;
-import fr.cpe.commands.HostGameCommand;
+import fr.cpe.App;
 import fr.cpe.dao.EffectItemDAO;
 import fr.cpe.dao.HealingItemDAO;
 import fr.cpe.dao.StadeDAO;
 import fr.cpe.model.*;
-import fr.cpe.service.CommandExecutor;
-import fr.cpe.service.CommandService;
 import fr.cpe.service.ConnectionService;
-import fr.cpe.service.MessageStore;
-import fr.cpe.service.PartieService;
 import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -38,9 +33,6 @@ public class ChooseItemsController {
 
     @Inject
     private ConnectionService connectionService;
-
-    @Inject
-    private PartieService partieService;
 
     public void initialize(Dresseur dresseur){
         this.dresseur = dresseur;
@@ -94,6 +86,7 @@ public class ChooseItemsController {
 
     public void pressHostGameButton(ActionEvent event) {
         try {
+            ensureConnectionService();
             Stade stade = new StadeDAO().get(1).orElseThrow();
 
             connectionService.hostGame(this.dresseur, stade);
@@ -112,6 +105,7 @@ public class ChooseItemsController {
 
     public void pressJoinGameButton(ActionEvent event) {
         try {
+            ensureConnectionService();
             connectionService.connect(this.dresseur);
 
             // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
@@ -142,6 +136,15 @@ public class ChooseItemsController {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void ensureConnectionService() {
+        if (this.connectionService == null && App.injector != null) {
+            this.connectionService = App.injector.getInstance(ConnectionService.class);
+        }
+        if (this.connectionService == null) {
+            throw new IllegalStateException("ConnectionService non initialise. Verifie le chargement FXML avec Guice.");
         }
     }
 }
