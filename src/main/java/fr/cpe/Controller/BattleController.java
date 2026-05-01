@@ -7,6 +7,7 @@ import fr.cpe.model.Pokemon;
 import fr.cpe.model.StatType;
 import fr.cpe.service.Partie;
 import fr.cpe.service.PartieService;
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -83,6 +84,8 @@ public class BattleController {
     }
 
     public void pressAttackButton(ActionEvent event) {
+        Dotenv dotenv = Dotenv.load();
+        this.partie.getDresseurFromId(Integer.parseInt(dotenv.get("PLAYER_ID")));
         this.partieService.handleAttack(null, null);;
     }
 }

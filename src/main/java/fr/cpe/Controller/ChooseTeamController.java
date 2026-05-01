@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ChooseTeamController {
-    //public TextField playerNameField;
+    public TextField playerNameField;
     public Button teamSlot1;
     public Button teamSlot2;
     public Button teamSlot3;
@@ -58,7 +58,7 @@ public class ChooseTeamController {
         this.dresseur = dresseur;
 
         Dotenv dotenv = Dotenv.load();
-        this.dresseur.setNom(dotenv.get("PLAYER_NAME"));
+        this.dresseur.setIndex(Integer.parseInt(dotenv.get("PLAYER_ID")));
 
         //this.playerNameField.setText(dresseur.getNom());
 
@@ -148,13 +148,11 @@ public class ChooseTeamController {
             }
         });
 
-        /*
         playerNameField.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 ChangeName(dresseur);
             }
         });
-        */
 
     }
 
@@ -194,14 +192,11 @@ public class ChooseTeamController {
         }
     }
 
-    /*
     private void ChangeName(Dresseur dresseur)
     {
         String DresseurName = this.playerNameField.getText();
         dresseur.setNom(DresseurName);
     }
-    */
-
 
     private void addPokemonToTeam(Button slot) {
         if (selectedPokemon == null) {
