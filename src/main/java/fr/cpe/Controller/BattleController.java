@@ -1,9 +1,13 @@
 package fr.cpe.Controller;
 
+import com.google.inject.Inject;
+
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
 import fr.cpe.model.StatType;
 import fr.cpe.service.Partie;
+import fr.cpe.service.PartieService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -39,6 +43,9 @@ public class BattleController {
 
     private Partie partie;
 
+    @Inject
+    private PartieService partieService; 
+
     public void initialize(Partie partie) {
         this.partie = partie;
         updateBattleUI();
@@ -73,5 +80,9 @@ public class BattleController {
                 playerHpLabel.setText(playerPokemon.getHp() + " / " + maxHp);
             }
         }
+    }
+
+    public void pressAttackButton(ActionEvent event) {
+        this.partieService.handleAttack(null, null);;
     }
 }

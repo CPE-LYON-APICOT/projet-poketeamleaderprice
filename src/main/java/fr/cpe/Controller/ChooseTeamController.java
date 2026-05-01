@@ -5,6 +5,7 @@ import fr.cpe.dao.PokemonDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
 import fr.cpe.model.Type;
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ChooseTeamController {
-    public TextField playerNameField;
+    //public TextField playerNameField;
     public Button teamSlot1;
     public Button teamSlot2;
     public Button teamSlot3;
@@ -56,7 +57,10 @@ public class ChooseTeamController {
         // Initialize le dresseur
         this.dresseur = dresseur;
 
-        this.playerNameField.setText(dresseur.getNom());
+        Dotenv dotenv = Dotenv.load();
+        this.dresseur.setNom(dotenv.get("PLAYER_NAME"));
+
+        //this.playerNameField.setText(dresseur.getNom());
 
         //Boutons de sélections de Team
         teamSlotButtons.addAll(Arrays.asList(teamSlot1, teamSlot2, teamSlot3, teamSlot4, teamSlot5, teamSlot6));
@@ -144,11 +148,13 @@ public class ChooseTeamController {
             }
         });
 
+        /*
         playerNameField.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 ChangeName(dresseur);
             }
         });
+        */
 
     }
 
@@ -188,11 +194,15 @@ public class ChooseTeamController {
         }
     }
 
+    /*
     private void ChangeName(Dresseur dresseur)
     {
         String DresseurName = this.playerNameField.getText();
         dresseur.setNom(DresseurName);
     }
+    */
+
+
     private void addPokemonToTeam(Button slot) {
         if (selectedPokemon == null) {
             return;
