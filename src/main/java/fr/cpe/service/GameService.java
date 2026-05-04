@@ -11,14 +11,13 @@ package fr.cpe.service;
 // ║   les appelle automatiquement.                                             ║
 // ║                                                                            ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
-import fr.cpe.bus.*;
 import com.google.inject.Inject;
+import fr.cpe.observers.ConnectionServiceMessageObserver;
+import fr.cpe.observers.PartieServiceMessageObserver;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.beans.binding.Bindings;
 
@@ -68,9 +67,13 @@ public class GameService {
     private static final double WINDOW_WIDTH = 1134.0;
     private static final double WINDOW_HEIGHT = 917.0;
 
+    private final MessageStore messageStore;
+
     @Inject
-    public GameService(OnlineInitializer onlineInitializer, PartieService PartieService) {
-        onlineInitializer.start();
+    public GameService(PartieService partieService, MessageStore messageStore, Partie partie) {
+        this.messageStore = messageStore;
+        this.messageStore.addObserver(new PartieServiceMessageObserver(partie));
+        this.messageStore.addObserver(new ConnectionServiceMessageObserver(partie));
     }
 
     /**

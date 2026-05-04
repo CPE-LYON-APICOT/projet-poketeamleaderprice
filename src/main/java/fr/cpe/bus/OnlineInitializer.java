@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * <p>
  * Call {@link #start()} to begin listening for messages and {@link #stop()}
  * to clean up when the application shuts down.
- */
+ 
 @Singleton
 public class OnlineInitializer {
 
@@ -41,10 +41,10 @@ public class OnlineInitializer {
      *   <li>Registers the local Partie mediator implementation</li>
      *   <li>Adds an observer that converts incoming JSON into local mediator calls</li>
      * </ol>
-     */
+     
     public boolean start() {
         try {
-            String connectionString = AppModule.getConnectionString();
+            //String connectionString = AppModule.getConnectionString();
             String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
 
             LOGGER.info("Starting online infrastructure for instance: " + instanceName);
@@ -73,7 +73,7 @@ public class OnlineInitializer {
 
     /**
      * Stops the online infrastructure and cleans up resources.
-     */
+     
     public void stop() {
         if (handler != null) {
             handler.stop();
@@ -82,3 +82,4 @@ public class OnlineInitializer {
         connected = false;
     }
 }
+*/

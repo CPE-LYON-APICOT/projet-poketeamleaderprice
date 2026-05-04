@@ -13,6 +13,8 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.google.inject.Inject;
+
 public class ChargementController {
 
     private static final long POLLING_INTERVAL_MS = 1000; // Check every second
@@ -23,6 +25,9 @@ public class ChargementController {
     private Dresseur currentDresseur;
 
     public Label statusLabel;
+    
+    @Inject
+    private Partie partie;
 
     public void initialize(Dresseur dresseur) {
         this.currentDresseur = dresseur;
@@ -50,7 +55,7 @@ public class ChargementController {
         }
 
         // Check if both players are connected
-        Partie partie = Partie.getInstance();
+        Partie partie = this.partie;
         
         if (isGameReady()) {
             pollingTimer.cancel();
@@ -61,7 +66,7 @@ public class ChargementController {
     }
 
     private boolean isGameReady() {
-        Partie partie = Partie.getInstance();
+        Partie partie = this.partie;
         
         // Check if dresseur1 is set (host)
         boolean hasDresseur1 = partie.getDresseur1() != null;
@@ -109,7 +114,7 @@ public class ChargementController {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             Parent root = loader.load();
             BattleController controller = loader.getController();
-            controller.initialize(Partie.getInstance());
+            controller.initialize(this.partie);
 
             // Get the current stage
             Stage stage = (Stage) statusLabel.getScene().getWindow();

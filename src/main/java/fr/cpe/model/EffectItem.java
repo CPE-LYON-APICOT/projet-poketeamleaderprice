@@ -5,10 +5,6 @@ import java.util.Map;
 public class EffectItem extends Item {
     private Map<StatType, Integer> affectedStat;
 
-    public EffectItem() {
-        super();
-    }
-
     public EffectItem(int id, String name, Map<StatType, Integer> affectedStat) {
         super(id, name);
         this.affectedStat = affectedStat;

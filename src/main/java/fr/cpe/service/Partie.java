@@ -1,9 +1,5 @@
 package fr.cpe.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -21,22 +17,11 @@ public class Partie {
     private Stade stade;
     private Pokemon activePokemonDresseur1;
     private Pokemon activePokemonDresseur2;
-    private List<CommandService> commandServices;
-    private static Partie instance;
+    private Dresseur currentAttacker;
 
     @Inject
-    private Partie() {
-        this.commandServices = new ArrayList<>();
+    public Partie() {
     }
-
-    public static Partie getInstance() {
-        if (instance == null) {
-            instance = new Partie();
-            return instance;
-        }
-        return instance;
-    }
-
 
     public Dresseur getDresseur1() {
         return dresseur1;
@@ -97,11 +82,58 @@ public class Partie {
     }
 
     public void attack(Dresseur dresseur, Attaque attaque) {
-        int degats = attaque.getPower() - this.getActivePokemonOf(dresseur).getStats().get(StatType.Def);
+        Dresseur cible = getOpponent(dresseur);
+        if (cible == null) {
+            throw new IllegalArgumentException("Aucun adversaire trouvé pour " + dresseur.getNom());
+        }
+
+        Pokemon pokemonCible = getActivePokemonOf(cible);
+        if (pokemonCible == null) {
+            throw new IllegalStateException("Aucun Pokémon actif pour l'adversaire");
+        }
+
+        int defense = 0;
+        if (pokemonCible.getStats() != null && pokemonCible.getStats().get(StatType.Def) != null) {
+            defense = pokemonCible.getStats().get(StatType.Def);
+        }
+
+        int degats = attaque.getPower() - defense;
         if (degats < 0) {
             degats = 0;
         }
-        this.getActivePokemonOf(dresseur).setHp(this.getActivePokemonOf(dresseur).getHp() - degats);
+
+        pokemonCible.setHp(Math.max(0, pokemonCible.getHp() - degats));
+    }
+
+    public Dresseur getOpponent(Dresseur dresseur) {
+        if (dresseur == dresseur1) {
+            return dresseur2;
+        }
+        if (dresseur == dresseur2) {
+            return dresseur1;
+        }
+        throw new IllegalArgumentException("Dresseur inconnu");
+    }
+
+    public Dresseur getCurrentAttacker() {
+        return currentAttacker;
+    }
+
+    public Partie setCurrentAttacker(Dresseur currentAttacker) {
+        this.currentAttacker = currentAttacker;
+        return this;
+    }
+
+    public Dresseur nextAttacker() {
+        if (currentAttacker == null) {
+            return null;
+        }
+        if (currentAttacker == dresseur1) {
+            currentAttacker = dresseur2;
+        } else {
+            currentAttacker = dresseur1;
+        }
+        return currentAttacker;
     }
 
     public void changePokemon(Dresseur dresseur, Pokemon nouveauPokemon) {

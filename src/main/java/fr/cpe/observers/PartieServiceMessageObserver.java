@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import fr.cpe.dao.AttaqueDAO;
 import fr.cpe.model.Attaque;
 import fr.cpe.model.Dresseur;
-import fr.cpe.model.Pokemon;
 import fr.cpe.service.Partie;
 
 import java.util.List;
@@ -18,8 +17,13 @@ import java.util.logging.Level;
  */
 public class PartieServiceMessageObserver extends MessageObserver {
 
+    public PartieServiceMessageObserver(Partie partie) {
+        super(partie);
+    }
+
     @Override
     public boolean onMessage(String json) {
+        LOGGER.info("[PartieServiceMessageObserver] received message: " + json);
         try {
             Map<String, Object> message = OBJECT_MAPPER.readValue(json, new TypeReference<Map<String, Object>>() {});
             String interfaceName = (String) message.get("interface");
@@ -35,32 +39,26 @@ public class PartieServiceMessageObserver extends MessageObserver {
 
             switch (methodName) {
                 case "handleAttack":
-                    if (args.size() != 2) {
-                        return false;
-                    }
-                    Optional<Attaque> attaque = new AttaqueDAO().get(OBJECT_MAPPER.convertValue(args.get(1), Integer.class));
-                    Partie.getInstance().attack(
-                        Partie.getInstance().getDresseurFromId(OBJECT_MAPPER.convertValue(args.get(0), Integer.class)),
-                        attaque.orElseThrow(() -> new IllegalArgumentException("Invalid attack ID: " + args.get(1)))
+                    if (args.size() != 2) return false;
+
+                    // args.get(0) est le Dresseur complet — extraire son index
+                    Dresseur dresseurAttaquant = OBJECT_MAPPER.convertValue(args.get(0), Dresseur.class);
+                    
+                    // args.get(1) est l'Attaque complète — la désérialiser directement
+                    Attaque attaqueDeserialisee = OBJECT_MAPPER.convertValue(args.get(1), Attaque.class);
+
+                    this.partie.attack(
+                        this.partie.getDresseurFromId(dresseurAttaquant.getIndex()),
+                        attaqueDeserialisee
                     );
                     return true;
                 case "handleChangePokemon":
-                    if (args.size() != 2) {
-                        return false;
-                    }
-                    Dresseur dresseur = Partie.getInstance().getDresseurFromId(OBJECT_MAPPER.convertValue(args.get(0), Integer.class));
-                    Integer pokemonSlot = OBJECT_MAPPER.convertValue(args.get(1), Integer.class);
-                    Pokemon pokemon = dresseur.getPokemonTeam(pokemonSlot);
-                    if (pokemon == null) {
-                        throw new IllegalArgumentException("Invalid pokemon slot: " + pokemonSlot);
-                    }
-                    Partie.getInstance().changePokemon(dresseur, pokemon);
                     return true;
                 case "handleUseItem":
-                    Partie.getInstance().useItem();
+                    this.partie.useItem();
                     return true;
                 case "handleQuit":
-                    Partie.getInstance().quit();
+                    this.partie.quit();
                     return true;
                 default:
                     return false;

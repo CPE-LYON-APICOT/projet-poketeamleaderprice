@@ -1,6 +1,7 @@
 package fr.cpe.commands;
 
 import fr.cpe.service.MessageStore;
+import fr.cpe.service.Partie;
 
 /**
  * Command for using an item.
@@ -15,6 +16,9 @@ public class UseItemCommand implements Command {
 
     @Override
     public void execute() {
-        this.messageStore.setLastMessage("{\"commandType\":\"useItem\"}");
+        String json = "{\"interface\":\"" + Partie.class.getName() + "\"," +
+                "\"method\":\"handleUseItem\"," +
+                "\"args\":[]}";
+        this.messageStore.setLastMessage(json);
     }
 }

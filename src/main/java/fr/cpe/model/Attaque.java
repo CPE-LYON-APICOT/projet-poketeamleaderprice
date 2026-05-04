@@ -8,9 +8,6 @@ public class Attaque {
     private int pp;
     private Type type;
 
-    public Attaque() {
-    }
-
     public Attaque(int id, String name, int power, int accuracy, int pp, Type type) {
         this.id = id;
         this.name = name;
@@ -19,6 +16,8 @@ public class Attaque {
         this.pp = pp;
         this.type = type;
     }
+
+    public Attaque() {}
 
     public int getId() {
         return id;
@@ -42,29 +41,5 @@ public class Attaque {
 
     public Type getType() {
         return type;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPower(int power) {
-        this.power = power;
-    }
-
-    public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
-    }
-
-    public void setPp(int pp) {
-        this.pp = pp;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 }

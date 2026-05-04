@@ -16,9 +16,7 @@ public class Pokemon {
     private String sprite;
     private String description;
     private Abilite ability;
-
-    public Pokemon() {
-    }
+    private Integer hpMax;
 
     public Pokemon(int num_Poke, String nom, List<Type> types, Attaque[] lesattaquesdisponibles, Attaque[] lesattaquesprises, int hp, Map<StatType, Integer> stats, String image_face, String image_dos, String sprite, String description, Abilite ability) {
         Num_Poke = num_Poke;
@@ -33,7 +31,10 @@ public class Pokemon {
         this.sprite = sprite;
         this.description = description;
         this.ability = ability;
+        this.hpMax = hp;
     }
+
+    public Pokemon() {}
 
     public Integer getNum_Poke() {
         return Num_Poke;
@@ -81,6 +82,17 @@ public class Pokemon {
 
     public void setHp(Integer hp) {
         this.hp = hp;
+    }
+
+    public Integer getHpMax() { return hpMax; }
+    public void setHpMax(Integer hpMax) { this.hpMax = hpMax; }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("hp")
+    public void setHpWithMax(Integer hp) {
+        this.hp = hp;
+        if (this.hpMax == null) {
+            this.hpMax = hp; // premier appel = valeur initiale = max
+        }
     }
 
     public  Map<StatType, Integer> getStats() {

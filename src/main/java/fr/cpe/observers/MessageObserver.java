@@ -3,6 +3,8 @@ package fr.cpe.observers;
 import java.util.logging.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.cpe.service.Partie;
+
 /**
  * Observer interface for messages received from the bus.
  */
@@ -10,6 +12,11 @@ public abstract class MessageObserver {
 
     protected static final Logger LOGGER = Logger.getLogger(PartieServiceMessageObserver.class.getName());
     protected static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    protected final Partie partie;
+
+    public MessageObserver(Partie partie) {
+        this.partie = partie;
+    }
 
     /**
      * Called when a raw JSON message arrives.

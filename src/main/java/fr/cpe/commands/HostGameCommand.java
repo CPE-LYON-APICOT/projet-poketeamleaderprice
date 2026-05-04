@@ -1,17 +1,17 @@
 package fr.cpe.commands;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Stade;
 import fr.cpe.service.MessageStore;
+import fr.cpe.service.Partie;
 
 public class HostGameCommand implements Command {
 
     private final Dresseur dresseur;
     private final Stade stade;
-    private MessageStore messageStore;
+    private final MessageStore messageStore;
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public HostGameCommand(MessageStore messageStore, Dresseur dresseur, Stade stade) {
         this.messageStore = messageStore;
@@ -29,17 +29,17 @@ public class HostGameCommand implements Command {
 
     @Override
     public void execute() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ObjectNode jsonNode = objectMapper.createObjectNode();
-        jsonNode.put("interface", "fr.cpe.service.Partie");
-        jsonNode.put("method", "hostGame");
-        com.fasterxml.jackson.databind.node.ArrayNode paramTypes = objectMapper.createArrayNode();
-        paramTypes.add("fr.cpe.model.Dresseur");
-        jsonNode.set("paramTypes", paramTypes);
-        com.fasterxml.jackson.databind.node.ArrayNode args = objectMapper.createArrayNode();
-        args.addPOJO(this.dresseur);
-        jsonNode.set("args", args);
-        String json = jsonNode.toString();
-        this.messageStore.setLastMessage(json);
+        try {
+            String dresseurJson = OBJECT_MAPPER.writeValueAsString(this.dresseur);
+            String stadeJson = OBJECT_MAPPER.writeValueAsString(this.stade);
+            
+            String json = "{\"interface\":\"" + Partie.class.getName() + "\"," +
+                         "\"method\":\"hostGame\"," +
+                         "\"args\":[" + dresseurJson + "," + stadeJson + "]}";
+            
+            this.messageStore.setLastMessage(json);
+        } catch (Exception e) {
+            throw new RuntimeException("Error serializing game data to JSON", e);
+        }
     }
 }

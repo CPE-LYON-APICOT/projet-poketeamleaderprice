@@ -2,7 +2,6 @@ package fr.cpe.service;
 
 import com.google.inject.Singleton;
 import com.google.inject.Inject;
-import com.azure.messaging.webpubsub.WebPubSubServiceClient;
 
 import fr.cpe.commands.ConnectCommand;
 import fr.cpe.commands.DisconnectCommand;
@@ -14,8 +13,8 @@ import fr.cpe.model.Stade;
 public class ConnectionService extends CommandService {
 
     @Inject
-    public ConnectionService(CommandExecutor commandExecutor, MessageStore messageStore, WebPubSubServiceClient publisher) {
-        super(commandExecutor, messageStore, publisher);
+    public ConnectionService(CommandExecutor commandExecutor, MessageStore messageStore) {
+        super(commandExecutor, messageStore);
     }
 
     public void connect(Dresseur dresseur) {

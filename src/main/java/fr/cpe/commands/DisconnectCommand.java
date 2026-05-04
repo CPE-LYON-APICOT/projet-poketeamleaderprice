@@ -2,6 +2,7 @@ package fr.cpe.commands;
 
 import fr.cpe.model.Dresseur;
 import fr.cpe.service.MessageStore;
+import fr.cpe.service.Partie;
 
 public class DisconnectCommand implements Command {
 
@@ -19,8 +20,5 @@ public class DisconnectCommand implements Command {
 
     @Override
     public void execute() {
-        String json = "{\"type\":\"disconnect\",\"username\":\"" + dresseur.getNom() + "\"}";
-        this.messageStore.setLastMessage(json);
     }
-
 }

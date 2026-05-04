@@ -1,12 +1,12 @@
 package fr.cpe.service;
 
 import com.google.inject.Inject;
-import fr.cpe.bus.OnlineInitializer;
+//import fr.cpe.bus.OnlineInitializer;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-
+/*
 public class ConnectionStatusService {
 
     private final OnlineInitializer onlineInitializer;
@@ -41,3 +41,4 @@ public class ConnectionStatusService {
         statusLabel.setText(connected ? "Bus connecté" : "Bus déconnecté");
     }
 }
+*/

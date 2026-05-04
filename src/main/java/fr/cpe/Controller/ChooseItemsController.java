@@ -6,6 +6,7 @@ import fr.cpe.dao.HealingItemDAO;
 import fr.cpe.dao.StadeDAO;
 import fr.cpe.model.*;
 import fr.cpe.service.ConnectionService;
+import fr.cpe.service.Partie;
 import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,7 @@ import java.util.Objects;
 
 public class ChooseItemsController {
     public Button backToTeamButton;
-    public ListView itemListView;
+    public ListView<String> itemListView;
     public TextArea itemDescriptionArea;
     public Button hostGameButton;
     public Button joinGameButton;
@@ -33,6 +34,9 @@ public class ChooseItemsController {
 
     @Inject
     private ConnectionService connectionService;
+
+    @Inject
+    private Partie partie;
 
     public void initialize(Dresseur dresseur){
         this.dresseur = dresseur;
@@ -45,6 +49,12 @@ public class ChooseItemsController {
 
         itemListView.getItems().setAll(lesitems);
 
+        if (hostGameButton != null) {
+            hostGameButton.setText("Valider Joueur 1");
+        }
+        if (joinGameButton != null) {
+            joinGameButton.setText("Valider Joueur 2");
+        }
     }
 
     public void addItemtoBag(Button slot)
@@ -89,15 +99,15 @@ public class ChooseItemsController {
             ensureConnectionService();
             Stade stade = new StadeDAO().get(1).orElseThrow();
 
-            connectionService.hostGame(this.dresseur, stade);
-
-            // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
-            List<Dresseur> dresseurList = new ArrayList<>();
-            this.dresseur.setIndex(0);
-            dresseurList.addFirst(this.dresseur);
-
-            // Navigate to loading page while waiting for opponent
-            navigateToChargement(event);
+            if (this.partie.getDresseur1() == null) {
+                this.dresseur.setIndex(0);
+                connectionService.hostGame(this.dresseur, stade);
+                navigateToChooseTeamForSecondPlayer(event);
+            } else {
+                this.dresseur.setIndex(1);
+                connectionService.connect(this.dresseur);
+                navigateToBattle(event);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,30 +116,52 @@ public class ChooseItemsController {
     public void pressJoinGameButton(ActionEvent event) {
         try {
             ensureConnectionService();
-            connectionService.connect(this.dresseur);
 
-            // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
-            List<Dresseur> dresseursList = new ArrayList<>();
+            if (this.partie.getDresseur1() == null) {
+                // Joueur 2 cliqué avant joueur 1 : erreur, on l'ignore ou on affiche un message
+                System.out.println("Le joueur 1 n'a pas encore rejoint.");
+                return;
+            }
+
             this.dresseur.setIndex(1);
-            dresseursList.addLast(this.dresseur);
-            
-            // Navigate to loading page while waiting for game to start
-            navigateToChargement(event);
+            connectionService.connect(this.dresseur);
+            navigateToBattle(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    private void navigateToChargement(ActionEvent event) {
+    private void navigateToChooseTeamForSecondPlayer(ActionEvent event) {
         try {
-            String fxmlPath = "/fr/cpe/views/Chargement.fxml";
-            String title = "Poke-Cheap - Chargement...";
+            String fxmlPath = "/fr/cpe/views/ChooseTeam.fxml";
+            String title = "Poke-Cheap - Choisissez l'équipe du Joueur 2 !";
 
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             Parent root = loader.load();
-            ChargementController controller = loader.getController();
-            controller.initialize(this.dresseur);
-            
+            ChooseTeamController controller = loader.getController();
+            Dresseur secondDresseur = new Dresseur();
+            secondDresseur.setNom("Joueur 2");
+            controller.initialize(secondDresseur);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(title);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToBattle(ActionEvent event) {
+        try {
+            String fxmlPath = "/fr/cpe/views/Battle.fxml";
+            String title = "Poke-Cheap - Combat!";
+
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Parent root = loader.load();
+            BattleController controller = loader.getController();
+            controller.initialize(this.partie);
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle(title);

@@ -5,14 +5,13 @@ public class Abilite {
     private String nom;
     private String description;
 
-    public Abilite() {
-    }
-
     public Abilite(int id, String nom, String description) {
         this.id = id;
         this.nom = nom;
         this.description = description;
     }
+
+    public Abilite() {}
 
     public int getId() {
         return id;

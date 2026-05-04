@@ -23,9 +23,27 @@ public class Dresseur {
         this.items = new HashMap<>();
     }
 
-    public Pokemon getPokemonTeam(int index_List)
-    {
+    public Pokemon getPokemonTeam(int index_List) {
         return this.pokemon.get(index_List);
+    }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("pokemon")
+    public void setPokemonFromJson(Map<String, Object> raw) {
+        this.pokemon = new HashMap<>();
+        if (raw == null) return;
+        com.fasterxml.jackson.databind.ObjectMapper mapper = 
+            new com.fasterxml.jackson.databind.ObjectMapper();
+        for (Map.Entry<String, Object> entry : raw.entrySet()) {
+            try {
+                int key = Integer.parseInt(entry.getKey());
+                if (entry.getValue() != null) {
+                    Pokemon p = mapper.convertValue(entry.getValue(), Pokemon.class);
+                    this.pokemon.put(key, p);
+                }
+            } catch (Exception e) {
+                System.err.println("Erreur conversion pokemon clé " + entry.getKey() + ": " + e.getMessage());
+            }
+        }
     }
 
     public Integer getIndex() {
