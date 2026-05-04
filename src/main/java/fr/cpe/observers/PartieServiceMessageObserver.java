@@ -45,6 +45,16 @@ public class PartieServiceMessageObserver extends MessageObserver {
                     );
                     return true;
                 case "handleChangePokemon":
+                    if (args.size() != 2) {
+                        return false;
+                    }
+                    Dresseur dresseur = Partie.getInstance().getDresseurFromId(OBJECT_MAPPER.convertValue(args.get(0), Integer.class));
+                    Integer pokemonSlot = OBJECT_MAPPER.convertValue(args.get(1), Integer.class);
+                    Pokemon pokemon = dresseur.getPokemonTeam(pokemonSlot);
+                    if (pokemon == null) {
+                        throw new IllegalArgumentException("Invalid pokemon slot: " + pokemonSlot);
+                    }
+                    Partie.getInstance().changePokemon(dresseur, pokemon);
                     return true;
                 case "handleUseItem":
                     Partie.getInstance().useItem();
