@@ -40,13 +40,16 @@ public abstract class CommandService {
                 return;
             }
 
-            // Send the JSON to the bus
+            // Send the JSON to the bus. Add a sender/instance id so receivers can ignore self-originated messages.
             try {
-                // Diagnostic: print the JSON being sent along with instance/player id
-                String playerId = System.getenv().getOrDefault("PLAYER_ID", "unknown");
+                // Try to annotate message with sender id
+                com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+                java.util.Map<String, Object> messageMap = mapper.readValue(json, java.util.Map.class);
                 String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
-                LOGGER.info(() -> "Sending command from instance=" + instanceName + " playerId=" + playerId + " command=" + command.getClass().getSimpleName() + " json=" + json);
-                publisher.sendToAll(json, WebPubSubContentType.APPLICATION_JSON);
+                messageMap.put("sender", instanceName);
+                String annotatedJson = mapper.writeValueAsString(messageMap);
+
+                publisher.sendToAll(annotatedJson, WebPubSubContentType.APPLICATION_JSON);
                 LOGGER.info("Command executed and sent to bus: " + command.getClass().getSimpleName());
             } catch (Exception e) {
                 LOGGER.log(Level.WARNING, "Failed to send command to bus", e);
