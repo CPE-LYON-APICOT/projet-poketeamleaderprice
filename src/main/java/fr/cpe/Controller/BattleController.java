@@ -123,9 +123,19 @@ public class BattleController {
 
     public void pressAttackButton(ActionEvent event) {
         Dotenv dotenv = Dotenv.load();
-        this.partieService.handleAttack(
-            this.partie.getDresseurFromId(Integer.parseInt(dotenv.get("PLAYER_ID"))),
-            new AttaqueDAO().get(1).orElseThrow(() -> new IllegalArgumentException("Invalid attack ID"))
-        );
+        String playerId = dotenv.get("PLAYER_ID");
+        if (playerId == null || playerId.isEmpty()) {
+            System.err.println("PLAYER_ID not found in .env, using default value 1");
+            playerId = "1";
+        }
+
+        try {
+            this.partieService.handleAttack(
+                this.partie.getDresseurFromId(Integer.parseInt(playerId)),
+                new AttaqueDAO().get(1).orElseThrow(() -> new IllegalArgumentException("Invalid attack ID"))
+            );
+        } catch (NumberFormatException e) {
+            System.err.println("PLAYER_ID invalid format: " + e.getMessage());
+        }
     }
 }
