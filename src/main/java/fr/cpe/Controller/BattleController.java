@@ -56,7 +56,7 @@ public class BattleController {
     @Inject
     private PartieService partieService;
 
-    public void initialize(Partie partie, int indexJoueur) {
+    public void initialize(Partie partie) {
         this.partie = partie;
         updateBattleUI();
 
@@ -64,14 +64,6 @@ public class BattleController {
         Dresseur joindresseur = partie.getDresseur2();
         Dresseur player;
         Dresseur opponent;
-
-        if (indexJoueur == 1) {
-            player = hostdresseur;
-            opponent = joindresseur;
-        } else {
-            player = joindresseur;
-            opponent = hostdresseur;
-        }
 
         //Initialisé les HP des premiers pokemons des dresseurs
         // Player
