@@ -57,8 +57,18 @@ public class ChooseTeamController {
         // Initialize le dresseur
         this.dresseur = dresseur;
 
+        // Load optional PLAYER_ID from env/.env. If absent or not an integer, fall back to 0.
         Dotenv dotenv = Dotenv.load();
-        this.dresseur.setIndex(Integer.parseInt(dotenv.get("PLAYER_ID")));
+        String playerIdStr = dotenv.get("PLAYER_ID");
+        int playerId = 0;
+        if (playerIdStr != null && !playerIdStr.isBlank()) {
+            try {
+                playerId = Integer.parseInt(playerIdStr);
+            } catch (NumberFormatException nfe) {
+                System.err.println("Warning: PLAYER_ID is not a valid integer ('" + playerIdStr + "'). Using 0.");
+            }
+        }
+        this.dresseur.setIndex(playerId);
 
         //this.playerNameField.setText(dresseur.getNom());
 
