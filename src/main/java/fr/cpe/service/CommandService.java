@@ -26,7 +26,7 @@ public abstract class CommandService {
         return this.messageStore;
     }
 
-    public void executeCommand(Command command) {
+    protected void executeCommand(Command command) {
         Thread newThread = new Thread(() -> {
             if (command == null) {
                 return;

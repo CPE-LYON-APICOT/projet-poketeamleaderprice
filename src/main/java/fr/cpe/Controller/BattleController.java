@@ -2,6 +2,7 @@ package fr.cpe.Controller;
 
 import com.google.inject.Inject;
 
+import fr.cpe.dao.AttaqueDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
 import fr.cpe.model.StatType;
@@ -85,7 +86,9 @@ public class BattleController {
 
     public void pressAttackButton(ActionEvent event) {
         Dotenv dotenv = Dotenv.load();
-        this.partie.getDresseurFromId(Integer.parseInt(dotenv.get("PLAYER_ID")));
-        this.partieService.handleAttack(null, null);;
+        this.partieService.handleAttack(
+            this.partie.getDresseurFromId(Integer.parseInt(dotenv.get("PLAYER_ID"))),
+            new AttaqueDAO().get(1).orElseThrow(() -> new IllegalArgumentException("Invalid attack ID"))
+        );
     }
 }
