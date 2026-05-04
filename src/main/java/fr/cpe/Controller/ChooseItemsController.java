@@ -287,7 +287,7 @@ public class ChooseItemsController {
             ensureConnectionService();
             Stade stade = new StadeDAO().get(1).orElseThrow();
 
-            this.dresseur.setIndex(0);
+            this.dresseur.setIndex(1);
             connectionService.hostGame(this.dresseur, stade);
 
             // Remplir immédiatement l'instance Partie en local pour éviter les blocages réseau
@@ -303,7 +303,7 @@ public class ChooseItemsController {
     public void pressJoinGameButton(ActionEvent event) {
         try {
             ensureConnectionService();
-            this.dresseur.setIndex(1);
+            this.dresseur.setIndex(2);
             connectionService.connect(this.dresseur);
 
             // Remplir immédiatement l'instance Partie en local pour éviter les blocages réseau

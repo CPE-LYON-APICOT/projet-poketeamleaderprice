@@ -27,6 +27,7 @@ public class Partie {
     @Inject
     private Partie() {
         this.commandServices = new ArrayList<>();
+        instance = this;
     }
 
     public static Partie getInstance() {
@@ -35,6 +36,10 @@ public class Partie {
             return instance;
         }
         return instance;
+    }
+
+    public static void setInstance(Partie partie) {
+        instance = partie;
     }
 
 
