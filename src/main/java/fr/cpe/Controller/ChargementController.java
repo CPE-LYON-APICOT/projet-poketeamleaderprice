@@ -106,10 +106,22 @@ public class ChargementController {
             String fxmlPath = "/fr/cpe/views/Battle.fxml";
             String title = "Poke-Cheap - Combat!";
 
+            // Host
+            boolean isHost = currentDresseur != null && Partie.getInstance().getDresseur1() != null
+                    && currentDresseur.getIndex() != null
+                    && currentDresseur.getIndex().equals(Partie.getInstance().getDresseur1().getIndex());
+
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             Parent root = loader.load();
             BattleController controller = loader.getController();
-            controller.initialize(Partie.getInstance());
+
+            if (isHost)
+            {
+                controller.initialize(Partie.getInstance(), 1);
+            }
+            else {
+                controller.initialize(Partie.getInstance(), 2);
+            }
 
             // Get the current stage
             Stage stage = (Stage) statusLabel.getScene().getWindow();

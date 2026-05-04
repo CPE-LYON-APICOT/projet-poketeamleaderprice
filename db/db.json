@@ -2387,6 +2387,127 @@
         "DefSpe": 0,
         "Spd": 0
       }
+    },
+    {
+      "id": 102,
+      "nom": "X Attack",
+      "affectedStat": {
+        "Atk": 15,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 103,
+      "nom": "X Sp. Atk",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 15,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 104,
+      "nom": "X Defense",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 15,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 105,
+      "nom": "X Sp. Def",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 15,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 106,
+      "nom": "X Speed",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 15
+      }
+    },
+    {
+      "id": 107,
+      "nom": "Guard Tonic",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 10,
+        "DefSpe": 10,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 108,
+      "nom": "Power Blend",
+      "affectedStat": {
+        "Atk": 8,
+        "AtkSpe": 8,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 109,
+      "nom": "Swift Syrup",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 20
+      }
+    },
+    {
+      "id": 110,
+      "nom": "Balanced Elixir",
+      "affectedStat": {
+        "Atk": 5,
+        "AtkSpe": 5,
+        "Def": 5,
+        "DefSpe": 5,
+        "Spd": 5
+      }
+    },
+    {
+      "id": 111,
+      "nom": "Specialist Serum",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 20,
+        "Def": 0,
+        "DefSpe": 10,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 112,
+      "nom": "Brawler Juice",
+      "affectedStat": {
+        "Atk": 20,
+        "AtkSpe": 0,
+        "Def": 5,
+        "DefSpe": 0,
+        "Spd": 0
+      }
     }
   ],
   "healingItems": [
@@ -2399,6 +2520,66 @@
       "id": 202,
       "nom": "Full Restore",
       "hpHeal": 100
+    },
+    {
+      "id": 203,
+      "nom": "Super Potion",
+      "hpHeal": 50
+    },
+    {
+      "id": 204,
+      "nom": "Hyper Potion",
+      "hpHeal": 120
+    },
+    {
+      "id": 205,
+      "nom": "Max Potion",
+      "hpHeal": 200
+    },
+    {
+      "id": 206,
+      "nom": "Mini Potion",
+      "hpHeal": 10
+    },
+    {
+      "id": 207,
+      "nom": "Fresh Water",
+      "hpHeal": 30
+    },
+    {
+      "id": 208,
+      "nom": "Soda Pop",
+      "hpHeal": 60
+    },
+    {
+      "id": 209,
+      "nom": "Lemonade",
+      "hpHeal": 80
+    },
+    {
+      "id": 210,
+      "nom": "Moomoo Milk",
+      "hpHeal": 100
+    },
+    {
+      "id": 211,
+      "nom": "Berry Juice",
+      "hpHeal": 20
+    },
+    {
+      "id": 212,
+      "nom": "Healing Mist",
+      "hpHeal": 40
+    },
+    {
+      "id": 213,
+      "nom": "Revive Tonic",
+      "hpHeal": 75
+    },
+    {
+      "id": 214,
+      "nom": "Ultra Remedy",
+      "hpHeal": 150
     }
   ],
   "stades": [
