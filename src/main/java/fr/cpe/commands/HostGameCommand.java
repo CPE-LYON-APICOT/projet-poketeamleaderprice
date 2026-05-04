@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Stade;
 import fr.cpe.service.MessageStore;
-import fr.cpe.service.Partie;
 
 public class HostGameCommand implements Command {
 

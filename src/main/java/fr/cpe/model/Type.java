@@ -9,6 +9,10 @@ public class Type {
     private List<Type> faiblesses;
     private List<Type> avantages;
 
+    public Type() {
+        this.faiblesses = new ArrayList<>();
+        this.avantages = new ArrayList<>();
+    }
 
     public Type(int id, String nom) {
         this.id = id;

@@ -17,6 +17,9 @@ public class Pokemon {
     private String description;
     private Abilite ability;
 
+    public Pokemon() {
+    }
+
     public Pokemon(int num_Poke, String nom, List<Type> types, Attaque[] lesattaquesdisponibles, Attaque[] lesattaquesprises, int hp, Map<StatType, Integer> stats, String image_face, String image_dos, String sprite, String description, Abilite ability) {
         Num_Poke = num_Poke;
         this.nom = nom;

@@ -5,6 +5,9 @@ public class Stade {
     private String nom;
     private Type type;
 
+    public Stade() {
+    }
+
     public Stade(int id, String nom, Type type) {
         this.id = id;
         this.nom = nom;
