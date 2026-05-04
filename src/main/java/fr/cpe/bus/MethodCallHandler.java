@@ -101,6 +101,13 @@ public class MethodCallHandler {
                     .clientAccessUrl(clientAccessUrl)
                     .buildClient();
 
+            client.addOnConnectedEventHandler(event ->
+                    LOGGER.info(() -> "WebPubSub connected, connectionId=" + event.getConnectionId()));
+            client.addOnDisconnectedEventHandler(event ->
+                    LOGGER.warning(() -> "WebPubSub disconnected, connectionId=" + event.getConnectionId()));
+            client.addOnStoppedEventHandler(event ->
+                    LOGGER.info(() -> "WebPubSub stopped: " + event));
+
             // Subscribe to server messages
             client.addOnServerMessageEventHandler(event -> {
                 Object raw = event.getData();
@@ -108,7 +115,8 @@ public class MethodCallHandler {
                 String json = extractJsonFromData(raw);
                 if (json != null) {
                     LOGGER.info(() -> "Received server JSON: " + json);
-                    if (!notifyObservers(json)) {
+                    boolean handled = notifyObservers(json);
+                    if (!handled) {
                         dispatch(json);
                     }
                 }
@@ -121,7 +129,8 @@ public class MethodCallHandler {
                 String json = extractJsonFromData(raw);
                 if (json != null) {
                     LOGGER.info(() -> "Received group JSON: " + json);
-                    if (!notifyObservers(json)) {
+                    boolean handled = notifyObservers(json);
+                    if (!handled) {
                         dispatch(json);
                     }
                 }
@@ -129,6 +138,8 @@ public class MethodCallHandler {
 
             // Start the client
             client.start();
+            client.joinGroup(hub);
+            LOGGER.info(() -> "Joined WebPubSub group: " + hub);
 
             LOGGER.info("MethodCallHandler started, listening on hub: " + hub);
         } catch (Exception e) {
@@ -219,13 +230,6 @@ public class MethodCallHandler {
         }
     }
 
-    /**
-     * Resolves a type name to a Class object, handling primitives.
-     *
-     * @param typeName the fully qualified type name
-     * @return the Class object
-     * @throws ClassNotFoundException if the class cannot be found
-     */
     /**
      * Registers a message observer to receive raw JSON messages from the bus.
      */

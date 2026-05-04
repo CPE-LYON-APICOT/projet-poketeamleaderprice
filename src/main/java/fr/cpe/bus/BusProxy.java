@@ -81,7 +81,7 @@ public class BusProxy implements InvocationHandler {
 
         // Send to all subscribers with JSON content type
         try {
-            publisher.sendToAll(json, WebPubSubContentType.APPLICATION_JSON);
+            publisher.sendToGroup("game", json, WebPubSubContentType.APPLICATION_JSON);
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Failed to send message to Web PubSub: " + iface.getName() + "." + method.getName(), e);
         }
