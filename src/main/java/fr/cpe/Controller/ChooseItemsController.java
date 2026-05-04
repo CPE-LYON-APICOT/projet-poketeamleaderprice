@@ -286,8 +286,8 @@ public class ChooseItemsController {
             ensureConnectionService();
             Stade stade = new StadeDAO().get(1).orElseThrow();
 
-            connectionService.hostGame(this.dresseur, stade);
             this.dresseur.setIndex(0);
+            connectionService.hostGame(this.dresseur, stade);
 
             navigateToChargement(event);
         } catch (Exception e) {
@@ -298,8 +298,8 @@ public class ChooseItemsController {
     public void pressJoinGameButton(ActionEvent event) {
         try {
             ensureConnectionService();
-            connectionService.connect(this.dresseur);
             this.dresseur.setIndex(1);
+            connectionService.connect(this.dresseur);
 
             navigateToChargement(event);
         } catch (Exception e) {
