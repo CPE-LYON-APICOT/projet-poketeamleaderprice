@@ -2,6 +2,8 @@ package fr.cpe.Controller;
 
 import fr.cpe.model.Dresseur;
 import fr.cpe.service.Partie;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +26,8 @@ public class ChargementController {
 
     public Label statusLabel;
 
+    private static final Logger LOGGER = Logger.getLogger(ChargementController.class.getName());
+
     public void initialize(Dresseur dresseur) {
         this.currentDresseur = dresseur;
         this.startTime = System.currentTimeMillis();
@@ -42,6 +46,15 @@ public class ChargementController {
     }
 
     private void checkGameState() {
+        // Debug: print current Partie state so we can see why we remain on the loading screen
+        try {
+            Partie p = Partie.getInstance();
+            String d1 = (p.getDresseur1() == null) ? "null" : (p.getDresseur1().getIndex() + "(" + p.getDresseur1().getNom() + ")");
+            String d2 = (p.getDresseur2() == null) ? "null" : (p.getDresseur2().getIndex() + "(" + p.getDresseur2().getNom() + ")");
+            LOGGER.info(() -> "ChargementController.checkGameState - dresseur1=" + d1 + " dresseur2=" + d2);
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Error while logging Partie state", e);
+        }
         // Check for timeout
         if (System.currentTimeMillis() - startTime > MAX_WAIT_TIME_MS) {
             pollingTimer.cancel();
