@@ -6,7 +6,10 @@ import java.util.logging.Level;
 import com.azure.messaging.webpubsub.WebPubSubServiceClient;
 import com.azure.messaging.webpubsub.models.WebPubSubContentType;
 import com.google.inject.Inject;
+import fr.cpe.bus.InstanceIdentity;
 import fr.cpe.commands.Command;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.util.Map;
 
 public abstract class CommandService {
 
@@ -44,8 +47,8 @@ public abstract class CommandService {
             try {
                 // Try to annotate message with sender id
                 com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-                java.util.Map<String, Object> messageMap = mapper.readValue(json, java.util.Map.class);
-                String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
+                Map<String, Object> messageMap = mapper.readValue(json, new TypeReference<>() {});
+                String instanceName = InstanceIdentity.get();
                 messageMap.put("sender", instanceName);
                 String annotatedJson = mapper.writeValueAsString(messageMap);
 

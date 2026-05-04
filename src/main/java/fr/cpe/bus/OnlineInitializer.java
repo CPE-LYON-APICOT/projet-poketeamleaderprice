@@ -25,7 +25,7 @@ public class OnlineInitializer {
     private static final Logger LOGGER = Logger.getLogger(OnlineInitializer.class.getName());
     private static final String HUB = "game";
 
-    private Partie Partie;
+    private final Partie Partie;
     private MethodCallHandler handler;
     private boolean connected = false;
 
@@ -44,9 +44,9 @@ public class OnlineInitializer {
      */
     public boolean start() {
         try {
-            String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
+            String instanceName = InstanceIdentity.get();
             String connectionString = AppModule.getConnectionString();
-            LOGGER.info(() -> "Starting online infrastructure for instance: " + instanceName + " using connectionString: " + (connectionString == null ? "null" : (connectionString.length() > 64 ? connectionString.substring(0, 64) + "..." : connectionString)));
+            LOGGER.info(() -> "Starting online infrastructure for instance: " + instanceName + " using connectionString: " + (connectionString.length() > 64 ? connectionString.substring(0, 64) + "..." : connectionString));
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
             handler.register(Partie.class, Partie);

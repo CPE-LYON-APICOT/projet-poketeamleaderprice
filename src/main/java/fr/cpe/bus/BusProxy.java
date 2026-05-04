@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class BusProxy implements InvocationHandler {
 
     private static final Logger LOGGER = Logger.getLogger(BusProxy.class.getName());
-    private static final String DEFAULT_HUB = "game";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private final Class<?> iface;
@@ -34,9 +33,8 @@ public class BusProxy implements InvocationHandler {
      *
      * @param iface     the interface to proxy
      * @param publisher the Web PubSub client for publishing messages
-     * @param hub       the hub name to publish to
      */
-    public BusProxy(Class<?> iface, WebPubSubServiceClient publisher, String hub) {
+    public BusProxy(Class<?> iface, WebPubSubServiceClient publisher) {
         this.iface = iface;
         this.publisher = publisher;
     }
@@ -54,7 +52,7 @@ public class BusProxy implements InvocationHandler {
         return (T) Proxy.newProxyInstance(
                 iface.getClassLoader(),
                 new Class<?>[]{iface},
-                new BusProxy(iface, publisher, DEFAULT_HUB)
+                new BusProxy(iface, publisher)
         );
     }
 
@@ -78,7 +76,7 @@ public class BusProxy implements InvocationHandler {
 
         // Add diagnostic logging to help trace messages across instances
         String playerId = System.getenv().getOrDefault("PLAYER_ID", "unknown");
-        String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
+        String instanceName = InstanceIdentity.get();
         LOGGER.info(() -> "BusProxy sending message from instance=" + instanceName + " playerId=" + playerId + " -> " + iface.getName() + "." + method.getName() + " json=" + json);
 
         // Send to all subscribers with JSON content type

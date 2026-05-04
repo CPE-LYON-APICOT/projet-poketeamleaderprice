@@ -2,12 +2,10 @@ package fr.cpe.observers;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.logging.Level;
 import com.fasterxml.jackson.core.type.TypeReference;
-import fr.cpe.dao.AttaqueDAO;
-import fr.cpe.model.Attaque;
 import fr.cpe.model.Dresseur;
+import fr.cpe.bus.InstanceIdentity;
 import fr.cpe.service.Partie;
 
 public class ConnectionServiceMessageObserver extends MessageObserver {
@@ -15,10 +13,10 @@ public class ConnectionServiceMessageObserver extends MessageObserver {
     @Override
     public boolean onMessage(String json) {
         try {
-            Map<String, Object> message = OBJECT_MAPPER.readValue(json, new TypeReference<Map<String, Object>>() {});
+            Map<String, Object> message = OBJECT_MAPPER.readValue(json, new TypeReference<>() {});
             // Log raw incoming message and sender for diagnostics
             String sender = (String) message.get("sender");
-            String self = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
+            String self = InstanceIdentity.get();
             LOGGER.info(() -> "ConnectionServiceMessageObserver incoming json=" + json + " sender=" + sender + " self=" + self);
             // Ignore messages that we ourselves sent (prevents double-processing)
             if (sender != null && sender.equals(self)) {
@@ -42,13 +40,13 @@ public class ConnectionServiceMessageObserver extends MessageObserver {
                     if (args.size() != 1) {
                         return false;
                     }
-                    Partie.getInstance().setDresseur2(OBJECT_MAPPER.convertValue(args.get(0), Dresseur.class));
+                    Partie.getInstance().setDresseur2(OBJECT_MAPPER.convertValue(args.getFirst(), Dresseur.class));
                     return true;
                 case "hostGame":
                     if (args.size() != 1) {
                         return false;
                     }
-                    Partie.getInstance().setDresseur1(OBJECT_MAPPER.convertValue(args.get(0), Dresseur.class));
+                    Partie.getInstance().setDresseur1(OBJECT_MAPPER.convertValue(args.getFirst(), Dresseur.class));
                     return true;
                 default:
                     return false;

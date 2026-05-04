@@ -4,8 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import fr.cpe.dao.AttaqueDAO;
 import fr.cpe.model.Attaque;
-import fr.cpe.model.Dresseur;
-import fr.cpe.model.Pokemon;
+import fr.cpe.bus.InstanceIdentity;
 import fr.cpe.service.Partie;
 
 import java.util.List;
@@ -21,10 +20,10 @@ public class PartieServiceMessageObserver extends MessageObserver {
     @Override
     public boolean onMessage(String json) {
         try {
-            Map<String, Object> message = OBJECT_MAPPER.readValue(json, new TypeReference<Map<String, Object>>() {});
+            Map<String, Object> message = OBJECT_MAPPER.readValue(json, new TypeReference<>() {});
             // Log raw incoming message and sender for diagnostics
             String sender = (String) message.get("sender");
-            String self = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
+            String self = InstanceIdentity.get();
             LOGGER.info(() -> "PartieServiceMessageObserver incoming json=" + json + " sender=" + sender + " self=" + self);
             // Ignore messages that we ourselves sent (prevents double-processing)
             if (sender != null && sender.equals(self)) {
