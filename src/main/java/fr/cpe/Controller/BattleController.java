@@ -6,12 +6,20 @@ import fr.cpe.model.StatType;
 import fr.cpe.service.Partie;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class BattleController {
 
+    public ImageView battleBackgroundView;
+    public ImageView enemySpriteView;
+    public ProgressBar enemyHpBar;
+    public Label enemyHpValueLabel;
+    public ImageView playerSpriteView;
+    public Label playerHpValueLabel;
+    public ProgressBar playerHpBar;
     @FXML
     private Label enemyNameLabel;
     @FXML
@@ -39,9 +47,39 @@ public class BattleController {
 
     private Partie partie;
 
-    public void initialize(Partie partie) {
+
+    public void initialize(Partie partie, int indexJoueur) {
         this.partie = partie;
         updateBattleUI();
+
+        Dresseur hostdresseur = partie.getDresseur1();
+        Dresseur joindresseur = partie.getDresseur2();
+        Dresseur player;
+        Dresseur opponent;
+
+        if (indexJoueur == 1) {
+            player = hostdresseur;
+            opponent = joindresseur;
+        } else {
+            player = joindresseur;
+            opponent = hostdresseur;
+        }
+
+        //Initialisé les HP des premiers pokemons des dresseurs
+        // Player
+        String HPPokemon = player.getPokemonTeam(0).getHp() + " / " + player.getPokemonTeam(0).getHp();
+        this.playerHpValueLabel.setText(HPPokemon);
+
+
+
+    }
+
+    private void updatePlayerHpBar(int damage) {
+        // int actualHP = this.playerHpLabel.
+    }
+
+    private void updateOppHpBar() {
+
     }
 
     private void updateBattleUI() {
