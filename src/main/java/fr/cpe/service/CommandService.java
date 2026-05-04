@@ -49,6 +49,8 @@ public abstract class CommandService {
                 messageMap.put("sender", instanceName);
                 String annotatedJson = mapper.writeValueAsString(messageMap);
 
+                // Log annotated JSON and then send
+                LOGGER.info(() -> "Sending to bus: " + annotatedJson);
                 publisher.sendToAll(annotatedJson, WebPubSubContentType.APPLICATION_JSON);
                 LOGGER.info("Command executed and sent to bus: " + command.getClass().getSimpleName());
             } catch (Exception e) {

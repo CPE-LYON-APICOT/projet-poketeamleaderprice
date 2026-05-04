@@ -22,10 +22,13 @@ public class PartieServiceMessageObserver extends MessageObserver {
     public boolean onMessage(String json) {
         try {
             Map<String, Object> message = OBJECT_MAPPER.readValue(json, new TypeReference<Map<String, Object>>() {});
-            // Ignore messages that we ourselves sent (prevents double-processing)
+            // Log raw incoming message and sender for diagnostics
             String sender = (String) message.get("sender");
             String self = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
+            LOGGER.info(() -> "PartieServiceMessageObserver incoming json=" + json + " sender=" + sender + " self=" + self);
+            // Ignore messages that we ourselves sent (prevents double-processing)
             if (sender != null && sender.equals(self)) {
+                LOGGER.info(() -> "PartieServiceMessageObserver ignoring self-sent message (sender=" + sender + ")");
                 return true;
             }
             String interfaceName = (String) message.get("interface");
