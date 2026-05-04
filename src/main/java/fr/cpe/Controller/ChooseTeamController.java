@@ -58,18 +58,7 @@ public class ChooseTeamController {
         this.dresseur = dresseur;
 
         Dotenv dotenv = Dotenv.load();
-        String playerId = dotenv.get("PLAYER_ID");
-        if (playerId != null && !playerId.isEmpty()) {
-            try {
-                this.dresseur.setIndex(Integer.parseInt(playerId));
-            } catch (NumberFormatException e) {
-                System.err.println("PLAYER_ID invalid format, using default value 1");
-                this.dresseur.setIndex(1);
-            }
-        } else {
-            System.err.println("PLAYER_ID not found in .env, using default value 1");
-            this.dresseur.setIndex(1);
-        }
+        this.dresseur.setIndex(Integer.parseInt(dotenv.get("PLAYER_ID")));
 
         //this.playerNameField.setText(dresseur.getNom());
 

@@ -1,11 +1,11 @@
 package fr.cpe.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Dresseur {
-    private static final int MAX_ITEMS = 20;
-
     private Integer index;
     private String nom;
     private Map<Integer,Pokemon> pokemon;
@@ -70,22 +70,6 @@ public class Dresseur {
 
     public void addItem(Integer nb,Item item)
     {
-        if (this.items == null) {
-            this.items = new HashMap<>();
-        }
-        if (nb == null || item == null) {
-            throw new IllegalArgumentException("La quantité et l'item ne peuvent pas être nuls.");
-        }
-        if (getTotalItemQuantity() + nb > MAX_ITEMS) {
-            throw new IllegalStateException("Un dresseur ne peut pas avoir plus de 20 objets au total.");
-        }
         this.items.put(nb, item);
-    }
-
-    public int getTotalItemQuantity() {
-        if (this.items == null || this.items.isEmpty()) {
-            return 0;
-        }
-        return this.items.keySet().stream().mapToInt(Integer::intValue).sum();
     }
 }

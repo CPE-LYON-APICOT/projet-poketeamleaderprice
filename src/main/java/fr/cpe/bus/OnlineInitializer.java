@@ -30,8 +30,8 @@ public class OnlineInitializer {
     private boolean connected = false;
 
     @Inject
-    public OnlineInitializer(Partie partie) {
-        this.Partie = partie;
+    public OnlineInitializer(Partie Partie) {
+        this.Partie = Partie;
     }
 
     /**

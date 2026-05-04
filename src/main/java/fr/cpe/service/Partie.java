@@ -27,7 +27,6 @@ public class Partie {
     @Inject
     private Partie() {
         this.commandServices = new ArrayList<>();
-        instance = this;
     }
 
     public static Partie getInstance() {

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import fr.cpe.dao.AttaqueDAO;
 import fr.cpe.model.Attaque;
 import fr.cpe.model.Dresseur;
-import fr.cpe.service.ConnectionService;
 import fr.cpe.service.Partie;
 
 public class ConnectionServiceMessageObserver extends MessageObserver {
@@ -18,9 +17,7 @@ public class ConnectionServiceMessageObserver extends MessageObserver {
         try {
             Map<String, Object> message = OBJECT_MAPPER.readValue(json, new TypeReference<Map<String, Object>>() {});
             String interfaceName = (String) message.get("interface");
-            if (interfaceName == null
-                    || (!interfaceName.equals(Partie.class.getName())
-                    && !interfaceName.equals(ConnectionService.class.getName()))) {
+            if (interfaceName == null || !interfaceName.equals(Partie.class.getName())) {
                 return false;
             }
 
