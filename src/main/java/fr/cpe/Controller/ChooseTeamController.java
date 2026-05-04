@@ -5,6 +5,7 @@ import fr.cpe.dao.PokemonDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
 import fr.cpe.model.Type;
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
@@ -56,7 +57,10 @@ public class ChooseTeamController {
         // Initialize le dresseur
         this.dresseur = dresseur;
 
-        this.playerNameField.setText(dresseur.getNom());
+        Dotenv dotenv = Dotenv.load();
+        this.dresseur.setIndex(Integer.parseInt(dotenv.get("PLAYER_ID")));
+
+        //this.playerNameField.setText(dresseur.getNom());
 
         //Boutons de sélections de Team
         teamSlotButtons.addAll(Arrays.asList(teamSlot1, teamSlot2, teamSlot3, teamSlot4, teamSlot5, teamSlot6));
@@ -193,6 +197,7 @@ public class ChooseTeamController {
         String DresseurName = this.playerNameField.getText();
         dresseur.setNom(DresseurName);
     }
+
     private void addPokemonToTeam(Button slot) {
         if (selectedPokemon == null) {
             return;

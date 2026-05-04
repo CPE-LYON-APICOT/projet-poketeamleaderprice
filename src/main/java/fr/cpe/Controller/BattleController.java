@@ -1,9 +1,15 @@
 package fr.cpe.Controller;
 
+import com.google.inject.Inject;
+
+import fr.cpe.dao.AttaqueDAO;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
 import fr.cpe.model.StatType;
 import fr.cpe.service.Partie;
+import fr.cpe.service.PartieService;
+import io.github.cdimascio.dotenv.Dotenv;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -47,6 +53,8 @@ public class BattleController {
 
     private Partie partie;
 
+    @Inject
+    private PartieService partieService;
 
     public void initialize(Partie partie, int indexJoueur) {
         this.partie = partie;
@@ -111,5 +119,13 @@ public class BattleController {
                 playerHpLabel.setText(playerPokemon.getHp() + " / " + maxHp);
             }
         }
+    }
+
+    public void pressAttackButton(ActionEvent event) {
+        Dotenv dotenv = Dotenv.load();
+        this.partieService.handleAttack(
+            this.partie.getDresseurFromId(Integer.parseInt(dotenv.get("PLAYER_ID"))),
+            new AttaqueDAO().get(1).orElseThrow(() -> new IllegalArgumentException("Invalid attack ID"))
+        );
     }
 }
