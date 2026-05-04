@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import com.azure.messaging.webpubsub.WebPubSubServiceClient;
 import com.azure.messaging.webpubsub.models.WebPubSubContentType;
 import com.google.inject.Inject;
+import fr.cpe.bus.MethodCallHandler;
 import fr.cpe.commands.Command;
 
 public abstract class CommandService {
@@ -39,6 +40,9 @@ public abstract class CommandService {
                 LOGGER.warning("Command did not produce a JSON message: " + command.getClass().getSimpleName());
                 return;
             }
+
+            // Process the message locally first so observers can react to self-originated commands.
+            MethodCallHandler.notifyLocalObservers(json);
 
             // Send the JSON to the bus
             try {

@@ -29,6 +29,7 @@ public class MethodCallHandler {
 
     private static final Logger LOGGER = Logger.getLogger(MethodCallHandler.class.getName());
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static volatile MethodCallHandler currentHandler;
 
     private final String connectionString;
     private final String hub;
@@ -123,6 +124,7 @@ public class MethodCallHandler {
 
             // Start the client
             client.start();
+            currentHandler = this;
 
             LOGGER.info("MethodCallHandler started, listening on hub: " + hub);
         } catch (Exception e) {
@@ -164,6 +166,14 @@ public class MethodCallHandler {
             } catch (Exception e) {
                 LOGGER.log(Level.WARNING, "Error stopping MethodCallHandler", e);
             }
+        }
+        currentHandler = null;
+    }
+
+    public static void notifyLocalObservers(String json) {
+        MethodCallHandler handler = currentHandler;
+        if (handler != null) {
+            handler.notifyObservers(json);
         }
     }
 
