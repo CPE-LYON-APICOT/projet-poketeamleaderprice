@@ -23,6 +23,7 @@ public class ConnectionServiceMessageObserver extends MessageObserver {
 
             String methodName = (String) message.get("method");
             List<?> args = (List<?>) message.get("args");
+            LOGGER.info(() -> "ConnectionServiceMessageObserver received method=" + methodName + " args=" + (args == null ? "null" : args.toString()));
             if (methodName == null || args == null) {
                 return false;
             }

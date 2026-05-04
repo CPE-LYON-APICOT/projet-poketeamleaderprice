@@ -42,6 +42,10 @@ public abstract class CommandService {
 
             // Send the JSON to the bus
             try {
+                // Diagnostic: print the JSON being sent along with instance/player id
+                String playerId = System.getenv().getOrDefault("PLAYER_ID", "unknown");
+                String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
+                LOGGER.info(() -> "Sending command from instance=" + instanceName + " playerId=" + playerId + " command=" + command.getClass().getSimpleName() + " json=" + json);
                 publisher.sendToAll(json, WebPubSubContentType.APPLICATION_JSON);
                 LOGGER.info("Command executed and sent to bus: " + command.getClass().getSimpleName());
             } catch (Exception e) {

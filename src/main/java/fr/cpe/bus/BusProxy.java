@@ -76,6 +76,11 @@ public class BusProxy implements InvocationHandler {
 
         String json = OBJECT_MAPPER.writeValueAsString(message);
 
+        // Add diagnostic logging to help trace messages across instances
+        String playerId = System.getenv().getOrDefault("PLAYER_ID", "unknown");
+        String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
+        LOGGER.info(() -> "BusProxy sending message from instance=" + instanceName + " playerId=" + playerId + " -> " + iface.getName() + "." + method.getName() + " json=" + json);
+
         // Send to all subscribers with JSON content type
         try {
             publisher.sendToAll(json, WebPubSubContentType.APPLICATION_JSON);
