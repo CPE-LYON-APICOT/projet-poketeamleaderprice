@@ -91,6 +91,11 @@ public class ChooseItemsController {
 
             connectionService.hostGame(this.dresseur, stade);
 
+            // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
+            List<Dresseur> dresseurList = new ArrayList<>();
+            this.dresseur.setIndex(0);
+            dresseurList.addFirst(this.dresseur);
+
             // Navigate to loading page while waiting for opponent
             navigateToChargement(event);
         } catch (Exception e) {
@@ -103,6 +108,11 @@ public class ChooseItemsController {
             ensureConnectionService();
             connectionService.connect(this.dresseur);
 
+            // Crée et ajoute dans une liste le premier dresseur (Celui qui hoste la game)
+            List<Dresseur> dresseursList = new ArrayList<>();
+            this.dresseur.setIndex(1);
+            dresseursList.addLast(this.dresseur);
+            
             // Navigate to loading page while waiting for game to start
             navigateToChargement(event);
         } catch (Exception e) {

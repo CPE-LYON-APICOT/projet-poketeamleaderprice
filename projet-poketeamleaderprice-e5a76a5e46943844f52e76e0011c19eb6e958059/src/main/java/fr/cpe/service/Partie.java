@@ -1,9 +1,12 @@
 package fr.cpe.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import fr.cpe.App;
 import fr.cpe.model.Attaque;
 import fr.cpe.model.Dresseur;
 import fr.cpe.model.Pokemon;
@@ -18,20 +21,18 @@ public class Partie {
     private Stade stade;
     private Pokemon activePokemonDresseur1;
     private Pokemon activePokemonDresseur2;
+    private List<CommandService> commandServices;
     private static Partie instance;
 
     @Inject
     private Partie() {
-        instance = this;
+        this.commandServices = new ArrayList<>();
     }
 
-    public static synchronized Partie getInstance() {
+    public static Partie getInstance() {
         if (instance == null) {
-            if (App.injector != null) {
-                instance = App.injector.getInstance(Partie.class);
-            } else {
-                instance = new Partie();
-            }
+            instance = new Partie();
+            return instance;
         }
         return instance;
     }
