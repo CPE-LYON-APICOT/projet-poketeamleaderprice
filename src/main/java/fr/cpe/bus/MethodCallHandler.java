@@ -103,8 +103,11 @@ public class MethodCallHandler {
 
             // Subscribe to server messages
             client.addOnServerMessageEventHandler(event -> {
-                String json = extractJsonFromData(event.getData());
+                Object raw = event.getData();
+                LOGGER.info(() -> "Received server message raw=" + (raw == null ? "null" : raw.toString()));
+                String json = extractJsonFromData(raw);
                 if (json != null) {
+                    LOGGER.info(() -> "Received server JSON: " + json);
                     if (!notifyObservers(json)) {
                         dispatch(json);
                     }
@@ -113,8 +116,11 @@ public class MethodCallHandler {
 
             // Subscribe to group messages as well
             client.addOnGroupMessageEventHandler(event -> {
-                String json = extractJsonFromData(event.getData());
+                Object raw = event.getData();
+                LOGGER.info(() -> "Received group message raw=" + (raw == null ? "null" : raw.toString()));
+                String json = extractJsonFromData(raw);
                 if (json != null) {
+                    LOGGER.info(() -> "Received group JSON: " + json);
                     if (!notifyObservers(json)) {
                         dispatch(json);
                     }
@@ -175,6 +181,7 @@ public class MethodCallHandler {
     @SuppressWarnings("unchecked")
     private void dispatch(String json) {
         try {
+            LOGGER.info(() -> "Dispatching message: " + json);
             Map<String, Object> message = OBJECT_MAPPER.readValue(json, Map.class);
 
             String interfaceName = (String) message.get("interface");
@@ -239,7 +246,11 @@ public class MethodCallHandler {
         boolean handled = false;
         for (MessageObserver observer : messageObservers) {
             try {
-                handled |= observer.onMessage(json);
+                boolean h = observer.onMessage(json);
+                if (h) {
+                    LOGGER.info(() -> "Message handled by observer=" + observer.getClass().getName());
+                }
+                handled |= h;
             } catch (Exception e) {
                 LOGGER.log(Level.WARNING, "Error while notifying message observer", e);
             }

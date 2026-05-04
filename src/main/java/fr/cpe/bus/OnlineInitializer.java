@@ -44,11 +44,9 @@ public class OnlineInitializer {
      */
     public boolean start() {
         try {
-            String connectionString = AppModule.getConnectionString();
             String instanceName = System.getenv().getOrDefault("INSTANCE_NAME", "instance-local");
-
-            LOGGER.info("Starting online infrastructure for instance: " + instanceName);
-
+            String connectionString = AppModule.getConnectionString();
+            LOGGER.info(() -> "Starting online infrastructure for instance: " + instanceName + " using connectionString: " + (connectionString == null ? "null" : (connectionString.length() > 64 ? connectionString.substring(0, 64) + "..." : connectionString)));
             // Create and start the handler
             handler = new MethodCallHandler(connectionString, HUB);
             handler.register(Partie.class, Partie);
