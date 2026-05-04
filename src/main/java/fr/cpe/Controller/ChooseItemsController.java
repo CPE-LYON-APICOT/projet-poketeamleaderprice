@@ -12,7 +12,6 @@ import fr.cpe.model.Item;
 import fr.cpe.model.StatType;
 import fr.cpe.model.Stade;
 import fr.cpe.service.ConnectionService;
-import fr.cpe.service.Partie;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -290,10 +289,6 @@ public class ChooseItemsController {
             this.dresseur.setIndex(1);
             connectionService.hostGame(this.dresseur, stade);
 
-            // Remplir immédiatement l'instance Partie en local pour éviter les blocages réseau
-            Partie.getInstance().setDresseur1(this.dresseur);
-            Partie.getInstance().setStade(stade);
-
             navigateToChargement(event);
         } catch (Exception e) {
             e.printStackTrace();
@@ -306,8 +301,6 @@ public class ChooseItemsController {
             this.dresseur.setIndex(2);
             connectionService.connect(this.dresseur);
 
-            // Remplir immédiatement l'instance Partie en local pour éviter les blocages réseau
-            Partie.getInstance().setDresseur2(this.dresseur);
 
             navigateToChargement(event);
         } catch (Exception e) {

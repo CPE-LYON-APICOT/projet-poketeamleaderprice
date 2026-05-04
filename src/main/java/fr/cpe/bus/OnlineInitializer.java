@@ -32,7 +32,6 @@ public class OnlineInitializer {
     @Inject
     public OnlineInitializer(Partie partie) {
         this.Partie = partie;
-        Partie.setInstance(partie);
     }
 
     /**

@@ -38,10 +38,6 @@ public class Partie {
         return instance;
     }
 
-    public static void setInstance(Partie partie) {
-        instance = partie;
-    }
-
 
     public Dresseur getDresseur1() {
         return dresseur1;
