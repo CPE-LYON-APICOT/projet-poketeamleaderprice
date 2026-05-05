@@ -8,6 +8,8 @@ public class HealingItem extends Item {
         this.hpHeal = hpHeal;
     }
 
+    public HealingItem() {}
+
     public Integer getHpHeal() {
         return hpHeal;
     }
