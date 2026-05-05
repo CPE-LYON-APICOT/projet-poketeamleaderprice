@@ -406,7 +406,7 @@ public class ChooseItemsController {
             e.printStackTrace();
         }
     }
-*/
+ */
     private void ensureConnectionService() {
         if (this.connectionService == null && App.injector != null) {
             this.connectionService = App.injector.getInstance(ConnectionService.class);
@@ -415,4 +415,5 @@ public class ChooseItemsController {
             throw new IllegalStateException("ConnectionService non initialise. Verifie le chargement FXML avec Guice.");
         }
     }
+
 }
