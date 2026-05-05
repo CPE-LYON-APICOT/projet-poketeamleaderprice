@@ -25,6 +25,8 @@ public class BattleController {
     @FXML
     private ProgressBar enemyHpBar;
     @FXML
+    private Label enemyHpValueLabel;
+    @FXML
     private ImageView enemySpriteView;
 
     @FXML
@@ -139,21 +141,26 @@ public class BattleController {
 
         Attaque attaque = attackerPokemon.getLesattaquesprises()[index];
         partieService.handleAttack(currentAttacker, attaque);
-        battleMessageLabel.setText(currentAttacker.getNom() + " utilise " + attaque.getName() + " !");
-        updateBattleUI();
-        hideMovesPane();
+        
+        String msg = currentAttacker.getNom() + " utilise " + attaque.getName() + " !";
+        
+        javafx.application.Platform.runLater(() -> {
+            battleMessageLabel.setText(msg);
+            updateBattleUI();
+            hideMovesPane();
+        });
+        
         switchTurn();
     }
 
     private void switchTurn() {
-        if (partie == null) {
-            return;
-        }
-
+        if (partie == null) return;
         Dresseur next = partie.nextAttacker();
         if (next != null) {
             currentAttacker = next;
-            battleMessageLabel.setText("Au tour de " + currentAttacker.getNom() + ". Choisis une action.");
+            javafx.application.Platform.runLater(() ->
+                battleMessageLabel.setText("Au tour de " + currentAttacker.getNom() + ". Choisis une action.")
+            );
         }
     }
 
@@ -206,6 +213,7 @@ public class BattleController {
                 enemyNameLabel.setText(enemyPokemon.getNom());
                 enemyLevelLabel.setText(" Lv.50");
                 int hpMax = enemyPokemon.getHpMax() != null ? enemyPokemon.getHpMax() : enemyPokemon.getHp();
+                enemyHpValueLabel.setText(enemyPokemon.getHp() + " / " + hpMax);
                 enemyHpBar.setProgress((double) enemyPokemon.getHp() / hpMax);
             }
         }

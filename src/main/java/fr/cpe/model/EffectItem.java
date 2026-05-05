@@ -9,6 +9,8 @@ public class EffectItem extends Item {
         super(id, name);
         this.affectedStat = affectedStat;
     }
+
+    public EffectItem() {}
     
     public Map<StatType, Integer> getAffectedStat() {
         return affectedStat;

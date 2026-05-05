@@ -97,7 +97,7 @@ public class Partie {
             defense = pokemonCible.getStats().get(StatType.Def);
         }
 
-        int degats = attaque.getPower() - defense;
+        int degats = Math.max(1, attaque.getPower() - defense/3);
         if (degats < 0) {
             degats = 0;
         }

@@ -48,11 +48,11 @@
 
                         <VBox spacing="4.0">
                             <Label text="PV"
-                                   style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #374151;"/>
+                                style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #374151;"/>
                             <ProgressBar fx:id="enemyHpBar" progress="1.0" prefWidth="380.0"
-                                         style="-fx-accent: #16a34a;"/>
-                            <Label fx:id="enemyHpLabel" text="-- / --"
-       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                                        style="-fx-accent: #16a34a;"/>
+                            <Label fx:id="enemyHpValueLabel" text="-- / --"
+                                style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
                         </VBox>
                     </VBox>
 
