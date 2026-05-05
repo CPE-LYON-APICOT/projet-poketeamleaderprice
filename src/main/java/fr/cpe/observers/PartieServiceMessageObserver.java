@@ -2,14 +2,13 @@ package fr.cpe.observers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import fr.cpe.dao.AttaqueDAO;
 import fr.cpe.model.Attaque;
 import fr.cpe.model.Dresseur;
+import fr.cpe.model.Pokemon;
 import fr.cpe.service.Partie;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.logging.Level;
 
 /**
@@ -33,18 +32,15 @@ public class PartieServiceMessageObserver extends MessageObserver {
 
             String methodName = (String) message.get("method");
             List<?> args = (List<?>) message.get("args");
-            if (methodName == null || args == null) {
+            if (methodName == null) {
                 return false;
             }
 
             switch (methodName) {
-                case "handleAttack":
-                    if (args.size() != 2) return false;
+                case "handleAttack": {
+                    if (args == null || args.size() != 2) return false;
 
-                    // args.get(0) est le Dresseur complet — extraire son index
                     Dresseur dresseurAttaquant = OBJECT_MAPPER.convertValue(args.get(0), Dresseur.class);
-                    
-                    // args.get(1) est l'Attaque complète — la désérialiser directement
                     Attaque attaqueDeserialisee = OBJECT_MAPPER.convertValue(args.get(1), Attaque.class);
 
                     this.partie.attack(
@@ -52,14 +48,35 @@ public class PartieServiceMessageObserver extends MessageObserver {
                         attaqueDeserialisee
                     );
                     return true;
-                case "handleChangePokemon":
+                }
+
+                case "handleChangePokemon": {
+                    if (args == null || args.size() != 2) return false;
+
+                    Dresseur dresseurChanger = OBJECT_MAPPER.convertValue(args.get(0), Dresseur.class);
+                    Pokemon  pokemonRef      = OBJECT_MAPPER.convertValue(args.get(1), Pokemon.class);
+
+                    Dresseur dresseurReel = this.partie.getDresseurFromId(dresseurChanger.getIndex());
+
+                    // On retrouve le vrai objet dans l'équipe via son numéro de Pokédex
+                    Pokemon pokemonReel = dresseurReel.getPokemon().values().stream()
+                        .filter(p -> p.getNum_Poke().equals(pokemonRef.getNum_Poke()))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalArgumentException(
+                            "Pokémon #" + pokemonRef.getNum_Poke() + " non trouvé dans l'équipe"));
+
+                    this.partie.changePokemon(dresseurReel, pokemonReel);
                     return true;
+                }
+
                 case "handleUseItem":
                     this.partie.useItem();
                     return true;
+
                 case "handleQuit":
                     this.partie.quit();
                     return true;
+
                 default:
                     return false;
             }

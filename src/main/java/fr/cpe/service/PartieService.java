@@ -8,6 +8,7 @@ import fr.cpe.commands.QuitCommand;
 import fr.cpe.commands.UseItemCommand;
 import fr.cpe.model.Attaque;
 import fr.cpe.model.Dresseur;
+import fr.cpe.model.Pokemon;
 
 /**
  * PartieService mediator that executes commands
@@ -24,8 +25,14 @@ public class PartieService extends CommandService {
         this.executeCommand(new AttackCommand(this.messageStore, dresseurAttaquant, attaque));
     }
 
-    public void handleChangePokemon() {
-        this.executeCommand(new ChangePokemonCommand(this.messageStore));
+    /**
+     * Envoie une commande de changement de Pokémon actif sur le bus.
+     *
+     * @param dresseur      le dresseur qui change de Pokémon
+     * @param nouveauPokemon le Pokémon choisi en remplacement
+     */
+    public void handleChangePokemon(Dresseur dresseur, Pokemon nouveauPokemon) {
+        this.executeCommand(new ChangePokemonCommand(this.messageStore, dresseur, nouveauPokemon));
     }
 
     public void handleUseItem() {
