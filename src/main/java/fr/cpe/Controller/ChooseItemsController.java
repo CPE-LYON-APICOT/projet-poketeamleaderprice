@@ -12,6 +12,7 @@ import fr.cpe.model.Item;
 import fr.cpe.model.StatType;
 import fr.cpe.model.Stade;
 import fr.cpe.service.ConnectionService;
+import fr.cpe.service.Partie;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -54,6 +55,9 @@ public class ChooseItemsController {
 
     @Inject
     private ConnectionService connectionService;
+
+    @Inject
+    private Partie partie;
 
     public void initialize(Dresseur dresseur) {
         this.dresseur = dresseur;
@@ -286,6 +290,83 @@ public class ChooseItemsController {
             ensureConnectionService();
             Stade stade = new StadeDAO().get(1).orElseThrow();
 
+            if (this.partie.getDresseur1() == null) {
+                this.dresseur.setIndex(0);
+                connectionService.hostGame(this.dresseur, stade);
+                navigateToChooseTeamForSecondPlayer(event);
+            } else {
+                this.dresseur.setIndex(1);
+                connectionService.connect(this.dresseur);
+                navigateToBattle(event);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pressJoinGameButton(ActionEvent event) {
+        try {
+            ensureConnectionService();
+
+            if (this.partie.getDresseur1() == null) {
+                // Joueur 2 cliqué avant joueur 1 : erreur, on l'ignore ou on affiche un message
+                System.out.println("Le joueur 1 n'a pas encore rejoint.");
+                return;
+            }
+
+            this.dresseur.setIndex(1);
+            connectionService.connect(this.dresseur);
+            navigateToBattle(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToChooseTeamForSecondPlayer(ActionEvent event) {
+        try {
+            String fxmlPath = "/fr/cpe/views/ChooseTeam.fxml";
+            String title = "Poke-Cheap - Choisissez l'équipe du Joueur 2 !";
+
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Parent root = loader.load();
+            ChooseTeamController controller = loader.getController();
+            Dresseur secondDresseur = new Dresseur();
+            secondDresseur.setNom("Joueur 2");
+            controller.initialize(secondDresseur);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(title);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToBattle(ActionEvent event) {
+        try {
+            String fxmlPath = "/fr/cpe/views/Battle.fxml";
+            String title = "Poke-Cheap - Combat!";
+
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Parent root = loader.load();
+            BattleController controller = loader.getController();
+            controller.initialize(this.partie);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(title);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+/** Pour une possible connexion
+    public void pressHostGameButton(ActionEvent event) {
+        try {
+            ensureConnectionService();
+            Stade stade = new StadeDAO().get(1).orElseThrow();
+
             connectionService.hostGame(this.dresseur, stade);
             this.dresseur.setIndex(0);
 
@@ -325,7 +406,7 @@ public class ChooseItemsController {
             e.printStackTrace();
         }
     }
-
+*/
     private void ensureConnectionService() {
         if (this.connectionService == null && App.injector != null) {
             this.connectionService = App.injector.getInstance(ConnectionService.class);
