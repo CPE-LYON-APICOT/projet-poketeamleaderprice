@@ -101,8 +101,15 @@ public class MethodCallHandler {
                     .clientAccessUrl(clientAccessUrl)
                     .buildClient();
 
-            client.addOnConnectedEventHandler(event ->
-                    LOGGER.info(() -> "WebPubSub connected, connectionId=" + event.getConnectionId()));
+            client.addOnConnectedEventHandler(event -> {
+                LOGGER.info(() -> "WebPubSub connected, connectionId=" + event.getConnectionId());
+                try {
+                    client.joinGroup(hub);
+                    LOGGER.info(() -> "Joined WebPubSub group after connect: " + hub);
+                } catch (Exception ex) {
+                    LOGGER.log(Level.WARNING, "Failed to join WebPubSub group after connect: " + hub, ex);
+                }
+            });
             client.addOnDisconnectedEventHandler(event ->
                     LOGGER.warning(() -> "WebPubSub disconnected, connectionId=" + event.getConnectionId()));
             client.addOnStoppedEventHandler(event ->
@@ -138,8 +145,6 @@ public class MethodCallHandler {
 
             // Start the client
             client.start();
-            client.joinGroup(hub);
-            LOGGER.info(() -> "Joined WebPubSub group: " + hub);
 
             LOGGER.info("MethodCallHandler started, listening on hub: " + hub);
         } catch (Exception e) {
