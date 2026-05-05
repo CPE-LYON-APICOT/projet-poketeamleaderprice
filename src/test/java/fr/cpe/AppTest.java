@@ -1,10 +1,8 @@
 package fr.cpe;
 
-import fr.cpe.model.Ball;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests d'exemple — remplacez par vos vrais tests.

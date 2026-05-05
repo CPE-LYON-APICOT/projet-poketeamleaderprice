@@ -11,11 +11,17 @@ package fr.cpe.service;
 // ║   les appelle automatiquement.                                             ║
 // ║                                                                            ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
-
 import com.google.inject.Inject;
+import fr.cpe.observers.ConnectionServiceMessageObserver;
+import fr.cpe.observers.PartieServiceMessageObserver;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import javafx.beans.binding.Bindings;
+
+import java.io.IOException;
 
 /**
  * Service de jeu — gère l'état du jeu et ses éléments visuels.
@@ -58,28 +64,57 @@ import javafx.scene.text.Text;
  */
 public class GameService {
 
-    private final BallService ballService;
+    private static final double WINDOW_WIDTH = 1134.0;
+    private static final double WINDOW_HEIGHT = 917.0;
+
+    private final MessageStore messageStore;
 
     @Inject
-    public GameService(BallService ballService) {
-        this.ballService = ballService;
+    public GameService(PartieService partieService, MessageStore messageStore, Partie partie) {
+        this.messageStore = messageStore;
+        this.messageStore.addObserver(new PartieServiceMessageObserver(partie));
+        this.messageStore.addObserver(new ConnectionServiceMessageObserver(partie));
     }
 
     /**
      * Initialise les éléments visuels du jeu (appelé une fois au démarrage).
      */
-    public void init(Pane gamePane) {
-        ballService.init(gamePane);
+    public void init(Pane gamePane)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/cpe/views/index.fxml"));
+            Parent root = loader.load();
+            gamePane.getChildren().setAll(root);
 
-        Text text = new Text(20, 30, "Projet POO — À vous de jouer !");
-        text.setFill(Color.web("#cdd6f4"));
-        gamePane.getChildren().add(text);
+            if (root instanceof Region region) {
+                region.prefWidthProperty().bind(gamePane.widthProperty());
+                region.prefHeightProperty().bind(gamePane.heightProperty());
+            } else {
+                root.layoutXProperty().bind(Bindings.createDoubleBinding(
+                        () -> (gamePane.getWidth() - root.getLayoutBounds().getWidth()) / 2.0,
+                        gamePane.widthProperty(), root.layoutBoundsProperty()
+                ));
+                root.layoutYProperty().bind(Bindings.createDoubleBinding(
+                        () -> (gamePane.getHeight() - root.getLayoutBounds().getHeight()) / 2.0,
+                        gamePane.heightProperty(), root.layoutBoundsProperty()
+                ));
+            }
+
+            if (gamePane.getScene() != null && gamePane.getScene().getWindow() instanceof Stage stage) {
+                stage.setWidth(WINDOW_WIDTH);
+                stage.setHeight(WINDOW_HEIGHT);
+                stage.centerOnScreen();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Met à jour l'état du jeu (appelé à chaque frame).
      */
     public void update(double width, double height) {
-        ballService.update(width, height);
+
     }
 }
