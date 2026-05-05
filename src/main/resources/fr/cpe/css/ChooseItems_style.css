@@ -15,6 +15,11 @@
 	-fx-alignment: center;
 }
 
+.items-right-panel {
+	-fx-padding: 0 0 0 2;
+	-fx-fill-width: true;
+}
+
 .items-list,
 .items-description {
 	-fx-background-color: rgba(255, 255, 255, 0.97);
@@ -28,6 +33,7 @@
 .items-list {
 	-fx-pref-width: 380;
 	-fx-min-width: 300;
+	-fx-max-width: 380;
 	-fx-padding: 6;
 }
 
@@ -53,6 +59,7 @@
 	-fx-text-fill: #0f172a;
 	-fx-padding: 8;
 	-fx-control-inner-background: transparent;
+	-fx-pref-height: 270;
 }
 
 .items-description .content,
@@ -89,6 +96,74 @@
 	-fx-border-width: 2;
 	-fx-padding: 12;
 }
+
+.items-details-box {
+	-fx-background-color: rgba(255, 255, 255, 0.94);
+	-fx-background-radius: 18;
+	-fx-border-color: #ffcb05;
+	-fx-border-radius: 18;
+	-fx-border-width: 3;
+	-fx-padding: 14;
+	-fx-effect: dropshadow(gaussian, rgba(255, 203, 5, 0.20), 16, 0.2, 0, 3);
+}
+
+.selected-item-name {
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #1d4ed8;
+}
+
+.quantity-controls {
+	-fx-alignment: center-left;
+}
+
+.quantity-field {
+	-fx-background-color: #ffffff;
+	-fx-background-radius: 12;
+	-fx-border-color: #2a75bb;
+	-fx-border-radius: 12;
+	-fx-border-width: 3;
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #1f4e8c;
+	-fx-highlight-fill: #ffcb05;
+	-fx-highlight-text-fill: #1f4e8c;
+	-fx-opacity: 1;
+}
+
+.quantity-button {
+	-fx-min-width: 42;
+	-fx-min-height: 42;
+	-fx-max-width: 42;
+	-fx-max-height: 42;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-background-radius: 12;
+	-fx-border-radius: 12;
+	-fx-border-width: 3;
+	-fx-cursor: hand;
+}
+
+#decreaseQuantityButton {
+	-fx-background-color: #e0f2fe;
+	-fx-text-fill: #1d4ed8;
+	-fx-border-color: #2a75bb;
+}
+
+#increaseQuantityButton {
+	-fx-background-color: #ffcb05;
+	-fx-text-fill: #2a75bb;
+	-fx-border-color: #2a75bb;
+}
+
+.quantity-button:hover {
+	-fx-background-color: #eff6ff;
+}
+
+#increaseQuantityButton:hover {
+	-fx-background-color: #ffd84d;
+}
+
 
 .items-grid .button {
 	-fx-font-size: 14px;

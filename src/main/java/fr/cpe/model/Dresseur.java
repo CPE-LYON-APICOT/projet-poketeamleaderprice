@@ -1,11 +1,11 @@
 package fr.cpe.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Dresseur {
+    private static final int MAX_ITEMS = 20;
+
     private Integer index;
     private String nom;
     private Map<Integer,Pokemon> pokemon;
@@ -23,27 +23,9 @@ public class Dresseur {
         this.items = new HashMap<>();
     }
 
-    public Pokemon getPokemonTeam(int index_List) {
+    public Pokemon getPokemonTeam(int index_List)
+    {
         return this.pokemon.get(index_List);
-    }
-
-    @com.fasterxml.jackson.annotation.JsonSetter("pokemon")
-    public void setPokemonFromJson(Map<String, Object> raw) {
-        this.pokemon = new HashMap<>();
-        if (raw == null) return;
-        com.fasterxml.jackson.databind.ObjectMapper mapper = 
-            new com.fasterxml.jackson.databind.ObjectMapper();
-        for (Map.Entry<String, Object> entry : raw.entrySet()) {
-            try {
-                int key = Integer.parseInt(entry.getKey());
-                if (entry.getValue() != null) {
-                    Pokemon p = mapper.convertValue(entry.getValue(), Pokemon.class);
-                    this.pokemon.put(key, p);
-                }
-            } catch (Exception e) {
-                System.err.println("Erreur conversion pokemon clé " + entry.getKey() + ": " + e.getMessage());
-            }
-        }
     }
 
     public Integer getIndex() {
@@ -88,6 +70,22 @@ public class Dresseur {
 
     public void addItem(Integer nb,Item item)
     {
+        if (this.items == null) {
+            this.items = new HashMap<>();
+        }
+        if (nb == null || item == null) {
+            throw new IllegalArgumentException("La quantité et l'item ne peuvent pas être nuls.");
+        }
+        if (getTotalItemQuantity() + nb > MAX_ITEMS) {
+            throw new IllegalStateException("Un dresseur ne peut pas avoir plus de 20 objets au total.");
+        }
         this.items.put(nb, item);
+    }
+
+    public int getTotalItemQuantity() {
+        if (this.items == null || this.items.isEmpty()) {
+            return 0;
+        }
+        return this.items.keySet().stream().mapToInt(Integer::intValue).sum();
     }
 }
