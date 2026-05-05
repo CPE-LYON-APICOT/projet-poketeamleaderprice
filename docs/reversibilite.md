@@ -161,6 +161,11 @@ Type "1" o-- "0..*" Type : avantages
 
 ## Points de vigilance pour la reprise
 - Ne pas Changer `App.java` 
+- Dans la base de donnée, des chemins de sprites sont en dur, il faudra les mettre à jour si les images sont déplacées
+- Mettre les images dans le dossier "resources/assets/sprite" pour éviter les problèmes de chemins d'accès
+- Le projet utilise Guice pour l’injection de dépendances, il faudra veiller à respecter cette architecture pour éviter les problèmes de couplage et faciliter les tests unitaires.
+- Bien revérifier la structure du Bus Azure avant de se lancer dans le développement du mode en ligne, pour éviter de perdre du temps à deboguer un système qui ne fonctionne pas correctement.
+- Pour rajouter un observer (ex : pour la musique), il faut rajouter l'observer dans la liste des observers à notifier dans `GameService`
 
 
 ## Améliorations recommandées
