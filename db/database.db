@@ -1,0 +1,9 @@
+{
+  "pokemons" : [ ],
+  "types" : [ ],
+  "attaques" : [ ],
+  "abilites" : [ ],
+  "effectItems" : [ ],
+  "healingItems" : [ ],
+  "stades" : [ ]
+}

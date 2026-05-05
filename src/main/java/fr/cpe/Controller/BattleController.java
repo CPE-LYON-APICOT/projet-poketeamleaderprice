@@ -226,8 +226,8 @@ public class BattleController {
                 if (spriteUrl != null) {
                     Image spriteImage = new Image(spriteUrl.toExternalForm());
                     playerSpriteView.setImage(spriteImage);
-                    playerSpriteView.setFitWidth(180);
-                    playerSpriteView.setFitHeight(180);
+                    playerSpriteView.setFitWidth(150);
+                    playerSpriteView.setFitHeight(150);
                     playerSpriteView.setPreserveRatio(true);
                 } else {
                     // Do not return early: log missing resource and continue updating other UI elements
