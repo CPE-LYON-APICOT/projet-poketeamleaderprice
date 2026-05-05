@@ -83,7 +83,7 @@ public class BattleController {
         attackButton.setOnAction(e -> showMoveSelection());
         bagButton   .setOnAction(e -> battleMessageLabel.setText("SAC non implémenté pour le moment."));
         pokemonButton.setOnAction(e -> showPokemonSwitchPanel(currentAttacker, false));
-        runButton   .setOnAction(e -> battleMessageLabel.setText("Fuite impossible en combat de démonstration."));
+        runButton.setOnAction(e -> handleQuit());
 
         moveButton1.setOnAction(e -> chooseAttack(0));
         moveButton2.setOnAction(e -> chooseAttack(1));
@@ -395,5 +395,16 @@ public class BattleController {
         } else {
             System.err.println("Sprite resource not found: " + resolved);
         }
+    }
+
+    private void handleQuit() {
+        if (partie == null || currentAttacker == null || partieService == null) return;
+
+        partieService.handleQuit(currentAttacker);
+
+        Dresseur vainqueur = partie.getOpponent(currentAttacker);
+        battleMessageLabel.setText(currentAttacker.getNom() + " a pris la fuite !\n"
+            + vainqueur.getNom() + " a gagné !");
+        actionPane.setDisable(true);
     }
 }

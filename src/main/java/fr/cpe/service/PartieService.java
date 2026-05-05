@@ -39,7 +39,7 @@ public class PartieService extends CommandService {
         this.executeCommand(new UseItemCommand(this.messageStore));
     }
 
-    public void handleQuit() {
-        this.executeCommand(new QuitCommand(this.messageStore));
+    public void handleQuit(Dresseur dresseur) {
+        this.executeCommand(new QuitCommand(this.messageStore, dresseur));
     }
 }

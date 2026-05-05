@@ -73,9 +73,12 @@ public class PartieServiceMessageObserver extends MessageObserver {
                     this.partie.useItem();
                     return true;
 
-                case "handleQuit":
+                case "handleQuit": {
+                    if (args == null || args.size() != 1) return false;
+                    Dresseur dresseurFuite = OBJECT_MAPPER.convertValue(args.get(0), Dresseur.class);
                     this.partie.quit();
                     return true;
+                }
 
                 default:
                     return false;
