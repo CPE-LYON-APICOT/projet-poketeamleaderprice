@@ -123,7 +123,6 @@ Type "1" o-- "0..*" Type : avantages
 | Bug                                                                                                                                                                 | Sévérité | Conditions de reproduction                                                                                                                                   |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Lorsque le pokémon n'a plus de vie, il n'est pas considérée comme K.O                                                                                               | Majeure  | Lors d'un combat, affaiblisser l'un des pokémons qui est en combat et lorsque le pokemon atteint les HP 0 le pokémon reste sur place et peut encore attaquer |
-| Ne peut pas quitter le combat                                                                                                                                       | Majeure  | Appuyer sur "Fuire" lors d'un combat                                                                                                                         |
 | On ne peut pas utiliser des items                                                                                                                                   | Majeure  | Appuyer sur "Sac"                                                                                                                                            |
 | Lorsque l'on essaie de remplacer un pokémon par-dessus un autre le "slot" se vide. Il faudra rappuyer sur le slot vide pour le rajouter (Attaques sont enregistrés) | Mineure  | Appuyer sur un pokémon, choisir un slot remplit par un autre pokémon, choisir ses attaques et appuyer sur Valider                                            |
 | Les boutons "Héberger une partie" et "Rejoindre une partie" configure les joueurs 1 et joueurs 2                                                                    | Mineure  | Aller sur Choisir les items                                                                                                                                  |
@@ -138,8 +137,11 @@ Type "1" o-- "0..*" Type : avantages
 
 ## Améliorations recommandées
 
-| Amélioration            | Difficulté | Justification |
-|-------------------------|------------|---------------|
-| Mettre un mode en ligne | Moyen      | Possible      |
-|  | Moyen      |               |
-
+| Amélioration                                     | Difficulté | Justification                                                                                                                                                                            |
+|--------------------------------------------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mettre un mode en ligne                          | Moyen      | Instaurer un système de bus où chaque joueurs envoie en json un model qui est soi Partie (pour héberger / rejoindre une partie), ou envoyer des mouvements en combat (Attaque, Sac etc.) |
+| Recherche de pokémon                             | Facile     | Instaurer un moteur de recherche lors de la sélection de pokémon                                                                                                                         |
+| Recherche de d'attaques de pokémon               | Facile     | Instaurer un moteur de recherche lors de la sélection des attaques                                                                                                                       |
+| Recherche d'items                                | Facile     | Instaurer un moteur de recherche lors de la sélection des items                                                                                                                          |
+| Ajouter des pokémons dans la base de donnée      | Difficile  | Ajouter des pokémons en dur dans la base de donnée que seul les développeurs peuvent faire, faire une fonction permettant d'ajouter un ou plusieurs pokémons dans la base de donnée      |
+| Faire une fusion de pokémon ou créer des pokémon | Difficile  | Faire des pages permettant de créer des pokémons et/ou de fusionner des pokémons, possibilité aussi "d'importer" des pokémons                                                            |
