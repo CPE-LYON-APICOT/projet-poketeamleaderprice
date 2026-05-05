@@ -36,6 +36,5 @@ Un jeu de simulations de combats de Pokémon comme sur les jeux Nintendo.
 
 créer un fichier .env à la racine du projet et remplir les informations :
 ```env
-DB_PATH="./db/database.db"
+DB_PATH="[path_to_projet]/db/db.json"
 ```
-puis créer le fichier sqlite à la racine du projet.
