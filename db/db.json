@@ -5,7 +5,7 @@
       "name": "Bulbasaur",
       "hp": 45,
       "imageFacePath": "assets/sprite/Face/bulbasaur.png",
-      "imageDosPath": "assets/sprite/Dos/bulbasaur.png",
+      "imageDosPath": "assets/sprite/Dos/bulbasaur_back.png",
       "imageSpritePath": "assets/sprite/Mini/bulbasaur.png",
       "description": "Bulbasaur is a small, quadrupedal Pokémon with a bulb on its back. The bulb absorbs solar energy, which gives it the energy it needs to live.",
       "abilityId": 1,
@@ -49,7 +49,7 @@
       "name": "Ivysaur",
       "hp": 60,
       "imageFacePath": "assets/sprite/Face/ivysaur.png",
-      "imageDosPath": "assets/sprite/Dos/ivysaur.png",
+      "imageDosPath": "assets/sprite/Dos/ivysaur_back.png",
       "imageSpritePath": "assets/sprite/Mini/ivysaur.png",
       "description": "Ivysaur is a small, quadrupedal Pokémon with a pink bulb on its back. As it grows, the bulb develops into a flower.",
       "abilityId": 1,
@@ -92,7 +92,7 @@
       "name": "Venusaur",
       "hp": 80,
       "imageFacePath": "assets/sprite/Face/venusaur.png",
-      "imageDosPath": "assets/sprite/Dos/venusaur.png",
+      "imageDosPath": "assets/sprite/Dos/venusaur_back.png",
       "imageSpritePath": "assets/sprite/Mini/venusaur.png",
       "description": "Venusaur is a large, quadrupedal Pokémon. The flower on its back has a strong, foul odor.",
       "abilityId": 1,
@@ -136,7 +136,7 @@
       "name": "Charmander",
       "hp": 39,
       "imageFacePath": "assets/sprite/Face/charmander.png",
-      "imageDosPath": "assets/sprite/Dos/charmander.png",
+      "imageDosPath": "assets/sprite/Dos/charmander_back.png",
       "imageSpritePath": "assets/sprite/Mini/charmander.png",
       "description": "Charmander is a small, bipedal Pokémon with blue skin. It has a flame on the tip of its tail.",
       "abilityId": 2,
@@ -173,7 +173,7 @@
       "name": "Charmeleon",
       "hp": 58,
       "imageFacePath": "assets/sprite/Face/charmeleon.png",
-      "imageDosPath": "assets/sprite/Dos/charmeleon.png",
+      "imageDosPath": "assets/sprite/Dos/charmeleon_back.png",
       "imageSpritePath": "assets/sprite/Mini/charmeleon.png",
       "description": "Charmeleon is a bipedal Pokémon with red skin and a horn on its head. It evolves from Charmander.",
       "abilityId": 2,
@@ -210,7 +210,7 @@
       "name": "Charizard",
       "hp": 78,
       "imageFacePath": "assets/sprite/Face/charizard.png",
-      "imageDosPath": "assets/sprite/Dos/charizard.png",
+      "imageDosPath": "assets/sprite/Dos/charizard_back.png",
       "imageSpritePath": "assets/sprite/Mini/charizard.png",
       "description": "Charizard is a draconic Pokémon with blue skin and wings. It can breathe fire and is known as the Dragon-type killer.",
       "abilityId": 2,
@@ -250,7 +250,7 @@
       "name": "Squirtle",
       "hp": 44,
       "imageFacePath": "assets/sprite/Face/squirtle.png",
-      "imageDosPath": "assets/sprite/Dos/squirtle.png",
+      "imageDosPath": "assets/sprite/Dos/squirtle_back.png",
       "imageSpritePath": "assets/sprite/Mini/squirtle.png",
       "description": "Squirtle is a small, reptilian Pokémon with a brown shell. It retreats into its shell for protection.",
       "abilityId": 3,
@@ -292,7 +292,7 @@
       "name": "Wartortle",
       "hp": 59,
       "imageFacePath": "assets/sprite/Face/wartortle.png",
-      "imageDosPath": "assets/sprite/Dos/wartortle.png",
+      "imageDosPath": "assets/sprite/Dos/wartortle_back.png",
       "imageSpritePath": "assets/sprite/Mini/wartortle.png",
       "description": "Wartortle is a reptilian Pokémon with a brown shell and ear-like appendages. It evolves from Squirtle.",
       "abilityId": 3,
@@ -334,7 +334,7 @@
       "name": "Blastoise",
       "hp": 79,
       "imageFacePath": "assets/sprite/Face/blastoise.png",
-      "imageDosPath": "assets/sprite/Dos/blastoise.png",
+      "imageDosPath": "assets/sprite/Dos/blastoise_back.png",
       "imageSpritePath": "assets/sprite/Mini/blastoise.png",
       "description": "Blastoise is a large, bipedal Pokémon with a blue shell and cannons on its sides.",
       "abilityId": 3,
@@ -376,7 +376,7 @@
       "name": "Caterpie",
       "hp": 45,
       "imageFacePath": "assets/sprite/Face/caterpie.png",
-      "imageDosPath": "assets/sprite/Dos/caterpie.png",
+      "imageDosPath": "assets/sprite/Dos/caterpie_back.png",
       "imageSpritePath": "assets/sprite/Mini/caterpie.png",
       "description": "Caterpie is a small, caterpillar-like Pokémon with a green body. It has a pink antenna on its head.",
       "abilityId": 4,
@@ -404,7 +404,7 @@
       "name": "Metapod",
       "hp": 50,
       "imageFacePath": "assets/sprite/Face/metapod.png",
-      "imageDosPath": "assets/sprite/Dos/metapod.png",
+      "imageDosPath": "assets/sprite/Dos/metapod_back.png",
       "imageSpritePath": "assets/sprite/Mini/metapod.png",
       "description": "Metapod is a cocoon-like Pokémon with a green body. It evolved from Caterpie.",
       "abilityId": 4,
@@ -431,7 +431,7 @@
       "name": "Butterfree",
       "hp": 60,
       "imageFacePath": "assets/sprite/Face/butterfree.png",
-      "imageDosPath": "assets/sprite/Dos/butterfree.png",
+      "imageDosPath": "assets/sprite/Dos/butterfree_back.png",
       "imageSpritePath": "assets/sprite/Mini/butterfree.png",
       "description": "Butterfree is a butterfly-like Pokémon with pink wings. It has a large body and can fly at high speeds.",
       "abilityId": 4,
@@ -475,7 +475,7 @@
       "name": "Weedle",
       "hp": 40,
       "imageFacePath": "assets/sprite/Face/weedle.png",
-      "imageDosPath": "assets/sprite/Dos/weedle.png",
+      "imageDosPath": "assets/sprite/Dos/weedle_back.png",
       "imageSpritePath": "assets/sprite/Mini/weedle.png",
       "description": "Weedle is a small, grub-like Pokémon with a pink body. It has poisonous stingers on its head and tail.",
       "abilityId": 5,
@@ -505,7 +505,7 @@
       "name": "Kakuna",
       "hp": 45,
       "imageFacePath": "assets/sprite/Face/kakuna.png",
-      "imageDosPath": "assets/sprite/Dos/kakuna.png",
+      "imageDosPath": "assets/sprite/Dos/kakuna_back.png",
       "imageSpritePath": "assets/sprite/Mini/kakuna.png",
       "description": "Kakuna is a cocoon-like Pokémon with a brown body. It evolved from Weedle.",
       "abilityId": 5,
@@ -535,7 +535,7 @@
       "name": "Beedrill",
       "hp": 65,
       "imageFacePath": "assets/sprite/Face/beedrill.png",
-      "imageDosPath": "assets/sprite/Dos/beedrill.png",
+      "imageDosPath": "assets/sprite/Dos/beedrill_back.png",
       "imageSpritePath": "assets/sprite/Mini/beedrill.png",
       "description": "Beedrill is a large, insectoid Pokémon with a yellow body and stingers. It evolved from Kakuna.",
       "abilityId": 5,
@@ -583,7 +583,7 @@
       "name": "Pidgeot",
       "hp": 83,
       "imageFacePath": "assets/sprite/Face/pidgeot.png",
-      "imageDosPath": "assets/sprite/Dos/pidgeot.png",
+      "imageDosPath": "assets/sprite/Dos/pidgeot_back.png",
       "imageSpritePath": "assets/sprite/Mini/pidgeot.png",
       "description": "Pidgeot is a large, bird-like Pokémon with brown feathers. It is known for its high flying speed.",
       "abilityId": 6,
@@ -624,7 +624,7 @@
       "name": "Pidgeotto",
       "hp": 63,
       "imageFacePath": "assets/sprite/Face/pidgeotto.png",
-      "imageDosPath": "assets/sprite/Dos/pidgeotto.png",
+      "imageDosPath": "assets/sprite/Dos/pidgeotto_back.png",
       "imageSpritePath": "assets/sprite/Mini/pidgeotto.png",
       "description": "Pidgeotto is a medium-sized, bird-like Pokémon with brown feathers. It evolved from Pidgeot.",
       "abilityId": 6,
@@ -665,7 +665,7 @@
       "name": "Pidgey",
       "hp": 40,
       "imageFacePath": "assets/sprite/Face/pidgey.png",
-      "imageDosPath": "assets/sprite/Dos/pidgey.png",
+      "imageDosPath": "assets/sprite/Dos/pidgey_back.png",
       "imageSpritePath": "assets/sprite/Mini/pidgey.png",
       "description": "Pidgey is a small, bird-like Pokémon with brown feathers. It uses its keen sense of smell to locate food.",
       "abilityId": 6,
@@ -706,7 +706,7 @@
       "name": "Rattata",
       "hp": 30,
       "imageFacePath": "assets/sprite/Face/rattata.png",
-      "imageDosPath": "assets/sprite/Dos/rattata.png",
+      "imageDosPath": "assets/sprite/Dos/rattata_back.png",
       "imageSpritePath": "assets/sprite/Mini/rattata.png",
       "description": "Rattata is a small, mouse-like Pokémon with purple fur. It uses its sharp teeth to chew anything.",
       "abilityId": 7,
@@ -744,7 +744,7 @@
       "name": "Raticate",
       "hp": 55,
       "imageFacePath": "assets/sprite/Face/raticate.png",
-      "imageDosPath": "assets/sprite/Dos/raticate.png",
+      "imageDosPath": "assets/sprite/Dos/raticate_back.png",
       "imageSpritePath": "assets/sprite/Mini/raticate.png",
       "description": "Raticate is a larger, mouse-like Pokémon with purple fur. It evolved from Rattata.",
       "abilityId": 7,
@@ -784,7 +784,7 @@
       "name": "Spearow",
       "hp": 40,
       "imageFacePath": "assets/sprite/Face/spearow.png",
-      "imageDosPath": "assets/sprite/Dos/spearow.png",
+      "imageDosPath": "assets/sprite/Dos/spearow_back.png",
       "imageSpritePath": "assets/sprite/Mini/spearow.png",
       "description": "Spearow is a small, bird-like Pokémon with brown feathers. It flies at high speeds.",
       "abilityId": 8,
@@ -822,7 +822,7 @@
       "name": "Fearow",
       "hp": 65,
       "imageFacePath": "assets/sprite/Face/fearow.png",
-      "imageDosPath": "assets/sprite/Dos/fearow.png",
+      "imageDosPath": "assets/sprite/Dos/fearow_back.png",
       "imageSpritePath": "assets/sprite/Mini/fearow.png",
       "description": "Fearow is a large, bird-like Pokémon with brown feathers. It evolved from Spearow.",
       "abilityId": 8,
@@ -862,7 +862,7 @@
       "name": "Ekans",
       "hp": 35,
       "imageFacePath": "assets/sprite/Face/ekans.png",
-      "imageDosPath": "assets/sprite/Dos/ekans.png",
+      "imageDosPath": "assets/sprite/Dos/ekans_back.png",
       "imageSpritePath": "assets/sprite/Mini/ekans.png",
       "description": "Ekans is a serpent-like Pokémon with purple skin. It can slither through grass without a sound.",
       "abilityId": 9,
@@ -909,7 +909,7 @@
       "name": "Arbok",
       "hp": 60,
       "imageFacePath": "assets/sprite/Face/arbok.png",
-      "imageDosPath": "assets/sprite/Dos/arbok.png",
+      "imageDosPath": "assets/sprite/Dos/arbok_back.png",
       "imageSpritePath": "assets/sprite/Mini/arbok.png",
       "description": "Arbok is a large, serpent-like Pokémon with purple skin. It evolved from Ekans.",
       "abilityId": 9,
@@ -959,7 +959,7 @@
       "name": "Pikachu",
       "hp": 35,
       "imageFacePath": "assets/sprite/Face/pikachu.png",
-      "imageDosPath": "assets/sprite/Dos/pikachu.png",
+      "imageDosPath": "assets/sprite/Dos/pikachu_back.png",
       "imageSpritePath": "assets/sprite/Mini/pikachu.png",
       "description": "Pikachu is an electric mouse Pokémon with yellow fur. It can store electrical energy in its cheeks.",
       "abilityId": 10,
@@ -1006,7 +1006,7 @@
       "name": "Raichu",
       "hp": 60,
       "imageFacePath": "assets/sprite/Face/raichu.png",
-      "imageDosPath": "assets/sprite/Dos/raichu.png",
+      "imageDosPath": "assets/sprite/Dos/raichu_back.png",
       "imageSpritePath": "assets/sprite/Mini/raichu.png",
       "description": "Raichu is a larger electric mouse Pokémon with yellow fur. It evolved from Pikachu.",
       "abilityId": 10,
@@ -2387,6 +2387,127 @@
         "DefSpe": 0,
         "Spd": 0
       }
+    },
+    {
+      "id": 102,
+      "nom": "X Attack",
+      "affectedStat": {
+        "Atk": 15,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 103,
+      "nom": "X Sp. Atk",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 15,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 104,
+      "nom": "X Defense",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 15,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 105,
+      "nom": "X Sp. Def",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 15,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 106,
+      "nom": "X Speed",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 15
+      }
+    },
+    {
+      "id": 107,
+      "nom": "Guard Tonic",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 10,
+        "DefSpe": 10,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 108,
+      "nom": "Power Blend",
+      "affectedStat": {
+        "Atk": 8,
+        "AtkSpe": 8,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 109,
+      "nom": "Swift Syrup",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 0,
+        "Def": 0,
+        "DefSpe": 0,
+        "Spd": 20
+      }
+    },
+    {
+      "id": 110,
+      "nom": "Balanced Elixir",
+      "affectedStat": {
+        "Atk": 5,
+        "AtkSpe": 5,
+        "Def": 5,
+        "DefSpe": 5,
+        "Spd": 5
+      }
+    },
+    {
+      "id": 111,
+      "nom": "Specialist Serum",
+      "affectedStat": {
+        "Atk": 0,
+        "AtkSpe": 20,
+        "Def": 0,
+        "DefSpe": 10,
+        "Spd": 0
+      }
+    },
+    {
+      "id": 112,
+      "nom": "Brawler Juice",
+      "affectedStat": {
+        "Atk": 20,
+        "AtkSpe": 0,
+        "Def": 5,
+        "DefSpe": 0,
+        "Spd": 0
+      }
     }
   ],
   "healingItems": [
@@ -2399,6 +2520,66 @@
       "id": 202,
       "nom": "Full Restore",
       "hpHeal": 100
+    },
+    {
+      "id": 203,
+      "nom": "Super Potion",
+      "hpHeal": 50
+    },
+    {
+      "id": 204,
+      "nom": "Hyper Potion",
+      "hpHeal": 120
+    },
+    {
+      "id": 205,
+      "nom": "Max Potion",
+      "hpHeal": 200
+    },
+    {
+      "id": 206,
+      "nom": "Mini Potion",
+      "hpHeal": 10
+    },
+    {
+      "id": 207,
+      "nom": "Fresh Water",
+      "hpHeal": 30
+    },
+    {
+      "id": 208,
+      "nom": "Soda Pop",
+      "hpHeal": 60
+    },
+    {
+      "id": 209,
+      "nom": "Lemonade",
+      "hpHeal": 80
+    },
+    {
+      "id": 210,
+      "nom": "Moomoo Milk",
+      "hpHeal": 100
+    },
+    {
+      "id": 211,
+      "nom": "Berry Juice",
+      "hpHeal": 20
+    },
+    {
+      "id": 212,
+      "nom": "Healing Mist",
+      "hpHeal": 40
+    },
+    {
+      "id": 213,
+      "nom": "Revive Tonic",
+      "hpHeal": 75
+    },
+    {
+      "id": 214,
+      "nom": "Ultra Remedy",
+      "hpHeal": 150
     }
   ],
   "stades": [

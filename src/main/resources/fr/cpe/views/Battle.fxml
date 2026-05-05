@@ -57,24 +57,18 @@
                     </VBox>
 
                     <StackPane alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                        <children>
-                            <Circle radius="95.0"
-                                    fill="rgba(255,255,255,0.55)"
-                                    stroke="#1f4e8c" strokeWidth="3.0"/>
-                            <ImageView fx:id="enemySpriteView" fitWidth="220.0" fitHeight="220.0"
-                                       preserveRatio="true"/>
-                        </children>
+                        <Circle radius="95.0"
+                                fill="rgba(255,255,255,0.55)"
+                                stroke="#1f4e8c" strokeWidth="3.0"/>
+                        <ImageView fx:id="enemySpriteView" fitWidth="220.0" fitHeight="220.0"
+                                   preserveRatio="true"/>
                     </StackPane>
                 </HBox>
 
                 <StackPane prefHeight="220.0"
                            style="-fx-background-color: linear-gradient(to bottom, #a7f3d0 0%, #86efac 35%, #4ade80 100%); -fx-background-radius: 20; -fx-border-color: #2f855a; -fx-border-radius: 20; -fx-border-width: 3;">
                     <ImageView fx:id="battleBackgroundView" fitWidth="1020.0" fitHeight="220.0"
-                               preserveRatio="false" opacity="0.16">
-                        <image>
-
-                        </image>
-                    </ImageView>
+                               opacity="0.16"/>
                 </StackPane>
 
                 <HBox alignment="BOTTOM_LEFT" spacing="20.0">

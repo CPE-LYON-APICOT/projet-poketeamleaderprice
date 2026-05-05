@@ -10,11 +10,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.image.ImageView;
 
 public class BattleController {
 
+    public Label enemyHpLabel;
+    public ImageView battleBackgroundView;
     @FXML
     private Label enemyNameLabel;
     @FXML
@@ -161,6 +164,23 @@ public class BattleController {
         actionPane.setManaged(true);
     }
 
+    private String resolveSpritePath(String rawPath) {
+        String normalized = rawPath.startsWith("/") ? rawPath : "/fr/cpe/" + rawPath;
+
+        if (getClass().getResource(normalized) != null) {
+            return normalized;
+        }
+
+        if (normalized.endsWith(".png") && !normalized.endsWith("_mini.png")) {
+            String withMiniSuffix = normalized.substring(0, normalized.length() - 4) + "_mini.png";
+            if (getClass().getResource(withMiniSuffix) != null) {
+                return withMiniSuffix;
+            }
+        }
+
+        return normalized;
+    }
+
     private void updateBattleUI() {
         if (partie == null) return;
 
@@ -170,6 +190,19 @@ public class BattleController {
         if (dresseur2 != null) {
             Pokemon enemyPokemon = partie.getActivePokemonOf(dresseur2);
             if (enemyPokemon != null) {
+                String resolvedPath = resolveSpritePath(enemyPokemon.getImage_face());
+                var spriteUrl = getClass().getResource(resolvedPath);
+                if (spriteUrl != null) {
+                    Image spriteImage = new Image(spriteUrl.toExternalForm());
+                    enemySpriteView.setImage(spriteImage);
+                    enemySpriteView.setFitWidth(200);
+                    enemySpriteView.setFitHeight(200);
+                    enemySpriteView.setPreserveRatio(true);
+                } else {
+                    // Do not return early: log missing resource and continue updating other UI elements
+                    System.err.println("Enemy sprite resource not found: " + resolvedPath);
+                }
+
                 enemyNameLabel.setText(enemyPokemon.getNom());
                 enemyLevelLabel.setText(" Lv.50");
                 int hpMax = enemyPokemon.getHpMax() != null ? enemyPokemon.getHpMax() : enemyPokemon.getHp();
@@ -180,7 +213,21 @@ public class BattleController {
         if (dresseur1 != null) {
             Pokemon playerPokemon = partie.getActivePokemonOf(dresseur1);
             if (playerPokemon != null) {
+                String resolvedPath = resolveSpritePath(playerPokemon.getImage_dos());
+                var spriteUrl = getClass().getResource(resolvedPath);
+                if (spriteUrl != null) {
+                    Image spriteImage = new Image(spriteUrl.toExternalForm());
+                    playerSpriteView.setImage(spriteImage);
+                    playerSpriteView.setFitWidth(180);
+                    playerSpriteView.setFitHeight(180);
+                    playerSpriteView.setPreserveRatio(true);
+                } else {
+                    // Do not return early: log missing resource and continue updating other UI elements
+                    System.err.println("Player sprite resource not found: " + resolvedPath);
+                }
+
                 playerNameLabel.setText(playerPokemon.getNom());
+
                 playerLevelLabel.setText(" Lv.50");
                 int hpMax = playerPokemon.getHpMax() != null ? playerPokemon.getHpMax() : playerPokemon.getHp();
                 playerHpValueLabel.setText(playerPokemon.getHp() + " / " + hpMax);
