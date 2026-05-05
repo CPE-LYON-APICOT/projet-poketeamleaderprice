@@ -174,10 +174,20 @@ public class BattleController {
     private String resolveSpritePath(String rawPath) {
         String normalized = rawPath.startsWith("/") ? rawPath : "/fr/cpe/" + rawPath;
 
+        // Tentative directe
         if (getClass().getResource(normalized) != null) {
             return normalized;
         }
 
+        // Fallback : ajouter _back avant l'extension (pour les sprites de dos)
+        if (normalized.endsWith(".png")) {
+            String withBackSuffix = normalized.substring(0, normalized.length() - 4) + "_back.png";
+            if (getClass().getResource(withBackSuffix) != null) {
+                return withBackSuffix;
+            }
+        }
+
+        // Fallback : ajouter _mini avant l'extension
         if (normalized.endsWith(".png") && !normalized.endsWith("_mini.png")) {
             String withMiniSuffix = normalized.substring(0, normalized.length() - 4) + "_mini.png";
             if (getClass().getResource(withMiniSuffix) != null) {

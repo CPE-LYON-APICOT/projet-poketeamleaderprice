@@ -30,13 +30,21 @@ L'objectif du projet était de reproduire un système de combat pokemon, notamme
 ![Choisir les attaques du pokemon](images/launchAttack.png)
 
 ### Fonctionnalité 8 — *Système de tour par tour*
-
+![Choisir les attaques du pokemon](images/tourpartour.png)
 
 ## Ce qui n'a pas été livré (et pourquoi)
 
 ### Système en ligne via le Bus Azure
 
+Le système de Bus Azure a été capricieux tout au long du projet. La fonctionnalité était complexe à intégrer, et demandait beaucoup plus de debogage que prévu. Nous avons donc dû passer sur une version hors ligne, avec une seule interface pour les deux joueurs.
+
+A noter cependant que le système hors ligne utilise la même structure de code que la version avec le bus. De plus, nous avons laisser l'ensemble des éléments permettant de réaliser la version en ligne. Ainsi, le développement de cette fonctionnalité à l'avenir est garanti et prendra seulement un peu plus de temps.
+
 ### Les actions "Use Item", "Change Pokemon" et "Fuite"
+
+### Detection d'un pokemon KO
+
+### Ajout de musique / bruitage
 
 ## Perspectives
 
