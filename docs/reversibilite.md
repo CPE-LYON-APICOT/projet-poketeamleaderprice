@@ -150,25 +150,32 @@ Type "1" o-- "0..*" Type : avantages
 | Lancer un combat de pokémon sans Pokémon                                                                                                                            | Majeure  | Lors de la sélection des pokémons appuyer directement sur "Choisir ses items" et lancer un combat, le combat sera déjà déclaré comme forfait                 |
 
 ## Limitations techniques
-
+- Le projet est actuellement limité à une partie locale à deux joueurs. Les classes liées au réseau sont présentes mais non utilisées.
+- Le projet est conçu pour un usage desktop JavaFX, il n’est pas responsive ni adapté au mobile
+- L’architecture actuelle mélange parfois la logique métier et la présentation (ex : `BattleController` gère à la fois les règles de combat et l’affichage), ce qui peut rendre les évolutions plus complexes.
+- Le projet ne gère pas encore les sauvegardes de parties, ni les profils de joueurs, ce qui limite l’expérience utilisateur à une session unique sans historique.
+- Le projet ne dispose pas d’une suite de tests automatisés, ce qui rend la validation des changements plus risquée et laborieuse.
+- Le projet ne gère pas les animations ou les effets visuels pendant le combat, ce qui peut rendre l’expérience moins immersive.
+- Le projet ne gère pas les différentes générations de Pokémon, ni les mécaniques avancées (ex : talents, météo, terrains), ce qui limite la profondeur stratégique du combat.
 
 
 ## Points de vigilance pour la reprise
-- Ne pas Changer `App.java`
+- Ne pas Changer `App.java` 
 
 
 ## Améliorations recommandées
 
-| Amélioration                                      | Difficulté | Justification                                                                                                                                                                            |
-|---------------------------------------------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Mettre un mode en ligne                           | Moyen      | Instaurer un système de bus où chaque joueurs envoie en json un model qui est soi Partie (pour héberger / rejoindre une partie), ou envoyer des mouvements en combat (Attaque, Sac etc.) |
-| Recherche de pokémon                              | Facile     | Instaurer un moteur de recherche lors de la sélection de pokémon                                                                                                                         |
-| Recherche de d'attaques de pokémon                | Facile     | Instaurer un moteur de recherche lors de la sélection des attaques                                                                                                                       |
-| Recherche d'items                                 | Facile     | Instaurer un moteur de recherche lors de la sélection des items                                                                                                                          |
-| Ajouter des pokémons dans la base de donnée       | Difficile  | Ajouter des pokémons en dur dans la base de donnée que seul les développeurs peuvent faire, faire une fonction permettant d'ajouter un ou plusieurs pokémons dans la base de donnée      |
-| Faire une fusion de pokémon ou créer des pokémon  | Difficile  | Faire des pages permettant de créer des pokémons et/ou de fusionner des pokémons, possibilité aussi "d'importer" des pokémons                                                            |
-| Demander une revanche                             | Difficile  | Ajouter un bouton à la fin du combat pour soit quitter, soit refaire un combat et attendre la réponse de l'adversaire.                                                                   |
-| Afficher les items sélectionnés dans le sac       | Facile     | Faire une page à côté listant tous les items sélectionnées et leur nombres, possibilités de supprimer un items dans le sac ou d'enlever une certaine quantité                            |
-| Ajouter un nom par défaut pour le joueur 1        | Facile     | Mettre dans le .fxml le nom par défaut                                                                                                                                                   |
-| Mettre plusieurs modes "Hors ligne", "En ligne"   | Difficile  | Ajouter un .fxml demandant de jouer Hors ligne (partie déjà développé), ou de joueur en Ligne (Partie du code en développement), à implémenter après avoir fait "Mettre en ligne"        |
+| Amélioration                                     | Difficulté | Justification                                                                                                                                                                            |
+|--------------------------------------------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mettre un mode en ligne                          | Moyen      | Instaurer un système de bus où chaque joueurs envoie en json un model qui est soi Partie (pour héberger / rejoindre une partie), ou envoyer des mouvements en combat (Attaque, Sac etc.) |
+| Recherche de pokémon                             | Facile     | Instaurer un moteur de recherche lors de la sélection de pokémon                                                                                                                         |
+| Recherche de d'attaques de pokémon               | Facile     | Instaurer un moteur de recherche lors de la sélection des attaques                                                                                                                       |
+| Recherche d'items                                | Facile     | Instaurer un moteur de recherche lors de la sélection des items                                                                                                                          |
+| Ajouter des pokémons dans la base de donnée      | Difficile  | Ajouter des pokémons en dur dans la base de donnée que seul les développeurs peuvent faire, faire une fonction permettant d'ajouter un ou plusieurs pokémons dans la base de donnée      |
+| Faire une fusion de pokémon ou créer des pokémon | Difficile  | Faire des pages permettant de créer des pokémons et/ou de fusionner des pokémons, possibilité aussi "d'importer" des pokémons                                                            |
+| Demander une revanche                            | Difficile  | Ajouter un bouton à la fin du combat pour soit quitter, soit refaire un combat et attendre la réponse de l'adversaire.                                                                   |
+| Afficher les items sélectionnés dans le sac      | Facile     | Faire une page à côté listant tous les items sélectionnées et leur nombres, possibilités de supprimer un items dans le sac ou d'enlever une certaine quantité                            |
+| Ajouter un nom par défaut pour le joueur 1       | Facile     | Mettre dans le .fxml le nom par défaut                                                                                                                                                   |
+| Mettre plusieurs modes "Hors ligne", "En ligne"  | Difficile  | Ajouter un .fxml demandant de jouer Hors ligne (partie déjà développé), ou de joueur en Ligne (Partie du code en développement), à implémenter après avoir fait "Mettre en ligne"        |
+| Faire un système de combat 2v2                   | Difficile  | Faire d'autres controllers/fxml/réajuster Partie,Dresseur, pour les combats de 2 pokémon contre 2 pokémons pour 2 dresseurs, ou 2 pokémon contre 2 pokémons pour 4 dresseurs             |
 | Régler les bugs de changement de pokemon | Facile/Moyen | Lorsque un même pokemon se retrouve deux fois dans la même équipe (plusieurs pikachus, ce qui a du sens puisque "Pikachu" est une espèce de pokemon, il y a donc plusieurs individus), le système confond les deux car ils ont le même Poke_ID, ce qui mène à des bugs (ex : impossibilité de mettre un pikachu en pokemon actif lorsqu'un autre pikachu de l'équipe est KO). Il faudra assigner un id unique par pokemon dans l'équipe, ou utiliser l'index dans la liste pour les différencier  |
