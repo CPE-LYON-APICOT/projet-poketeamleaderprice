@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="917.0" prefWidth="1134.0" stylesheets="@../css/ChooseTeam_style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.cpe.Controller.ChooseTeamController">
+    <BorderPane prefHeight="917.0" prefWidth="1134.0" styleClass="choose-team-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <top>
+            <HBox styleClass="pokemon-header">
+                <padding>
+                    <Insets bottom="16.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+                <Label styleClass="pokemon-label" text="Votre nom :" />
+                <TextField fx:id="playerNameField" prefWidth="260.0" promptText="Entrez votre nom" styleClass="player-name-field" />
+            </HBox>
+        </top>
+
+        <center>
+            <HBox styleClass="choose-team-center">
+                <padding>
+                    <Insets left="20.0" right="20.0" />
+                </padding>
+                <TableView fx:id="pokemonTableView" styleClass="pokemon-table" HBox.hgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="spriteColumn" prefWidth="120.0" text="Sprite" />
+                        <TableColumn fx:id="nomColumn" prefWidth="120.0" text="Nom" />
+                        <TableColumn fx:id="typeColumn" prefWidth="120.0" text="Type(s)" />
+                    </columns>
+                </TableView>
+                <TextArea fx:id="pokemonDescriptionArea" editable="false" prefWidth="430.0" promptText="Cliquez sur un pokémon pour afficher sa description." styleClass="pokemon-description" wrapText="true" />
+            </HBox>
+        </center>
+
+        <bottom>
+            <VBox styleClass="choose-team-bottom">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="16.0" />
+                </padding>
+
+                <!-- Les cases de l'équipe -->
+                <GridPane hgap="10.0" maxWidth="1.7976931348623157E308" styleClass="team-grid" vgap="10.0">
+                    <Button fx:id="teamSlot1" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Button fx:id="teamSlot2" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Button fx:id="teamSlot3" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                    <Button fx:id="teamSlot4" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                    <Button fx:id="teamSlot5" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                    <Button fx:id="teamSlot6" maxWidth="1.7976931348623157E308" minHeight="130.0" prefHeight="130.0" styleClass="team-slot" text="+" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+               <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667" />
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667" />
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667" />
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667" />
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667" />
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="16.6666666667" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+
+                <HBox styleClass="choose-team-actions">
+                    <Button fx:id="ItemsButton" onAction="#pressNextButton" styleClass="pokemon-main-button" text="Choisir ses items" />
+                    <Button fx:id="LeftButton" onAction="#pressLeftButton" styleClass="pokemon-quit-button" text="Quitter" />
+                </HBox>
+            </VBox>
+        </bottom>
+    </BorderPane>
+</AnchorPane>

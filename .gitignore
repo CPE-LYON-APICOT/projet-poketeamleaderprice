@@ -25,3 +25,7 @@ desktop.ini
 
 # Gradle wrapper (optionnel, décommentez si vous ne versionnez pas le wrapper)
 # gradle/wrapper/gradle-wrapper.jar
+
+
+# env
+.env

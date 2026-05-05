@@ -1,0 +1,239 @@
+.choose-items-root {
+	-fx-background-color: transparent;
+}
+
+.choose-items-pane {
+	-fx-background-color: linear-gradient(to bottom, #fefefe 0%, #edf5ff 45%, #dcecff 100%);
+	-fx-padding: 0;
+}
+
+.choose-items-top-spacer {
+	-fx-background-color: transparent;
+}
+
+.choose-items-center {
+	-fx-alignment: center;
+}
+
+.items-right-panel {
+	-fx-padding: 0 0 0 2;
+	-fx-fill-width: true;
+}
+
+.items-list,
+.items-description {
+	-fx-background-color: rgba(255, 255, 255, 0.97);
+	-fx-background-radius: 18;
+	-fx-border-color: #9dc4ea;
+	-fx-border-radius: 18;
+	-fx-border-width: 3;
+	-fx-effect: dropshadow(gaussian, rgba(42, 117, 187, 0.16), 16, 0.15, 0, 3);
+}
+
+.items-list {
+	-fx-pref-width: 380;
+	-fx-min-width: 300;
+	-fx-max-width: 380;
+	-fx-padding: 6;
+}
+
+.items-list .list-cell {
+	-fx-background-color: transparent;
+	-fx-text-fill: #1f2937;
+	-fx-font-size: 14px;
+	-fx-padding: 10 12 10 12;
+}
+
+.items-list .list-cell:filled:hover {
+	-fx-background-color: #e0f2fe;
+}
+
+.items-list .list-cell:filled:selected {
+	-fx-background-color: linear-gradient(to right, #ffcb05 0%, #ffd84d 100%);
+	-fx-text-fill: #1f4e8c;
+	-fx-font-weight: bold;
+}
+
+.items-description {
+	-fx-font-size: 14px;
+	-fx-text-fill: #0f172a;
+	-fx-padding: 8;
+	-fx-control-inner-background: transparent;
+	-fx-pref-height: 270;
+}
+
+.items-description .content,
+.items-description .scroll-pane,
+.items-description .scroll-pane .viewport,
+.items-description .scroll-pane .content {
+	-fx-background-color: transparent;
+}
+
+.choose-items-bottom {
+	-fx-background-color: rgba(255, 255, 255, 0.56);
+	-fx-border-color: rgba(42, 117, 187, 0.22);
+	-fx-border-width: 2 0 0 0;
+}
+
+.choose-items-title {
+	-fx-font-size: 30px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #1d4ed8;
+	-fx-effect: dropshadow(gaussian, rgba(255, 203, 5, 0.5), 4, 0.2, 0, 1);
+}
+
+.choose-items-subtitle {
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #4b5563;
+}
+
+.items-grid {
+	-fx-background-color: rgba(255, 255, 255, 0.68);
+	-fx-background-radius: 18;
+	-fx-border-color: rgba(157, 196, 234, 0.88);
+	-fx-border-radius: 18;
+	-fx-border-width: 2;
+	-fx-padding: 12;
+}
+
+.items-details-box {
+	-fx-background-color: rgba(255, 255, 255, 0.94);
+	-fx-background-radius: 18;
+	-fx-border-color: #ffcb05;
+	-fx-border-radius: 18;
+	-fx-border-width: 3;
+	-fx-padding: 14;
+	-fx-effect: dropshadow(gaussian, rgba(255, 203, 5, 0.20), 16, 0.2, 0, 3);
+}
+
+.selected-item-name {
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #1d4ed8;
+}
+
+.quantity-controls {
+	-fx-alignment: center-left;
+}
+
+.quantity-field {
+	-fx-background-color: #ffffff;
+	-fx-background-radius: 12;
+	-fx-border-color: #2a75bb;
+	-fx-border-radius: 12;
+	-fx-border-width: 3;
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #1f4e8c;
+	-fx-highlight-fill: #ffcb05;
+	-fx-highlight-text-fill: #1f4e8c;
+	-fx-opacity: 1;
+}
+
+.quantity-button {
+	-fx-min-width: 42;
+	-fx-min-height: 42;
+	-fx-max-width: 42;
+	-fx-max-height: 42;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-background-radius: 12;
+	-fx-border-radius: 12;
+	-fx-border-width: 3;
+	-fx-cursor: hand;
+}
+
+#decreaseQuantityButton {
+	-fx-background-color: #e0f2fe;
+	-fx-text-fill: #1d4ed8;
+	-fx-border-color: #2a75bb;
+}
+
+#increaseQuantityButton {
+	-fx-background-color: #ffcb05;
+	-fx-text-fill: #2a75bb;
+	-fx-border-color: #2a75bb;
+}
+
+.quantity-button:hover {
+	-fx-background-color: #eff6ff;
+}
+
+#increaseQuantityButton:hover {
+	-fx-background-color: #ffd84d;
+}
+
+
+.items-grid .button {
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+	-fx-background-color: #ffffff;
+	-fx-text-fill: #1f4e8c;
+	-fx-background-radius: 14;
+	-fx-border-color: #2a75bb;
+	-fx-border-radius: 14;
+	-fx-border-width: 3;
+	-fx-padding: 9 14 9 14;
+	-fx-cursor: hand;
+}
+
+.items-grid .button:hover {
+	-fx-background-color: #eff6ff;
+}
+
+.choose-items-actions {
+	-fx-alignment: center;
+}
+
+.secondary-button,
+.pokemon-main-button {
+	-fx-font-size: 15px;
+	-fx-font-weight: bold;
+	-fx-background-radius: 14;
+	-fx-border-radius: 14;
+	-fx-border-width: 3;
+	-fx-padding: 10 20 10 20;
+	-fx-cursor: hand;
+}
+
+.secondary-button {
+	-fx-background-color: #e0f2fe;
+	-fx-text-fill: #1d4ed8;
+	-fx-border-color: #2a75bb;
+}
+
+.secondary-button:hover {
+	-fx-background-color: #bfdbfe;
+}
+
+.pokemon-main-button {
+	-fx-background-color: #ffcb05;
+	-fx-text-fill: #2a75bb;
+	-fx-border-color: #2a75bb;
+}
+
+.pokemon-main-button:hover {
+	-fx-background-color: #ffd84d;
+}
+
+.pokemon-main-button:pressed,
+.secondary-button:pressed {
+	-fx-translate-y: 1;
+}
+
+.pokemon-quit-button {
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-background-color: #e53935;
+	-fx-text-fill: #ffffff;
+	-fx-background-radius: 14;
+	-fx-border-color: #b71c1c;
+	-fx-border-radius: 14;
+	-fx-border-width: 3;
+	-fx-padding: 10 20 10 20;
+}
+
+.pokemon-quit-button:hover {
+	-fx-background-color: #ef5350;
+}

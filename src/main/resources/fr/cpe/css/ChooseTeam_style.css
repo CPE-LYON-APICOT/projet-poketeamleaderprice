@@ -1,0 +1,101 @@
+.choose-team-pane {
+    -fx-background-color: linear-gradient(to bottom, #fdfefe 0%, #edf6ff 45%, #dfeeff 100%);
+}
+
+.pokemon-header {
+    -fx-alignment: center;
+    -fx-spacing: 12px;
+}
+
+.choose-team-center {
+    -fx-spacing: 16px;
+}
+
+.choose-team-bottom {
+    -fx-spacing: 16px;
+}
+
+.choose-team-actions {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+}
+
+.team-grid {
+    -fx-padding: 2;
+}
+
+.pokemon-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2a75bb;
+}
+
+.pokemon-table {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #9dc4ea;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.player-name-field {
+    -fx-background-radius: 10;
+    -fx-border-color: #9dc4ea;
+    -fx-border-radius: 10;
+    -fx-padding: 8 10 8 10;
+}
+
+.pokemon-list,
+.pokemon-description {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #9dc4ea;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.pokemon-description {
+    -fx-padding: 6;
+}
+
+.team-slot {
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2a75bb;
+    -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #d8ecff 100%);
+    -fx-border-color: #2a75bb;
+    -fx-border-width: 4;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+}
+
+.pokemon-main-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #ffcb05;
+    -fx-text-fill: #2a75bb;
+    -fx-background-radius: 14;
+    -fx-border-color: #2a75bb;
+    -fx-border-radius: 14;
+    -fx-border-width: 3;
+    -fx-padding: 10 20 10 20;
+}
+
+.pokemon-main-button:hover {
+    -fx-background-color: #ffd84d;
+}
+
+.pokemon-quit-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #e53935;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 14;
+    -fx-border-color: #b71c1c;
+    -fx-border-radius: 14;
+    -fx-border-width: 3;
+    -fx-padding: 10 20 10 20;
+}
+
+.pokemon-quit-button:hover {
+    -fx-background-color: #ef5350;
+}
+

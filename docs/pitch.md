@@ -4,21 +4,50 @@
 
 ## Présentation générale
 
-<!-- Décrivez votre projet en quelques phrases. Quel problème résout-il ? À qui s'adresse-t-il ? -->
+**CheapPokemon** est un jeu Pokemon gratuit et non-officiel reprenant la mécanique des combats de Pokemon dans les jeux de GameFreak. Ce jeu propose de jouer avec les Pokémons de la 1ère génération contre un autre utilisateur.
+Les utilisateurs auront le choix de sélectionner leur équipe de Pokémon, leurs attaques et les objets contenus dans leur sac. Il peut aussi servir d'entrainement pour les joueurs amateurs ou pro de Pokémon. 
+
+#### vocabulaire :
+- pokemon actif : le(s) pokemon(s) actuellement en jeu, celui/ceux qui peut/peuvent attaquer l'adversaire
+- banc : l'ensemble des pokemons ne prenant pas part au combat au moment du tour du joueur
 
 ## Fonctionnalités principales
 
-<!-- Listez les fonctionnalités clés de votre projet. Pour chaque fonctionnalité, expliquez ce qu'elle apporte à l'utilisateur. -->
+### Fonctionnalité 1 — *composer son équipe de pokemons pour le combat*
+Avant de démarrer un éventuel combat, le joueur doit choisir ses pokemons. Une liste est à sa disposition pour qu'il ajoute des pokemons à son équipe (composé de 6 pokemons).
 
-### Fonctionnalité 1 — *Nom*
+### Fonctionnalité 2 — *rechercher un combat en ligne*
+Pour rechercher une PartieService, le joueur doit avoir fini de composer son équipe. Une fois celle-ci composée, il peut rechercher sur le réseau une PartieService hébergée par un autre joueur.
 
-### Fonctionnalité 2 — *Nom*
+### Fonctionnalité 3 — *héberger un combat en ligne*
+Avant de commencer à choisir son équipe, l'utilisateur peut choisir d'héberger une PartieService ou d'en rejoindre une.
 
-### Fonctionnalité 3 — *Nom*
+### Fonctionnalité 4 — *Attaquer*
+Lors de son tour, le dresseur peut choisir une attaque parmi les quatres attaques disponibles du pokemon actif.
+Une attaque peut :
+- altérer une propriété du pokemon lançant l'attaque
+- altérer une propriété du pokemon adverse
+- infliger des dégats immédiats sur le pokemon adverse
+- infliger des dégats immédiats et sur plusieurs tours sur le pokemon adverse
+- infliger des dégats immédiats sur le pokemon lançant l'attaque
 
-### Fonctionnalité 4 — *Nom*
+### Fonctionnalité 5 — *Utiliser un objet*
+Lors de son tour de jeu, le dresseur peut utiliser un objet (ex: soin) sur le pokemon de son choix (banc ou actif)
+Un objet peut :
+- altérer une propriété du pokemon
+- augmenter la barre de vie du pokemon
+
+### Fonctionnalité 6 — *Changer de pokémon*
+Lors de son tour, le dresseur peut changer le pokémon actif en choisissant un pokemon de son banc pour le remplacer
+
+### Fonctionnalité 7— *Abandonner*
+Lors de son tour, le dresseur pourra abandonner la PartieService sans demander l'accord de l'autre utilisateur. Ce qui donnera la victoire à l'autre dresseur.
 
 ## Évolutions envisagées
+- Système de comptes avec mot de passe
+- Ajout de types et de futurs Pokémon
+- Le dresseur pourra demander une revanche
+- Le pokemon pourra avoir un etat (Paralysie, Gel, brulée, etc.)
+- Le pokémon pourra méga-évoluer, avoir des mécaniques spéciales etc.
 
-<!-- Quelles sont les perspectives d'évolution ? Qu'est-ce qui pourrait être ajouté dans une v2 ? Vendez du rêve (raisonnablement). -->
 

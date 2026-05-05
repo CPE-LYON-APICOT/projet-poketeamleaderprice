@@ -10,6 +10,9 @@ package fr.cpe;
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
+import fr.cpe.service.ConnectionService;
+import fr.cpe.service.PartieService;
 
 /**
  * Module Guice — c'est ici que vous déclarez vos bindings (interface → implémentation).
@@ -39,9 +42,7 @@ public class AppModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        // Pas de binding pour l'instant : Guice sait instancier les classes concrètes
-        // tout seul (GameEngine, GameService) grâce à @Inject.
-        //
-        // Quand vous introduirez des interfaces, ajoutez vos bindings ici.
+        bind(PartieService.class).in(Singleton.class);
+        bind(ConnectionService.class).in(Singleton.class);
     }
 }

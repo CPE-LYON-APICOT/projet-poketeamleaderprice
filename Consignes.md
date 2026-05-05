@@ -35,7 +35,7 @@ gradle test  # Lance les tests
 | **Langage** | Java uniquement |
 | **Build** | Gradle (fourni, ne pas modifier la config sauf ajout de dépendances) |
 | **Versioning** | Git + GitHub Classroom |
-| **Interface graphique** | JavaFX avec Canvas (le socle graphique vous est fourni, vous dessinez la partie métier) |
+| **Interface graphique** | JavaFX avec Canvas (le socle graphique vous est fourni, vous dessinez la PartieService métier) |
 | **Design Patterns** | Au minimum **4 DP** parmi : **Singleton, Strategy, Observer, Factory, Decorator**. Vous pouvez en utiliser d'autres si vous les maîtrisez, mais les 4 obligatoires doivent venir de cette liste. |
 | **UML** | Au minimum **2 diagrammes UML** dans votre conception technique (classe, séquence, cas d'utilisation…) |
 | **Documentation** | Tous les documents sont rédigés en **Markdown** dans le dossier `docs/` |
@@ -104,12 +104,12 @@ Vous rédigez alors une annexe technique qui décrit **comment** vous allez réa
 - Quels DP vous allez utiliser et quelle feature chacun permet de réaliser.
 - Au moins 2 diagrammes UML.
 
-C'est un document technique. Vous êtes dans le rôle du lead-dev / architecte. Je vous aiderai sur cette partie car c'est un exercice complexe et ce n'est pas encore votre niveau de formation.
+C'est un document technique. Vous êtes dans le rôle du lead-dev / architecte. Je vous aiderai sur cette PartieService car c'est un exercice complexe et ce n'est pas encore votre niveau de formation.
 
 La conception doit être validée **avant** de coder. Comme le pitch, tant qu'elle n'est pas validée, ne codez pas.
 
 > Prenez du recul pour identifier comment implémenter les fonctionnalités de manière robuste et évolutive.  
-> C'est un exercice de planification et d'anticipation, mais c'est probablement la partie la plus importante du projet. Un code sans conception est voué à l'échec, tandis qu'une bonne conception vous guidera tout au long du développement.
+> C'est un exercice de planification et d'anticipation, mais c'est probablement la PartieService la plus importante du projet. Un code sans conception est voué à l'échec, tandis qu'une bonne conception vous guidera tout au long du développement.
 
 **Ce qu'on attend concrètement :**
 - Pour chaque DP : le nom du pattern, la feature associée, un paragraphe de justification, et idéalement un diagramme.
@@ -129,7 +129,7 @@ Présentez ce qui a fonctionné. Montrez des captures d'écran (vous pouvez util
 > Par exemple, vous aviez promis que votre jeu de plateforme aurait une génération procédurale de niveaux, mais vous n'avez pas eu le temps de l'implémenter. Vous pouvez présenter une version "démo" avec des niveaux préconçus, et expliquer que la génération procédurale est une amélioration future qui permettra d'avoir des niveaux infinis.  
 >
 > En revanche, peut-être auriez-vous le temps rapidement d'implémenter un système de skins ou d'ajouter des effets sonores, qui sont assez simples à faire (pour vous) mais qui laissent une meilleure impression au client que de présenter une démo incomplète.   
-> Si vous êtes encore plus malin, présentez ce qu'il manque comme une opportunité de DLC avec la partie qu'il vous manque + une évolution qui succite l'engouement    
+> Si vous êtes encore plus malin, présentez ce qu'il manque comme une opportunité de DLC avec la PartieService qu'il vous manque + une évolution qui succite l'engouement    
 > Exemple : *"Pour revenir à la génération procédurale, maintenant que nous avons des skins/thèmes, ceux-ci pourraient influencer la génération de niveau pour davantage d'immersion, ce qui serait un excellent sujet de DLC."*
 
 
@@ -144,7 +144,7 @@ Le projet est livré, la maintenance est confiée à une autre équipe. En entre
 Ici, **pas d'enjolivement**. Soyez honnêtes et exhaustifs :
 
 - **Bugs connus** — Listez-les, même les mineurs. Précisez les conditions de reproduction si possible.
-- **Limitations techniques** — Ce qui ne fonctionne pas ou fonctionne partiellement. Par exemple : "Le jeu lag au-delà de 50 entités affichées."
+- **Limitations techniques** — Ce qui ne fonctionne pas ou fonctionne PartieServicellement. Par exemple : "Le jeu lag au-delà de 50 entités affichées."
 - **Points de vigilance pour la reprise** — Ce qu'un développeur reprenant le projet doit absolument savoir. Par exemple : "La classe `GameEngine` est devenue un God Object, il faudrait la refactoriser."
 - **Améliorations recommandées** — Ce que vous feriez si vous aviez plus de temps, avec une estimation de difficulté (facile / moyen / complexe).
 - **Architecture actuelle** — Un diagramme de classes ou de composants reflétant l'état réel du code (pas la conception initiale, l'état final).
@@ -209,7 +209,7 @@ Ne cherchez pas à tout coder d'un coup. À chaque séance, visez un **incrémen
 - **Séances 3-5** : Implémentation itérative, démos régulières, intégration des retours.
 - **Séance 6** : Finalisation, rédaction des documents de fin, nettoyage du code et des tests.
 
-Ce découpage est indicatif. L'important est d'**avoir quelque chose qui fonctionne à chaque étape**, même si c'est partiel. Un projet qui affiche un écran avec un carré qui bouge vaut mieux qu'un projet ambitieux qui ne compile pas.
+Ce découpage est indicatif. L'important est d'**avoir quelque chose qui fonctionne à chaque étape**, même si c'est PartieServicel. Un projet qui affiche un écran avec un carré qui bouge vaut mieux qu'un projet ambitieux qui ne compile pas.
 
 ---
 
