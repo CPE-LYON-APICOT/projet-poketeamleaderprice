@@ -152,7 +152,11 @@ Type "1" o-- "0..*" Type : avantages
 ## Limitations techniques
 - Le projet est actuellement limité à une partie locale à deux joueurs. Les classes liées au réseau sont présentes mais non utilisées.
 - Le projet est conçu pour un usage desktop JavaFX, il n’est pas responsive ni adapté au mobile
-- 
+- L’architecture actuelle mélange parfois la logique métier et la présentation (ex : `BattleController` gère à la fois les règles de combat et l’affichage), ce qui peut rendre les évolutions plus complexes.
+- Le projet ne gère pas encore les sauvegardes de parties, ni les profils de joueurs, ce qui limite l’expérience utilisateur à une session unique sans historique.
+- Le projet ne dispose pas d’une suite de tests automatisés, ce qui rend la validation des changements plus risquée et laborieuse.
+- Le projet ne gère pas les animations ou les effets visuels pendant le combat, ce qui peut rendre l’expérience moins immersive.
+- Le projet ne gère pas les différentes générations de Pokémon, ni les mécaniques avancées (ex : talents, météo, terrains), ce qui limite la profondeur stratégique du combat.
 
 
 ## Points de vigilance pour la reprise
