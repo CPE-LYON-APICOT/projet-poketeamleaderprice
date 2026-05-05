@@ -82,10 +82,13 @@ public class Dresseur {
         this.items.put(nb, item);
     }
 
+    @com.fasterxml.jackson.annotation.JsonIgnore
     public int getTotalItemQuantity() {
-        if (this.items == null || this.items.isEmpty()) {
-            return 0;
+        if (items == null) return 0;
+        int total = 0;
+        for (Integer qty : items.keySet()) {
+            total += qty;
         }
-        return this.items.keySet().stream().mapToInt(Integer::intValue).sum();
+        return total;
     }
 }
