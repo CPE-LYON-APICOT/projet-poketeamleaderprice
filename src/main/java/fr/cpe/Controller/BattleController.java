@@ -265,7 +265,7 @@ public class BattleController {
 
         partieService.handleChangePokemon(dresseur, choix);
 
-        boolean etaitForce = (forcedSwitchDresseur != null);
+        //boolean etaitForce = (forcedSwitchDresseur != null);
         forcedSwitchDresseur = null;
 
         Platform.runLater(() -> {
@@ -273,10 +273,8 @@ public class BattleController {
             showOnlyPane(actionPane);
             battleMessageLabel.setText(dresseur.getNom() + " envoie " + choix.getNom() + " !");
 
-            // Si c'était un changement forcé (KO), c'est à l'adversaire d'attaquer
-            if (etaitForce) {
-                switchTurn();
-            }
+            // c'est à l'adversaire d'attaquer
+            switchTurn();
         });
     }
 
